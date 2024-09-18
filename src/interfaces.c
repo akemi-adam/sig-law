@@ -1,3 +1,22 @@
+#include "interfaces.h"
 #include <stdio.h>
 
-// Funções de menu
+void showMainMenu() {
+    //
+}
+
+void showClientMenu() {
+    //
+}
+
+void showLawyerMenu() {
+    //
+}
+
+void showOfficeMenu() {
+    //
+}
+
+void showAppointmentMenu() {
+    //
+}
