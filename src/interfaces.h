@@ -1,8 +1,6 @@
 #ifndef INTERFACES
 #define INTERFACES
 
-// Assinatura das funções
-
 void showMainMenu(void);
 void showClientMenu(void);
 void showLawyerMenu(void);
