@@ -1,7 +1,12 @@
 # sig-law
 Projeto da disciplina de Programação UFRN: SIG-Law: Um Sistema de Agendamento para Escritórios de Advocacia.
 
+# Módulos
+
+O sistema contempla os seguintes módulos: clientes, advogados, escritórios e agendamentos.
+
 # Entidades
+Lista das entidades que o sistema salva
 
 ## Persons
 ```c
