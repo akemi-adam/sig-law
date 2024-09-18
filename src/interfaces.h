@@ -2,10 +2,11 @@
 #define INTERFACES
 
 // Assinatura das funções
-void showMainMenu();
-void showClientMenu();
-void showLawyerMenu();
-void showOfficeMenu();
-void showAppointmentMenu();
+
+void showMainMenu(void);
+void showClientMenu(void);
+void showLawyerMenu(void);
+void showOfficeMenu(void);
+void showAppointmentMenu(void);
 
 #endif
