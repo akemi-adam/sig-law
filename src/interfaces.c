@@ -16,6 +16,13 @@ void enableRawMode() {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
+/*
+ * Desabilita o raw mode e volta o terminal para a configuração original
+ *
+ * Inputs:
+ *  - struct termios *originalTerminal: Configuração do terminal original
+ * Outputs: Void
+ */
 void disableRawMode(struct termios *originalTerminal) {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, originalTerminal);
 }
