@@ -2,7 +2,7 @@
 #define INTERFACES
 #include <termios.h>
 
-void enableRawMode();
+void enableRawMode(void);
 
 void showMainMenu(void);
 
