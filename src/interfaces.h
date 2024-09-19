@@ -4,6 +4,8 @@
 
 void enableRawMode(void);
 
+void disableRawMode(struct termios*);
+
 void showMainMenu(void);
 
 void showClientMenu(void);

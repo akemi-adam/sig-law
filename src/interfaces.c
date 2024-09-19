@@ -16,6 +16,10 @@ void enableRawMode() {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
+void disableRawMode(struct termios *originalTerminal) {
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, originalTerminal);
+}
+
 void showMainMenu() {
     //
 }
