@@ -27,7 +27,16 @@ void disableRawMode(struct termios *originalTerminal) {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, originalTerminal);
 }
 
-void selectOption(int *option, int optionAmount) {
+/*
+ * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow ou Up-Arrow
+ *
+ * Inputs:
+ *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
+ *  - int optionsAmount: Quantidade máxima de opções do menu
+ *
+ * Outputs: Void
+ */
+void selectOption(int *option, int optionsAmount) {
     char buf[3];
     if (read(STDIN_FILENO, buf, 1) == 1) {
         if (buf[0] == '\033') {
@@ -35,10 +44,10 @@ void selectOption(int *option, int optionAmount) {
                 if (buf[1] == '[') {
                     switch (buf[2]) {
                         case 'A':
-                            *option = (*option > 0) ? *option - 1 : optionAmount;
+                            *option = (*option > 0) ? *option - 1 : optionsAmount;
                             break;
                         case 'B':
-                            *option = (*option < optionAmount) ? *option + 1 : 0;
+                            *option = (*option < optionsAmount) ? *option + 1 : 0;
                             break;
                     }
                 }
