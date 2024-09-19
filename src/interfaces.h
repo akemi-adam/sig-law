@@ -6,5 +6,6 @@ void showClientMenu(void);
 void showLawyerMenu(void);
 void showOfficeMenu(void);
 void showAppointmentMenu(void);
+void print(char[]);
 
 #endif
