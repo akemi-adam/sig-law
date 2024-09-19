@@ -20,6 +20,26 @@ void disableRawMode(struct termios *originalTerminal) {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, originalTerminal);
 }
 
+void selectOption(int *option, int optionAmount) {
+    char buf[3];
+    if (read(STDIN_FILENO, buf, 1) == 1) {
+        if (buf[0] == '\033') {
+            if (read(STDIN_FILENO, buf + 1, 1) == 1 && read(STDIN_FILENO, buf + 2, 1) == 1) {
+                if (buf[1] == '[') {
+                    switch (buf[2]) {
+                        case 'A':
+                            *option = (*option > 0) ? *option - 1 : optionAmount;
+                            break;
+                        case 'B':
+                            *option = (*option < optionAmount) ? *option + 1 : 0;
+                            break;
+                    }
+                }
+            }
+        }
+    }
+}
+
 void showMainMenu() {
     //
 }

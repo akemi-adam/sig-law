@@ -6,6 +6,8 @@ void enableRawMode(void);
 
 void disableRawMode(struct termios*);
 
+void selectOption(int*, int);
+
 void showMainMenu(void);
 
 void showClientMenu(void);
