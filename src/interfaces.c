@@ -165,7 +165,11 @@ void showMainMenu() {
     int option = 0, aux;
     bool isSelected = false;
     while (true) {
-        system("clear||cls");
+        #ifdef __unix__
+            system("clear");
+        #else
+            system("cls");
+        #endif
         if (!isSelected) {
             printf("----- Menu Principal -----\n");
             printf("|                        |\n");
