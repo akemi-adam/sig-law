@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 /*
  * Desabilita o modo canônico e habilita o raw mode (modo bruto) do terminal
@@ -57,7 +59,45 @@ void selectOption(int *option, int optionsAmount) {
 }
 
 void showMainMenu() {
-    //
+
+    struct termios originalTerminal;
+    tcgetattr(STDIN_FILENO, &originalTerminal);
+    enableRawMode();
+
+    char optionsStyles[6][30];
+
+    strcpy(optionsStyles[0], CYAN_UNDERLINE_TEXT);
+    strcpy(optionsStyles[1], RESET_STYLE);
+    strcpy(optionsStyles[2], RESET_STYLE);
+    strcpy(optionsStyles[3], RESET_STYLE);
+    strcpy(optionsStyles[4], RESET_STYLE);
+    strcpy(optionsStyles[5], RESET_STYLE);
+
+    int option = 0, aux;
+    while (1) {
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+        printf("----- Menu Principal -----\n");
+        printf("|                        |\n");
+        printf("| %s1. Módulo clientes%s     |\n", optionsStyles[0], RESET_STYLE);
+        printf("| %s2. Módulo Advogados%s    |\n", optionsStyles[1], RESET_STYLE);
+        printf("| %s3. Módulo Escritórios%s  |\n", optionsStyles[2], RESET_STYLE);
+        printf("| %s4. Módulo Agendamentos%s |\n", optionsStyles[3], RESET_STYLE);
+        printf("| %s5. Módulo Sobre%s        |\n", optionsStyles[4], RESET_STYLE);
+        printf("| %s6. Módulo Equipe%s       |\n", optionsStyles[5], RESET_STYLE);
+        printf("|                        |\n");
+        printf("--------------------------\n");
+        
+        aux = option;
+        selectOption(&option, 5);
+        strcpy(optionsStyles[aux], RESET_STYLE);
+        strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
+
+    }
+    disableRawMode(&originalTerminal);
 }
 
 void showClientMenu() {
