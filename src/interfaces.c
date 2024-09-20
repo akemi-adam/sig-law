@@ -153,9 +153,11 @@ void setOptionsStyle(char optionsStyles[][30], int size) {
  *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
  */
 void showMainMenu() {
-    struct termios originalTerminal;
-    tcgetattr(STDIN_FILENO, &originalTerminal);
-    enableRawMode();
+    #ifdef __unix__
+        struct termios originalTerminal;
+        tcgetattr(STDIN_FILENO, &originalTerminal);
+        enableRawMode();
+    #endif
     int size = 6;
     char optionsStyles[size][30];
     setOptionsStyle(optionsStyles, size);
@@ -182,7 +184,9 @@ void showMainMenu() {
             strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
         } else {
-            disableRawMode(&originalTerminal);
+            #ifdef __unix__
+                disableRawMode(&originalTerminal);
+            #endif
             isSelected = false;
             switch (option) {
                 case 0:
@@ -207,7 +211,9 @@ void showMainMenu() {
                     // Volta no menu
                     break;
             }
-            enableRawMode();
+            #ifdef __unix__
+                enableRawMode();
+            #endif
         }
 
     }
