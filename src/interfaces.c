@@ -146,7 +146,6 @@ void setOptionsStyle(char optionsStyles[][30], int size) {
  * 
  * Authors:
  *  - https://github.com/akemi-adam
- *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
  * 
  * References:
  *  - https://man7.org/linux/man-pages/man3/termios.3.html
