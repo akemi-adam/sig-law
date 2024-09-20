@@ -41,18 +41,14 @@ void disableRawMode(struct termios *originalTerminal) {
 void selectOption(int *option, int optionsAmount) {
     char buf[3];
     if (read(STDIN_FILENO, buf, 1) == 1) {
-        if (buf[0] == '\033') {
-            if (read(STDIN_FILENO, buf + 1, 1) == 1 && read(STDIN_FILENO, buf + 2, 1) == 1) {
-                if (buf[1] == '[') {
-                    switch (buf[2]) {
-                        case 'A':
-                            *option = (*option > 0) ? *option - 1 : optionsAmount;
-                            break;
-                        case 'B':
-                            *option = (*option < optionsAmount) ? *option + 1 : 0;
-                            break;
-                    }
-                }
+        if (read(STDIN_FILENO, buf + 1, 1) == 1 && read(STDIN_FILENO, buf + 2, 1) == 1) {
+            switch (buf[2]) {
+                case 'A':
+                    *option = (*option > 0) ? *option - 1 : optionsAmount;
+                    break;
+                case 'B':
+                    *option = (*option < optionsAmount) ? *option + 1 : 0;
+                    break;
             }
         }
     }
