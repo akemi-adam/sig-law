@@ -5,43 +5,41 @@ Projeto da disciplina de Programação UFRN: SIG-Law: Um Sistema de Agendamento 
 
 O sistema contempla os seguintes módulos: clientes, advogados, escritórios e agendamentos.
 
-# Entidades
-Lista das entidades que o sistema salva
+# Modelo Físico
 
-## Persons
-```c
-struct Person {
-    int id;
-    char[55] name;
-    char[55] email;
-    char[10] telephone;
-    char[12] cpf;
+```mermaid
+erDiagram
+
+CLIENT ||--|{ APPOINTMENT : contains
+CLIENT {
+    int id
+    char[55] name
+    char[55] email
+    char[10] telephone
+    char[12] cpf
 }
-```
 
-## Laywers
-```c
-struct Laywer {
-    // Mesmos atributos de Person
-    cna char[12];
+LAWYER ||--|{ APPOINTMENT : contains
+LAWYER {
+    int id
+    char[55] name
+    char[55] email
+    char[10] telephone
+    char[12] cpf
+    cna char[12]
 }
-```
 
-## Appointments
-```c
-struct Appointment {
-    int id;
-    int clientId;
-    int lawyerId;
-    int officeId;
-    // Campo de data ainda a ser pensado na melhor estratégia
+APPOINTMENT {
+    int id
+    int clientId
+    int lawyerId
+    int officeId
+    Datetime date
 }
-```
 
-## Offices
-```c
-struct Office {
-    int id;
-    char[] address;
+OFFICE ||--|{ APPOINTMENT : contains
+OFFICE {
+    int id
+    char[] address
 }
 ```
