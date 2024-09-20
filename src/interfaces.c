@@ -116,7 +116,7 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
     int ch = getch();
     if (ch == 13) {
         *isSelected = true;
-    } else if (ch == 0 || ch = 224) {
+    } else if (ch == 0 || ch == 224) {
         ch = getch();
         switch (ch) {
             case 72:
