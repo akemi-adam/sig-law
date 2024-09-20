@@ -53,10 +53,12 @@ void disableRawMode(struct termios *originalTerminal) {
 
 /*
  * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow (B) ou Up-Arrow (A). Enter é interpretado como a seleção de uma opção.
+ * Obs.: Funciona apenas em UNIX
  * 
  * Inputs:
  *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
  *  - int optionsAmount: Quantidade máxima de opções do menu
+ *  - bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
  *
  * Outputs: Void
  * 
@@ -91,6 +93,25 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
 
 #include <conio.h>
 
+/**
+ * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow (72) ou Up-Arrow (80). Enter é interpretado como a seleção de uma opção.
+ * 
+ * Obs.: Funciona apenas em Windows]
+ * 
+ * Inputs:
+ *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
+ *  - int optionsAmount: Quantidade máxima de opções do menu
+ *  - bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
+ *
+ * Outputs: Void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
+ * 
+ * References:
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
+ */
 void selectOption(int *option, int optionsAmount, bool *isSelected) {
     int ch = getch();
     if (ch == 13) {
