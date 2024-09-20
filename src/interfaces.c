@@ -11,6 +11,15 @@
  *
  * Inputs: Void
  * Outputs: Void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
+ * 
+ * References:
+ *  - https://man7.org/linux/man-pages/man3/termios.3.html
+ *  - https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
  */
 void enableRawMode() {
     struct termios raw;
@@ -75,50 +84,93 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
     }
 }
 
-void showMainMenu() {
+void setOptionsStyle(char optionsStyles[][30], int size) {
+    strcpy(optionsStyles[0], CYAN_UNDERLINE_TEXT);
+    for (int i = 1; i < size; i++) {
+        strcpy(optionsStyles[i], RESET_STYLE);
+    }
+}
 
+/**
+ * Exibe o menu principal
+ * 
+ * Inputs: Void
+ * Outputs: Void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
+ * 
+ * References:
+ *  - https://man7.org/linux/man-pages/man3/termios.3.html
+ *  - https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
+ */
+void showMainMenu() {
     struct termios originalTerminal;
     tcgetattr(STDIN_FILENO, &originalTerminal);
     enableRawMode();
-
-    char optionsStyles[6][30];
-
-    strcpy(optionsStyles[0], CYAN_UNDERLINE_TEXT);
-    strcpy(optionsStyles[1], RESET_STYLE);
-    strcpy(optionsStyles[2], RESET_STYLE);
-    strcpy(optionsStyles[3], RESET_STYLE);
-    strcpy(optionsStyles[4], RESET_STYLE);
-    strcpy(optionsStyles[5], RESET_STYLE);
+    int size = 6;
+    char optionsStyles[size][30];
+    setOptionsStyle(optionsStyles, size);
 
     int option = 0, aux;
-    while (1) {
-        #ifdef _WIN32
-            system("cls");
-        #else
-            system("clear");
-        #endif
-        printf("----- Menu Principal -----\n");
-        printf("|                        |\n");
-        printf("| %s1. Módulo clientes%s     |\n", optionsStyles[0], RESET_STYLE);
-        printf("| %s2. Módulo Advogados%s    |\n", optionsStyles[1], RESET_STYLE);
-        printf("| %s3. Módulo Escritórios%s  |\n", optionsStyles[2], RESET_STYLE);
-        printf("| %s4. Módulo Agendamentos%s |\n", optionsStyles[3], RESET_STYLE);
-        printf("| %s5. Módulo Sobre%s        |\n", optionsStyles[4], RESET_STYLE);
-        printf("| %s6. Módulo Equipe%s       |\n", optionsStyles[5], RESET_STYLE);
-        printf("|                        |\n");
-        printf("--------------------------\n");
-        
-        aux = option;
-        selectOption(&option, 5);
-        strcpy(optionsStyles[aux], RESET_STYLE);
-        strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
+    bool isSelected = false;
+    while (true) {
+        system("clear||cls");
+        if (!isSelected) {
+            printf("----- Menu Principal -----\n");
+            printf("|                        |\n");
+            printf("| %s1. Módulo clientes%s     |\n", optionsStyles[0], RESET_STYLE);
+            printf("| %s2. Módulo Advogados%s    |\n", optionsStyles[1], RESET_STYLE);
+            printf("| %s3. Módulo Escritórios%s  |\n", optionsStyles[2], RESET_STYLE);
+            printf("| %s4. Módulo Agendamentos%s |\n", optionsStyles[3], RESET_STYLE);
+            printf("| %s5. Módulo Sobre%s        |\n", optionsStyles[4], RESET_STYLE);
+            printf("| %s6. Módulo Equipe%s       |\n", optionsStyles[5], RESET_STYLE);
+            printf("|                        |\n");
+            printf("--------------------------\n");
+            
+            aux = option;
+            selectOption(&option, size - 1, &isSelected);
+
+            strcpy(optionsStyles[aux], RESET_STYLE);
+            strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
+        } else {
+            disableRawMode(&originalTerminal);
+            isSelected = false;
+            switch (option) {
+                case 0:
+                    showClientMenu();
+                    break;
+                case 1:
+                    showLawyerMenu();
+                    break;
+                case 2:
+                    showOfficeMenu();
+                    break;
+                case 3:
+                    showAppointmentMenu();
+                    break;
+                case 4:
+                    // Módulo Sobre
+                    break;
+                case 5:
+                    // Módulo Equipe
+                    break;
+                default:
+                    // Volta no menu
+                    break;
+            }
+            enableRawMode();
+        }
 
     }
-    disableRawMode(&originalTerminal);
 }
 
 void showClientMenu() {
-    //
+    int t;
+    print("MÓDULO CLIENTES - TESTE");   
+    scanf("%d", &t);
 }
 
 void showLawyerMenu() {
