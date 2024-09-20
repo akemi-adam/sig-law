@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /*
  * Desabilita o modo canônico e habilita o raw mode (modo bruto) do terminal
@@ -24,24 +25,44 @@ void enableRawMode() {
  * Inputs:
  *  - struct termios *originalTerminal: Configuração do terminal original
  * Outputs: Void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
+ * 
+ * References:
+ *  - https://man7.org/linux/man-pages/man3/termios.3.html
+ *  - https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
  */
 void disableRawMode(struct termios *originalTerminal) {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, originalTerminal);
 }
 
 /*
- * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow ou Up-Arrow
- *
+ * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow ou Up-Arrow. Enter é interpretado como a seleção de uma opção.
+ * 
  * Inputs:
  *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
  *  - int optionsAmount: Quantidade máxima de opções do menu
  *
  * Outputs: Void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
+ * 
+ * References:
+ *  - https://man7.org/linux/man-pages/man3/termios.3.html
+ *  - https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
+ *  - https://www.quora.com/How-can-I-take-arrow-keys-as-input-in-C
  */
-void selectOption(int *option, int optionsAmount) {
+void selectOption(int *option, int optionsAmount, bool *isSelected) {
     char buf[3];
     if (read(STDIN_FILENO, buf, 1) == 1) {
-        if (read(STDIN_FILENO, buf + 1, 1) == 1 && read(STDIN_FILENO, buf + 2, 1) == 1) {
+        if (buf[0] == '\n') {
+            *isSelected = true;
+        } else if (read(STDIN_FILENO, buf + 1, 1) == 1 && read(STDIN_FILENO, buf + 2, 1) == 1) {
             switch (buf[2]) {
                 case 'A':
                     *option = (*option > 0) ? *option - 1 : optionsAmount;
