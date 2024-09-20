@@ -168,9 +168,7 @@ void showMainMenu() {
 }
 
 void showClientMenu() {
-    int t;
-    print("MÓDULO CLIENTES - TESTE");   
-    scanf("%d", &t);
+    //
 }
 
 void showLawyerMenu() {
