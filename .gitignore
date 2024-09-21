@@ -37,6 +37,7 @@
 *.hex
 main
 siglaw
+test_*
 
 # Debug files
 *.dSYM/

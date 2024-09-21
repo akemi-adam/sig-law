@@ -18,7 +18,7 @@ void disableRawMode(struct termios*);
 
 void selectOption(int*, int, bool*);
 
-void setOptionsStyle(char[][30], int);
+void setOptionsStyle(char[][11], int);
 
 void showMainMenu(void);
 

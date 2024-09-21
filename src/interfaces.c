@@ -131,7 +131,7 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
 
 #endif
 
-void setOptionsStyle(char optionsStyles[][30], int size) {
+void setOptionsStyle(char optionsStyles[][11], int size) {
     strcpy(optionsStyles[0], CYAN_UNDERLINE_TEXT);
     for (int i = 1; i < size; i++) {
         strcpy(optionsStyles[i], RESET_STYLE);
@@ -159,7 +159,7 @@ void showMainMenu() {
         enableRawMode();
     #endif
     int size = 6;
-    char optionsStyles[size][30];
+    char optionsStyles[size][11];
     setOptionsStyle(optionsStyles, size);
 
     int option = 0, aux;
