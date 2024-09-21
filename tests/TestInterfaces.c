@@ -27,7 +27,6 @@ void test_EnableRawMode_Works(void) {
     struct termios originalTerminal, raw;
     tcgetattr(STDIN_FILENO, &originalTerminal);
     enableRawMode();
-    // struct termios raw;
     tcgetattr(STDIN_FILENO, &raw);
     if (originalTerminal.c_lflag != raw.c_lflag) {
         disableRawMode(&originalTerminal);
