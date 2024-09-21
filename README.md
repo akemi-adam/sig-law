@@ -1,4 +1,4 @@
-# sig-law
+# Sig Law
 Projeto da disciplina de Programação UFRN: SIG-Law: Um Sistema de Agendamento para Escritórios de Advocacia.
 
 # Módulos
@@ -42,4 +42,12 @@ OFFICE {
     int id
     char[] address
 }
+```
+
+# Testes
+
+Os testes unitários foram feitos com o Framework <a href="https://github.com/ThrowTheSwitch/Unity">Unity</a>. São executados ao rodar o `makefile`:
+
+```bash
+make
 ```
