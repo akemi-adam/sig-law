@@ -1,5 +1,5 @@
 # Sig Law
-Projeto da disciplina de Programação UFRN: SIG-Law: Um Sistema de Agendamento para Escritórios de Advocacia.
+O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C. Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados, facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.
 
 # Módulos
 
