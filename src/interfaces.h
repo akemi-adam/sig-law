@@ -1,10 +1,10 @@
 #ifndef INTERFACES
 #define INTERFACES
+#define CYAN_UNDERLINE_TEXT "\e[4;36m"
+#define RESET_STYLE "\e[0m"
 
 #include <stdbool.h>
 
-#define CYAN_UNDERLINE_TEXT "\e[4;36m"
-#define RESET_STYLE "\e[0m"
 
 #ifdef __unix__
 
@@ -15,6 +15,7 @@ void enableRawMode(void);
 void disableRawMode(struct termios*);
 
 #endif
+
 
 void selectOption(int*, int, bool*);
 
