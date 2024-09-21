@@ -96,7 +96,7 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
 /**
  * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow (72) ou Up-Arrow (80). Enter é interpretado como a seleção de uma opção.
  * 
- * Obs.: Funciona apenas em Windows]
+ * Obs.: Funciona apenas em Windows
  * 
  * Inputs:
  *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
