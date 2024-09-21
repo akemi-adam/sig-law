@@ -1,6 +1,10 @@
 #include "./../unity/unity.h"
 #include "./../unity/unity_internals.h"
 #include "./../src/interfaces.h"
+#ifdef __unix__
+    #include <termios.h>
+    #include <unistd.h>
+#endif
 
 void setUp(void) {
 
@@ -31,6 +35,22 @@ void test_EnableRawMode_Works(void) {
     } else TEST_FAIL();
 }
 
+/**
+ * Testa se a função disableRawMode desabilita o raw mode
+ * 
+ * O teste simula a situação onde a configuração original do terminal é preservada, o raw mode é habilitado e depois desabilitado. Após tal, o teste pega a configuração atual do terminal e verifica a igualdade do atributo c_lflag de ambas configurações.
+ */
+void test_DisableRawMode_Works(void) {
+    struct termios originalTerminal, current;
+    tcgetattr(STDIN_FILENO, &originalTerminal);
+    enableRawMode();
+    disableRawMode(&originalTerminal);
+    tcgetattr(STDIN_FILENO, &current);
+    if (originalTerminal.c_lflag == current.c_lflag) {
+        TEST_PASS();
+    } else TEST_FAIL();
+}
+
 #endif
 
 /**
@@ -54,5 +74,6 @@ int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_SetOptionStylesFunction_StoresCyanAndResetCodesInArray);
     RUN_TEST(test_EnableRawMode_Works);
+    RUN_TEST(test_DisableRawMode_Works);
     return UNITY_END();
 }
