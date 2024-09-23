@@ -1,6 +1,6 @@
 .PHONY: test clean
 
-all: siglaw
+all: test siglaw
 
 # Main Program
 siglaw: main.o interfaces.o
@@ -22,4 +22,4 @@ test: test_interfaces
 	./test_interfaces
 
 clean:
-	rm -rf *.o *~ siglaw test_interfaces
+	rm -rf *.o *~ 
