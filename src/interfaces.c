@@ -206,7 +206,6 @@ void showClientMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
-        enableRawMode();
     #endif
     int size = 5;
     char optionsStyles[size][11];
@@ -218,6 +217,7 @@ void showClientMenu() {
     while (loop) {
         #ifdef __unix__
             system("clear");
+            enableRawMode();
         #else
             system("cls");
         #endif
@@ -259,18 +259,14 @@ void showClientMenu() {
                     loop = false;
                     break;
             }
-            #ifdef __unix__
-                enableRawMode();
-            #endif
         }
     }
 }
 
 void showLawyerMenu() {
-    #ifdef _unix_
+    #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
-        enableRawMode();
     #endif
     int size = 5;
     char optionsStyles[size][11];
@@ -280,8 +276,9 @@ void showLawyerMenu() {
     bool isSelected = false;
     bool loop = true;
     while (loop) {
-        #ifdef _unix_
+        #ifdef __unix__
             system("clear");
+            enableRawMode();
         #else
             system("cls");
         #endif
@@ -302,7 +299,7 @@ void showLawyerMenu() {
             strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
         } else {
-            #ifdef _unix_
+            #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
@@ -323,18 +320,14 @@ void showLawyerMenu() {
                     loop = false;
                     break;
             }
-            #ifdef _unix_
-                enableRawMode();
-            #endif
         }
     }
 }
 
 void showOfficeMenu() {
-    #ifdef _unix_
+    #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
-        enableRawMode();
     #endif
     int size = 5;
     char optionsStyles[size][11];
@@ -344,8 +337,9 @@ void showOfficeMenu() {
     bool isSelected = false;
     bool loop = true;
     while (loop) {
-        #ifdef _unix_
+        #ifdef __unix__
             system("clear");
+            enableRawMode();
         #else
             system("cls");
         #endif
@@ -366,7 +360,7 @@ void showOfficeMenu() {
             strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
         } else {
-            #ifdef _unix_
+            #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
@@ -387,18 +381,14 @@ void showOfficeMenu() {
                     loop = false;
                     break;
             }
-            #ifdef _unix_
-                enableRawMode();
-            #endif
         }
     }
 }
 
 void showAppointmentMenu() {
-    #ifdef _unix_
+    #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
-        enableRawMode();
     #endif
     int size = 5;
     char optionsStyles[size][11];
@@ -408,8 +398,9 @@ void showAppointmentMenu() {
     bool isSelected = false;
     bool loop = true;
     while (loop) {
-        #ifdef _unix_
+        #ifdef __unix__
             system("clear");
+            enableRawMode();
         #else
             system("cls");
         #endif
@@ -430,7 +421,7 @@ void showAppointmentMenu() {
             strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
         } else {
-            #ifdef _unix_
+            #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
@@ -451,9 +442,6 @@ void showAppointmentMenu() {
                     loop = false;
                     break;
             }
-            #ifdef _unix_
-                enableRawMode();
-            #endif
         }
     }
 }
