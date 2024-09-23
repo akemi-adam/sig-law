@@ -156,7 +156,6 @@ void showMainMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
-        enableRawMode();
     #endif
     int size = 7;
     char optionsStyles[size][11];
@@ -165,9 +164,13 @@ void showMainMenu() {
     int option = 0, aux;
     bool isSelected = false;
     bool loop = true;
+    void (*actions[])() = {
+        showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu,
+    };
     while (loop) {
         #ifdef __unix__
             system("clear");
+            enableRawMode();
         #else
             system("cls");
         #endif
@@ -194,34 +197,8 @@ void showMainMenu() {
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            switch (option) {
-                case 0:
-                    showClientMenu();
-                    break;
-                case 1:
-                    showLawyerMenu();
-                    break;
-                case 2:
-                    showOfficeMenu();
-                    break;
-                case 3:
-                    showAppointmentMenu();
-                    break;
-                case 4:
-                    // Módulo Sobre
-                    break;
-                case 5:
-                    // Módulo Equipe
-                    break;
-                default:
-                    loop = false;
-                    break;
-            }
-            #ifdef __unix__
-                enableRawMode();
-            #endif
+            if (option >= 0 && option <= 5) actions[option](); else loop = false;
         }
-
     }
 }
 
