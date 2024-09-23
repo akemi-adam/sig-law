@@ -472,41 +472,9 @@ void showAppointmentMenu() {
 }
 
 void showAboutMenu() {
-    #ifdef __unix__
-        struct termios originalTerminal;
-        tcgetattr(STDIN_FILENO, &originalTerminal);
-        enableRawMode();
-    #endif
-    while (true) {
-        printf("------------------------------------------- Sobre --------------------------------------------------\n");
-        printf("| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C.    |\n");
-        printf("| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,      |\n");
-        printf("| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a          |\n");
-        printf("| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.             |\n");
-        printf("----------------------------------------------------------------------------------------------------\n");
-        if (proceed()) break;
-    }
-    #ifdef __unix__
-        disableRawMode(&originalTerminal);
-    #endif    
+    showGenericInfo("------------------------------------------- Sobre --------------------------------------------------\n| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C.    |\n| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,      |\n| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a          |\n| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.             |\n----------------------------------------------------------------------------------------------------\n");
 }
 
 void showTeamMenu() {
-    #ifdef __unix__
-        struct termios originalTerminal;
-        tcgetattr(STDIN_FILENO, &originalTerminal);
-        enableRawMode();
-    #endif
-    while (true) {
-        printf("------------------------------------------- Equipe -------------------------------------------------\n");
-        printf("| O projeto foi feitos pelos alunos do curso de Bachalerado em Sistemas de Informação na UFRN:     |\n");
-        printf("|                                                                                                  |\n");
-        printf("| - Mosiah Adam Maria de Araújo: https://github.com/akemi-adam                                     |\n");
-        printf("| - Felipe Erik: https://github.com/zfelip                                                         |\n");
-        printf("----------------------------------------------------------------------------------------------------\n");
-        if (proceed()) break;
-    }
-    #ifdef __unix__
-        disableRawMode(&originalTerminal);
-    #endif    
+    showGenericInfo("------------------------------------------- Equipe -------------------------------------------------\n| O projeto foi feitos pelos alunos do curso de Bachalerado em Sistemas de Informação na UFRN:     |\n|                                                                                                  |\n| - Mosiah Adam Maria de Araújo: https://github.com/akemi-adam                                     |\n| - Felipe Erik: https://github.com/zfelip                                                         |\n----------------------------------------------------------------------------------------------------\n");   
 }
