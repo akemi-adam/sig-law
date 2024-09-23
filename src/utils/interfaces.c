@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "./../appointment/usecases.h"
+#include "./../lawyer/usecases.h"
 
 #ifdef __unix__
 
@@ -297,64 +299,6 @@ void showClientMenu() {
     }
 }
 
-void showLawyerMenu() {
-    #ifdef __unix__
-        struct termios originalTerminal;
-        tcgetattr(STDIN_FILENO, &originalTerminal);
-    #endif
-    int aux, option = 0, size = 5;
-    bool isSelected = false, loop = true;
-    char optionsStyles[size][11];
-    setOptionsStyle(optionsStyles, size);
-    while (loop) {
-        #ifdef __unix__
-            system("clear");
-            enableRawMode();
-        #else
-            system("cls");
-        #endif
-        if (!isSelected) {
-            printf("----- Menu Advogado -----\n");
-            printf("|                       |\n");
-            printf("| %s1. Cadastar advogado%s  |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Mostar advogado%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Editar advogado%s    |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Exluir advogado%s    |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Voltar ao menu%s     |\n", optionsStyles[4], RESET_STYLE);
-            printf("|                       |\n");
-            printf("-------------------------\n");
-            
-            aux = option;
-            selectOption(&option, size - 1, &isSelected);
-
-            strcpy(optionsStyles[aux], RESET_STYLE);
-            strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
-        } else {
-            #ifdef __unix__
-                disableRawMode(&originalTerminal);
-            #endif
-            isSelected = false;
-            switch (option) {
-                case 0:
-                    //createLawyer();
-                    break;
-                case 1:
-                    //readLawyer();
-                    break;
-                case 2:
-                    //updateLawyer();
-                    break;
-                case 3:
-                    //deleteLawyer();
-                    break;
-                default:
-                    loop = false;
-                    break;
-            }
-        }
-    }
-}
-
 void showOfficeMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
@@ -413,63 +357,6 @@ void showOfficeMenu() {
     }
 }
 
-void showAppointmentMenu() {
-    #ifdef __unix__
-        struct termios originalTerminal;
-        tcgetattr(STDIN_FILENO, &originalTerminal);
-    #endif
-    int aux, option = 0, size = 5;
-    bool isSelected = false, loop = true;
-    char optionsStyles[size][11];
-    setOptionsStyle(optionsStyles, size);
-    while (loop) {
-        #ifdef __unix__
-            system("clear");
-            enableRawMode();
-        #else
-            system("cls");
-        #endif
-        if (!isSelected) {
-            printf("----- Menu Agendamento -----\n");
-            printf("|                          |\n");
-            printf("| %s1. Cadastar agendamento%s  |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Mostar agendamento%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Editar agendamento%s    |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Exluir agendamento%s    |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Voltar ao menu%s        |\n", optionsStyles[4], RESET_STYLE);
-            printf("|                          |\n");
-            printf("----------------------------\n");
-            
-            aux = option;
-            selectOption(&option, size - 1, &isSelected);
-
-            strcpy(optionsStyles[aux], RESET_STYLE);
-            strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
-        } else {
-            #ifdef __unix__
-                disableRawMode(&originalTerminal);
-            #endif
-            isSelected = false;
-            switch (option) {
-                case 0:
-                    //createAppointment();
-                    break;
-                case 1:
-                    //readAppointment();
-                    break;
-                case 2:
-                    //updateAppointment();
-                    break;
-                case 3:
-                    //deleteAppointment();
-                    break;
-                default:
-                    loop = false;
-                    break;
-            }
-        }
-    }
-}
 
 void showAboutMenu() {
     showGenericInfo("------------------------------------------- Sobre --------------------------------------------------\n| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C.    |\n| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,      |\n| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a          |\n| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.             |\n----------------------------------------------------------------------------------------------------\n");
