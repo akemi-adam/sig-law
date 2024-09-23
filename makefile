@@ -6,15 +6,15 @@ all: test siglaw
 siglaw: main.o interfaces.o
 	gcc -o siglaw main.o interfaces.o
 
-main.o: main.c src/interfaces.h
+main.o: main.c src/utils/interfaces.h
 	gcc -o main.o main.c -c -W -Wall -pedantic
 
-interfaces.o: src/interfaces.c src/interfaces.h
-	gcc -o interfaces.o src/interfaces.c -c -W -Wall -pedantic
+interfaces.o: src/utils/interfaces.c src/utils/interfaces.h
+	gcc -o interfaces.o src/utils/interfaces.c -c -W -Wall -pedantic
 
 # Units tests
-test_interfaces: tests/TestInterfaces.c
-	gcc tests/TestInterfaces.c src/interfaces.c unity/unity.c -o test_interfaces
+test_interfaces: tests/utils/TestInterfaces.c
+	gcc tests/utils/TestInterfaces.c src/utils/interfaces.c unity/unity.c -o test_interfaces
 
 # Searches for all files with the pattern test_* and executes those that are executable. If a test fails, the output is 1 and the flow is terminated.
 # Author: ChatGPT

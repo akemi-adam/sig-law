@@ -1,6 +1,6 @@
-#include "./../unity/unity.h"
-#include "./../unity/unity_internals.h"
-#include "./../src/interfaces.h"
+#include "./../../unity/unity.h"
+#include "./../../unity/unity_internals.h"
+#include "./../../src/utils/interfaces.h"
 #ifdef __unix__
     #include <termios.h>
     #include <unistd.h>
