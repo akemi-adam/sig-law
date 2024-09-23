@@ -163,6 +163,21 @@ void setOptionsStyle(char optionsStyles[][11], int size) {
     }
 }
 
+void showGenericInfo(char message[]) {
+    #ifdef __unix__
+        struct termios originalTerminal;
+        tcgetattr(STDIN_FILENO, &originalTerminal);
+        enableRawMode();
+    #endif
+    while (true) {
+        printf(message);
+        if (proceed()) break;
+    }
+    #ifdef __unix__
+        disableRawMode(&originalTerminal);
+    #endif 
+}
+
 /**
  * Exibe o menu principal
  * 

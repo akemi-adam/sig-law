@@ -23,6 +23,8 @@ void setOptionsStyle(char[][11], int);
 
 bool proceed();
 
+void showGenericInfo(char[]);
+
 void showMainMenu(void);
 
 void showClientMenu(void);
