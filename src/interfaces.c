@@ -416,7 +416,67 @@ void showOfficeMenu() {
 }
 
 void showAppointmentMenu() {
-    //
+    #ifdef _unix_
+        struct termios originalTerminal;
+        tcgetattr(STDIN_FILENO, &originalTerminal);
+        enableRawMode();
+    #endif
+    int size = 5;
+    char optionsStyles[size][11];
+    setOptionsStyle(optionsStyles, size);
+
+    int option = 0, aux;
+    bool isSelected = false;
+    bool loop = true;
+    while (loop) {
+        #ifdef _unix_
+            system("clear");
+        #else
+            system("cls");
+        #endif
+        if (!isSelected) {
+            printf("----- Menu Agendamento -----\n");
+            printf("|                          |\n");
+            printf("| %s1. Cadastar agendamento%s  |\n", optionsStyles[0], RESET_STYLE);
+            printf("| %s2. Mostar agendamento%s    |\n", optionsStyles[1], RESET_STYLE);
+            printf("| %s3. Editar agendamento%s    |\n", optionsStyles[2], RESET_STYLE);
+            printf("| %s4. Exluir agendamento%s    |\n", optionsStyles[3], RESET_STYLE);
+            printf("| %s5. Voltar ao menu%s        |\n", optionsStyles[4], RESET_STYLE);
+            printf("|                          |\n");
+            printf("----------------------------\n");
+            
+            aux = option;
+            selectOption(&option, size - 1, &isSelected);
+
+            strcpy(optionsStyles[aux], RESET_STYLE);
+            strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
+        } else {
+            #ifdef _unix_
+                disableRawMode(&originalTerminal);
+            #endif
+            isSelected = false;
+            switch (option) {
+                case 0:
+                    //createAppointment();
+                    break;
+                case 1:
+                    //readAppointment();
+                    break;
+                case 2:
+                    //updateAppointment();
+                    break;
+                case 3:
+                    //deleteAppointment();
+                    break;
+                default:
+                    loop = false;
+                    break;
+            }
+            #ifdef _unix_
+                enableRawMode();
+            #endif
+        }
+    }
 }
 
 void print(char message[]) {
