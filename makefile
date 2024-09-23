@@ -13,7 +13,7 @@ interfaces.o: src/interfaces.c src/interfaces.h
 	gcc -o interfaces.o src/interfaces.c -c -W -Wall -pedantic
 
 # Units tests
-test_interfaces: tests/TestInterfaces.c interfaces.o
+test_interfaces: tests/TestInterfaces.c
 	gcc tests/TestInterfaces.c src/interfaces.c unity/unity.c -o test_interfaces
 
 # Execute tests
