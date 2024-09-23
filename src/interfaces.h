@@ -31,6 +31,4 @@ void showOfficeMenu(void);
 
 void showAppointmentMenu(void);
 
-void print(char[]);
-
 #endif

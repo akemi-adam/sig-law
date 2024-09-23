@@ -431,6 +431,3 @@ void showAppointmentMenu() {
     }
 }
 
-void print(char message[]) {
-    printf("%s\n", message);
-}
