@@ -475,3 +475,23 @@ void showAboutMenu() {
         disableRawMode(&originalTerminal);
     #endif    
 }
+
+void showTeamMenu() {
+    #ifdef __unix__
+        struct termios originalTerminal;
+        tcgetattr(STDIN_FILENO, &originalTerminal);
+        enableRawMode();
+    #endif
+    while (true) {
+        printf("------------------------------------------- Equipe -------------------------------------------------\n");
+        printf("| O projeto foi feitos pelos alunos do curso de Bachalerado em Sistemas de Informação na UFRN:     |\n");
+        printf("|                                                                                                  |\n");
+        printf("| - Mosiah Adam Maria de Araújo: https://github.com/akemi-adam                                     |\n");
+        printf("| - Felipe Erik: https://github.com/zfelip                                                         |\n");
+        printf("----------------------------------------------------------------------------------------------------\n");
+        if (proceed()) break;
+    }
+    #ifdef __unix__
+        disableRawMode(&originalTerminal);
+    #endif    
+}

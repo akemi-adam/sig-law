@@ -35,4 +35,6 @@ void showAppointmentMenu(void);
 
 void showAboutMenu(void);
 
+void showTeamMenu(void);
+
 #endif
