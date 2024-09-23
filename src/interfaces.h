@@ -31,6 +31,8 @@ void showOfficeMenu(void);
 
 void showAppointmentMenu(void);
 
+void showAboutMenu(void);
+
 bool proceed();
 
 #endif

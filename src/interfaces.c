@@ -186,7 +186,7 @@ void showMainMenu() {
     char optionsStyles[size][11];
     bool isSelected = false, loop = true;
     void (*actions[])() = {
-        showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu,
+        showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu, showAboutMenu
     };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
@@ -456,3 +456,22 @@ void showAppointmentMenu() {
     }
 }
 
+void showAboutMenu() {
+    #ifdef __unix__
+        struct termios originalTerminal;
+        tcgetattr(STDIN_FILENO, &originalTerminal);
+        enableRawMode();
+    #endif
+    while (true) {
+        printf("------------------------------------------- Sobre --------------------------------------------------\n");
+        printf("| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C.    |\n");
+        printf("| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,      |\n");
+        printf("| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a          |\n");
+        printf("| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.             |\n");
+        printf("----------------------------------------------------------------------------------------------------\n");
+        if (proceed()) break;
+    }
+    #ifdef __unix__
+        disableRawMode(&originalTerminal);
+    #endif    
+}
