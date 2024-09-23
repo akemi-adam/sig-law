@@ -157,16 +157,13 @@ void showMainMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int size = 7;
+    int aux, option = 0, size = 7;
     char optionsStyles[size][11];
-    setOptionsStyle(optionsStyles, size);
-
-    int option = 0, aux;
-    bool isSelected = false;
-    bool loop = true;
+    bool isSelected = false, loop = true;
     void (*actions[])() = {
         showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu,
     };
+    setOptionsStyle(optionsStyles, size);
     while (loop) {
         #ifdef __unix__
             system("clear");
@@ -207,13 +204,10 @@ void showClientMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int size = 5;
+    int aux, option = 0, size = 5;
+    bool isSelected = false, loop = true;
     char optionsStyles[size][11];
     setOptionsStyle(optionsStyles, size);
-
-    int option = 0, aux;
-    bool isSelected = false;
-    bool loop = true;
     while (loop) {
         #ifdef __unix__
             system("clear");
@@ -268,13 +262,10 @@ void showLawyerMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int size = 5;
+    int aux, option = 0, size = 5;
+    bool isSelected = false, loop = true;
     char optionsStyles[size][11];
     setOptionsStyle(optionsStyles, size);
-
-    int option = 0, aux;
-    bool isSelected = false;
-    bool loop = true;
     while (loop) {
         #ifdef __unix__
             system("clear");
@@ -329,13 +320,10 @@ void showOfficeMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int size = 5;
+    int aux, option = 0, size = 5;
+    bool isSelected = false, loop = true;
     char optionsStyles[size][11];
     setOptionsStyle(optionsStyles, size);
-
-    int option = 0, aux;
-    bool isSelected = false;
-    bool loop = true;
     while (loop) {
         #ifdef __unix__
             system("clear");
@@ -390,13 +378,10 @@ void showAppointmentMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int size = 5;
+    int aux, option = 0, size = 5;
+    bool isSelected = false, loop = true;
     char optionsStyles[size][11];
     setOptionsStyle(optionsStyles, size);
-
-    int option = 0, aux;
-    bool isSelected = false;
-    bool loop = true;
     while (loop) {
         #ifdef __unix__
             system("clear");
