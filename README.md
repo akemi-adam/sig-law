@@ -1,47 +1,53 @@
-# sig-law
-Projeto da disciplina de Programação UFRN: SIG-Law: Um Sistema de Agendamento para Escritórios de Advocacia.
+# Sig Law
+O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C. Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados, facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.
 
 # Módulos
 
 O sistema contempla os seguintes módulos: clientes, advogados, escritórios e agendamentos.
 
-# Entidades
-Lista das entidades que o sistema salva
+# Modelo Físico
 
-## Persons
-```c
-struct Person {
-    int id;
-    char[55] name;
-    char[55] email;
-    char[10] telephone;
-    char[12] cpf;
+```mermaid
+erDiagram
+
+CLIENT ||--|{ APPOINTMENT : contains
+CLIENT {
+    int id
+    char[55] name
+    char[55] email
+    char[10] telephone
+    char[12] cpf
+}
+
+LAWYER ||--|{ APPOINTMENT : contains
+LAWYER {
+    int id
+    char[55] name
+    char[55] email
+    char[10] telephone
+    char[12] cpf
+    cna char[12]
+}
+
+APPOINTMENT {
+    int id
+    int clientId
+    int lawyerId
+    int officeId
+    Datetime date
+}
+
+OFFICE ||--|{ APPOINTMENT : contains
+OFFICE {
+    int id
+    char[] address
 }
 ```
 
-## Laywers
-```c
-struct Laywer {
-    // Mesmos atributos de Person
-    cna char[12];
-}
-```
+# Testes
 
-## Appointments
-```c
-struct Appointment {
-    int id;
-    int clientId;
-    int lawyerId;
-    int officeId;
-    // Campo de data ainda a ser pensado na melhor estratégia
-}
-```
+Os testes unitários foram feitos com o Framework <a href="https://github.com/ThrowTheSwitch/Unity">Unity</a>. São executados ao rodar o `makefile`:
 
-## Offices
-```c
-struct Office {
-    int id;
-    char[] address;
-}
+```bash
+make
 ```

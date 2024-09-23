@@ -1,8 +1,8 @@
-#include <stdio.h>
+#include "src/interfaces.h"
 
 int main(void)
 {
-    printf("Hello, World!");
+    showMainMenu();
 
     return 0;
 }

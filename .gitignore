@@ -36,6 +36,8 @@
 *.x86_64
 *.hex
 main
+siglaw
+test_*
 
 # Debug files
 *.dSYM/
@@ -51,3 +53,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#vscode
+.vscode
