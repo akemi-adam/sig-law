@@ -141,6 +141,19 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
     }
 }
 
+/**
+ * Função que espera o usuário pressionar qualquer tecla
+ * 
+ * Obs.: Funciona apenas em Windows
+ * 
+ * Inputs: Void
+ * 
+ * Outputs: Void
+ */
+bool proceed() {
+    return (bool) getch();
+}
+
 #endif
 
 void setOptionsStyle(char optionsStyles[][11], int size) {
