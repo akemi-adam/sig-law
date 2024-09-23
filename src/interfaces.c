@@ -89,6 +89,18 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
     }
 }
 
+/**
+ * Função que espera o usuário pressionar qualquer tecla
+ * 
+ * Inputs: Void
+ * 
+ * Outputs: Void
+ */
+bool proceed() {
+    char buf[3];
+    return read(STDIN_FILENO, buf, 1) == 1;
+}
+
 #else
 
 #include <conio.h>
