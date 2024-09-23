@@ -21,6 +21,8 @@ void selectOption(int*, int, bool*);
 
 void setOptionsStyle(char[][11], int);
 
+bool proceed();
+
 void showMainMenu(void);
 
 void showClientMenu(void);
@@ -32,7 +34,5 @@ void showOfficeMenu(void);
 void showAppointmentMenu(void);
 
 void showAboutMenu(void);
-
-bool proceed();
 
 #endif
