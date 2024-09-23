@@ -186,7 +186,7 @@ void showMainMenu() {
     char optionsStyles[size][11];
     bool isSelected = false, loop = true;
     void (*actions[])() = {
-        showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu, showAboutMenu
+        showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu, showAboutMenu, showTeamMenu
     };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
