@@ -28,4 +28,4 @@ test: test_interfaces
 	done
 
 clean:
-	rm -rf *.o *~ 
+	rm -rf *.o *~ siglaw test_*
