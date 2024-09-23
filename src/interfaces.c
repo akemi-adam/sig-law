@@ -158,13 +158,14 @@ void showMainMenu() {
         tcgetattr(STDIN_FILENO, &originalTerminal);
         enableRawMode();
     #endif
-    int size = 6;
+    int size = 7;
     char optionsStyles[size][11];
     setOptionsStyle(optionsStyles, size);
 
     int option = 0, aux;
     bool isSelected = false;
-    while (true) {
+    bool loop = true;
+    while (loop) {
         #ifdef __unix__
             system("clear");
         #else
@@ -173,12 +174,13 @@ void showMainMenu() {
         if (!isSelected) {
             printf("----- Menu Principal -----\n");
             printf("|                        |\n");
-            printf("| %s1. Módulo clientes%s     |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Módulo Advogados%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Módulo Escritórios%s  |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Módulo Agendamentos%s |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Módulo Sobre%s        |\n", optionsStyles[4], RESET_STYLE);
-            printf("| %s6. Módulo Equipe%s       |\n", optionsStyles[5], RESET_STYLE);
+            printf("| %s1. Modulo clientes%s     |\n", optionsStyles[0], RESET_STYLE);
+            printf("| %s2. Modulo Advogados%s    |\n", optionsStyles[1], RESET_STYLE);
+            printf("| %s3. Modulo Escritorios%s  |\n", optionsStyles[2], RESET_STYLE);
+            printf("| %s4. Modulo Agendamentos%s |\n", optionsStyles[3], RESET_STYLE);
+            printf("| %s5. Modulo Sobre%s        |\n", optionsStyles[4], RESET_STYLE);
+            printf("| %s6. Modulo Equipe%s       |\n", optionsStyles[5], RESET_STYLE);
+            printf("| %s7. Encerrar programa%s   |\n", optionsStyles[6], RESET_STYLE);
             printf("|                        |\n");
             printf("--------------------------\n");
             
@@ -212,7 +214,7 @@ void showMainMenu() {
                     // Módulo Equipe
                     break;
                 default:
-                    // Volta no menu
+                    loop = false;
                     break;
             }
             #ifdef __unix__
