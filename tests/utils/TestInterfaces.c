@@ -58,7 +58,7 @@ void test_DisableRawMode_Works(void) {
 void test_SetOptionStylesFunction_StoresCyanAndResetCodesInArray(void) {
     char optionsStyle[6][11];
     char expected[6][11] = {
-        CYAN_UNDERLINE_TEXT,
+        CYAN_STYLE,
         RESET_STYLE,
         RESET_STYLE,
         RESET_STYLE,

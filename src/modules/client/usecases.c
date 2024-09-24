@@ -43,7 +43,7 @@ void showClientMenu() {
             selectOption(&option, size - 1, &isSelected);
 
             strcpy(optionsStyles[aux], RESET_STYLE);
-            strcpy(optionsStyles[option], CYAN_UNDERLINE_TEXT);
+            strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
             #ifdef __unix__
                 disableRawMode(&originalTerminal);
