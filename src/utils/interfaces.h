@@ -1,6 +1,6 @@
 #ifndef INTERFACES
 #define INTERFACES
-#define CYAN_UNDERLINE_TEXT "\e[4;36m"
+#define CYAN_STYLE "\e[0;36m"
 #define RESET_STYLE "\e[0m"
 
 #include <stdbool.h>
