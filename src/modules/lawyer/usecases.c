@@ -1,6 +1,9 @@
+#include "usecases.h"
 #include <stdio.h>
 #include <stdbool.h>
-#include "./../utils/interfaces.h"
+#include <string.h>
+#include <stdlib.h>
+#include "./../../utils/interfaces.h"
 
 #ifdef __unix__
 

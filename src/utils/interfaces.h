@@ -27,10 +27,6 @@ void showGenericInfo(char[]);
 
 void showMainMenu(void);
 
-void showClientMenu(void);
-
-void showOfficeMenu(void);
-
 void showAboutMenu(void);
 
 void showTeamMenu(void);
