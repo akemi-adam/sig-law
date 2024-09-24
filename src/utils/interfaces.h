@@ -21,6 +21,8 @@ void selectOption(int*, int, bool*);
 
 void setOptionsStyle(char[][11], int);
 
+void showOptions(char[], char[][30], char[][11], int);
+
 bool proceed();
 
 void showGenericInfo(char[]);

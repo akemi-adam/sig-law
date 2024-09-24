@@ -167,6 +167,17 @@ void setOptionsStyle(char optionsStyles[][11], int size) {
     }
 }
 
+void showOptions(char title[], char options[][30], char optionsStyles[][11], int size) {
+    printf("----- %s -----\n", title);
+    printf("|                        |\n");
+    for (int i = 0; i < size; i++) {
+        printf("| %s%-*s%s|\n", optionsStyles[i], 23, options[i], RESET_STYLE);
+    }
+    printf("|                        |\n");
+    printf("--------------------------\n");
+    
+}
+
 void showGenericInfo(char message[]) {
     #ifdef __unix__
         struct termios originalTerminal;
@@ -201,7 +212,11 @@ void showMainMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int aux, option = 0, size = 7;
+    int option = 0, size = 7;
+    char options[7][30] = {
+        "1. Modulo Clientes", "2. Modulo Advogados", "3. Modulo Escritorios",
+        "4. Modulo Agendamentos", "5. Modulo Sobre", "6. Modulo Equipe", "7. Encerrar Programa"
+    };
     char optionsStyles[size][11];
     bool isSelected = false, loop = true;
     void (*actions[])() = {
@@ -216,22 +231,9 @@ void showMainMenu() {
             system("cls");
         #endif
         if (!isSelected) {
-            printf("----- Menu Principal -----\n");
-            printf("|                        |\n");
-            printf("| %s1. Modulo clientes%s     |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Modulo Advogados%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Modulo Escritorios%s  |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Modulo Agendamentos%s |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Modulo Sobre%s        |\n", optionsStyles[4], RESET_STYLE);
-            printf("| %s6. Modulo Equipe%s       |\n", optionsStyles[5], RESET_STYLE);
-            printf("| %s7. Encerrar programa%s   |\n", optionsStyles[6], RESET_STYLE);
-            printf("|                        |\n");
-            printf("--------------------------\n");
-            
-            aux = option;
+            showOptions("Menu Principal", options, optionsStyles, size);
+            strcpy(optionsStyles[option], RESET_STYLE);
             selectOption(&option, size - 1, &isSelected);
-
-            strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
             #ifdef __unix__
