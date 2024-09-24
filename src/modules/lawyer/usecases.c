@@ -12,14 +12,25 @@
 
 #endif
 
+void createLawyer() {
+    
+}
+
 void showLawyerMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int aux, option = 0, size = 5;
+    int option = 0, size = 6;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
+    char options[6][30] = {
+        "1. Cadastrar Advogado", "2. Mostrar Advogados", "3. Achar advogado",
+        "4. Editar Advogado", "5. Excluir Advogado", "6. Voltar"
+    };
+    void (*actions[])() = {
+        createLawyer, listLawyers, readLawyer, updateLawyer, deleteLawyer
+    };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
         #ifdef __unix__
@@ -29,43 +40,16 @@ void showLawyerMenu() {
             system("cls");
         #endif
         if (!isSelected) {
-            printf("----- Menu Advogado -----\n");
-            printf("|                       |\n");
-            printf("| %s1. Cadastar advogado%s  |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Mostar advogado%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Editar advogado%s    |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Exluir advogado%s    |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Voltar ao menu%s     |\n", optionsStyles[4], RESET_STYLE);
-            printf("|                       |\n");
-            printf("-------------------------\n");
-            
-            aux = option;
+            showOptions("Menu Advogado", options, optionsStyles, size);
+            strcpy(optionsStyles[option], RESET_STYLE);
             selectOption(&option, size - 1, &isSelected);
-
-            strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
-            #ifdef __unix__
+           #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            switch (option) {
-                case 0:
-                    //createLawyer();
-                    break;
-                case 1:
-                    //readLawyer();
-                    break;
-                case 2:
-                    //updateLawyer();
-                    break;
-                case 3:
-                    //deleteLawyer();
-                    break;
-                default:
-                    loop = false;
-                    break;
-            }
+            if (option >= 0 && option <= (size - 2)) actions[option](); else loop = false;
         }
     }
 }
