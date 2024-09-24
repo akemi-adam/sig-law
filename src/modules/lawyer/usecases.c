@@ -20,6 +20,10 @@ void listLawyers() {
 
 }
 
+void readLawyer() {
+
+}
+
 void showLawyerMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
