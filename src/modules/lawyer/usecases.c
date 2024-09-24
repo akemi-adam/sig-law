@@ -24,6 +24,10 @@ void readLawyer() {
 
 }
 
+void updateLawyer() {
+
+}
+
 void showLawyerMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
