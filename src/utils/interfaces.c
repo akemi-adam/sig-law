@@ -185,7 +185,7 @@ void showGenericInfo(char message[]) {
         enableRawMode();
     #endif
     while (true) {
-        printf(message);
+        printf("%s", message);
         if (proceed()) break;
     }
     #ifdef __unix__

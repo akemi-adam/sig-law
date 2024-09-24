@@ -1,7 +1,7 @@
 #ifndef INTERFACES
 #define INTERFACES
-#define CYAN_STYLE "\e[0;36m"
-#define RESET_STYLE "\e[0m"
+#define CYAN_STYLE "\033[0;36m"
+#define RESET_STYLE "\033[0m"
 
 #include <stdbool.h>
 
