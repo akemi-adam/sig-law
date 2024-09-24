@@ -28,6 +28,10 @@ void updateLawyer() {
 
 }
 
+void deleteLawyer() {
+
+}
+
 void showLawyerMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
