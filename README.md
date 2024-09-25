@@ -24,7 +24,7 @@ LAWYER {
     int id
     char[55] name
     char[55] email
-    char[10] telephone
+    char[12] telephone
     char[12] cpf
     cna char[12]
 }
