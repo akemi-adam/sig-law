@@ -1,5 +1,5 @@
 CFLAGS := -W -Wall -pedantic
-INCLUDE_DIRS := -I src/utils -I src/modules/appointment -I src/modules/lawyer -I src/modules/client -I src/modules/office
+INCLUDE_DIRS := -I src/utils -I src/modules/appointment -I src/modules/lawyer -I src/modules/client -I src/modules/office -I src/modules/person
 
 MODULES := src/modules/appointment/usecases.c src/modules/lawyer/usecases.c src/modules/client/usecases.c src/modules/office/usecases.c
 MODULES_OBJS := $(MODULES:.c=.o)
