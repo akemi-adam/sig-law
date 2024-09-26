@@ -160,6 +160,36 @@ bool proceed() {
 
 #endif
 
+/**
+ * Ler os dados de entrada do teclado em uma string de tamanho x
+ * 
+ * Inputs:
+ *  - char str[]: String a ser armazenada os dados do teclado
+ *  - int maxLength: Tamanho máximo da string
+ * 
+ * Outputs: Void
+ * 
+ * Authors:
+ *  - Huw Collingbourne
+ * 
+ * References:
+ *  - https://www.youtube.com/watch?v=zWIgtikk6ig&t=512s
+ */
+void readline(char str[], int maxLength) {
+    char ch;
+    int i = 0;
+    while (true) {
+        ch = getchar();
+        if (ch == '\n' || ch == EOF) {
+            break;
+        } else if (i < maxLength - 1) {
+            str[i] = ch;
+            i++;
+        }
+    }
+    str[i] = '\0';
+}
+
 void setOptionsStyle(char optionsStyles[][11], int size) {
     strcpy(optionsStyles[0], CYAN_STYLE);
     for (int i = 1; i < size; i++) {

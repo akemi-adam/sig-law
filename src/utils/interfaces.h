@@ -17,6 +17,8 @@ void disableRawMode(struct termios*);
 #endif
 
 
+void readline(char[], int);
+
 void selectOption(int*, int, bool*);
 
 void setOptionsStyle(char[][11], int);
