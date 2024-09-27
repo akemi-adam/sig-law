@@ -225,6 +225,19 @@ void setOptionsStyle(char optionsStyles[][11], int size) {
     }
 }
 
+/**
+ * Exibe um menu de opções
+ * 
+ * @param char titles[]: Título do menu de opções
+ * @param char options[][30]: Array de opções
+ * @param char optionsStyles[][11]: Array de opções
+ * @param int size: Tamanho máximo do array
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showOptions(char title[], char options[][30], char optionsStyles[][11], int size) {
     printf("----- %s -----\n", title);
     printf("|                        |\n");
