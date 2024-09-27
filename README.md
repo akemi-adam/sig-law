@@ -26,7 +26,7 @@ LAWYER {
     char[55] email
     char[12] telephone
     char[12] cpf
-    cna char[12]
+    char[12] cna
 }
 
 APPOINTMENT {
