@@ -37,24 +37,67 @@ void createLawyer() {
     free(lawyer->person);
     free(lawyer);
 
-    printf("\nUsuário cadastrado com sucesso!\nPressione <Enter> para prosseguir...");
+    printf("\nUsuário cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
 void listLawyers() {
-
+    printf("---- Listar Advogados ----\n");
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", 1, "", "", "", "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void readLawyer() {
-
+    int id;
+    printf("---- Buscar Advogado ----\nCódigo do Advogado: ");
+    scanf("%d", &id);
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void updateLawyer() {
+    struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
+    lawyer->person = malloc(sizeof(struct Person));
+    int id;
+    
+    printf("---- Editar Advogado ----\nCódigo do Advogado: ");
+    scanf("%d", &id);
+    flushInput();
 
+    printf("Nome: ");
+    readline(lawyer->person->name, 55);
+
+    printf("CPF: ");
+    readline(lawyer->person->cpf, 14);
+
+    printf("CNA: ");
+    readline(lawyer->cna, 15);
+
+    printf("E-mail: ");
+    readline(lawyer->person->email, 55);
+
+    printf("Telefone: ");
+    readline(lawyer->person->telephone, 14);
+
+    free(lawyer->person);
+    free(lawyer);
+
+    printf("\nUsuário editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void deleteLawyer() {
-
+    int id;
+    printf("---- Deletar Advogado ----\nCódigo do Advogado: ");
+    scanf("%d", &id);
+    printf("Advogado deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void showLawyerMenu() {

@@ -161,6 +161,23 @@ bool proceed() {
 #endif
 
 /**
+ * Limpa o buffer de entrada
+ * 
+ * Inptus: Void
+ * Outputs: Void
+ * 
+ * Authors:
+ *  - Huw Collingbourne
+ * 
+ * References:
+ *  - https://www.youtube.com/watch?v=zWIgtikk6ig&t=512s
+ */
+void flushInput() {
+    int ch;
+    while((ch = getchar()) != '\n' && ch != EOF);
+}
+
+/**
  * Ler os dados de entrada do teclado em uma string de tamanho x
  * 
  * Inputs:
@@ -190,6 +207,17 @@ void readline(char str[], int maxLength) {
     str[i] = '\0';
 }
 
+/**
+ * Define os valores de estilo padrões de um array de opções
+ * 
+ * @param char optionsStyles[][11]: Array do estilo das opções
+ * @param int size: Tamanho máximo do array
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void setOptionsStyle(char optionsStyles[][11], int size) {
     strcpy(optionsStyles[0], CYAN_STYLE);
     for (int i = 1; i < size; i++) {
@@ -197,6 +225,19 @@ void setOptionsStyle(char optionsStyles[][11], int size) {
     }
 }
 
+/**
+ * Exibe um menu de opções
+ * 
+ * @param char titles[]: Título do menu de opções
+ * @param char options[][30]: Array de opções
+ * @param char optionsStyles[][11]: Array de opções
+ * @param int size: Tamanho máximo do array
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showOptions(char title[], char options[][30], char optionsStyles[][11], int size) {
     printf("----- %s -----\n", title);
     printf("|                        |\n");
