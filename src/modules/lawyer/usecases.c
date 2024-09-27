@@ -62,7 +62,34 @@ void readLawyer() {
 }
 
 void updateLawyer() {
+    struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
+    lawyer->person = malloc(sizeof(struct Person));
+    int id;
+    
+    printf("---- Editar Advogado ----\nCódigo do Advogado: ");
+    scanf("%d", &id);
+    flushInput();
 
+    printf("Nome: ");
+    readline(lawyer->person->name, 55);
+
+    printf("CPF: ");
+    readline(lawyer->person->cpf, 14);
+
+    printf("CNA: ");
+    readline(lawyer->cna, 15);
+
+    printf("E-mail: ");
+    readline(lawyer->person->email, 55);
+
+    printf("Telefone: ");
+    readline(lawyer->person->telephone, 14);
+
+    free(lawyer->person);
+    free(lawyer);
+
+    printf("\nUsuário editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void deleteLawyer() {
