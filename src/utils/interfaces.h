@@ -16,6 +16,7 @@ void disableRawMode(struct termios*);
 
 #endif
 
+void flushInput(void);
 
 void readline(char[], int);
 

@@ -161,6 +161,23 @@ bool proceed() {
 #endif
 
 /**
+ * Limpa o buffer de entrada
+ * 
+ * Inptus: Void
+ * Outputs: Void
+ * 
+ * Authors:
+ *  - Huw Collingbourne
+ * 
+ * References:
+ *  - https://www.youtube.com/watch?v=zWIgtikk6ig&t=512s
+ */
+void flushInput() {
+    int ch;
+    while((ch = getchar()) != '\n' && ch != EOF);
+}
+
+/**
  * Ler os dados de entrada do teclado em uma string de tamanho x
  * 
  * Inputs:
