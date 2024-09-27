@@ -51,7 +51,14 @@ void listLawyers() {
 }
 
 void readLawyer() {
-
+    int id;
+    printf("---- Buscar Advogado ----\nCódigo do Advogado: ");
+    scanf("%d", &id);
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void updateLawyer() {
