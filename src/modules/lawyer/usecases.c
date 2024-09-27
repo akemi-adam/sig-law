@@ -93,7 +93,11 @@ void updateLawyer() {
 }
 
 void deleteLawyer() {
-
+    int id;
+    printf("---- Deletar Advogado ----\nCódigo do Advogado: ");
+    scanf("%d", &id);
+    printf("Advogado deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void showLawyerMenu() {
