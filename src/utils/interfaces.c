@@ -210,7 +210,7 @@ void readline(char str[], int maxLength) {
 /**
  * Define os valores de estilo padrões de um array de opções
  * 
- * @param char optionsStyles[][11]: Array de opções
+ * @param char optionsStyles[][11]: Array do estilo das opções
  * @param int size: Tamanho máximo do array
  * 
  * @return void
