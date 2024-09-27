@@ -1,6 +1,6 @@
-#include "./../unity/unity.h"
-#include "./../unity/unity_internals.h"
-#include "./../src/interfaces.h"
+#include "./../../unity/unity.h"
+#include "./../../unity/unity_internals.h"
+#include "./../../src/utils/interfaces.h"
 #ifdef __unix__
     #include <termios.h>
     #include <unistd.h>
@@ -58,7 +58,7 @@ void test_DisableRawMode_Works(void) {
 void test_SetOptionStylesFunction_StoresCyanAndResetCodesInArray(void) {
     char optionsStyle[6][11];
     char expected[6][11] = {
-        CYAN_UNDERLINE_TEXT,
+        CYAN_STYLE,
         RESET_STYLE,
         RESET_STYLE,
         RESET_STYLE,

@@ -1,7 +1,7 @@
 #ifndef INTERFACES
 #define INTERFACES
-#define CYAN_UNDERLINE_TEXT "\e[4;36m"
-#define RESET_STYLE "\e[0m"
+#define CYAN_STYLE "\033[0;36m"
+#define RESET_STYLE "\033[0m"
 
 #include <stdbool.h>
 
@@ -17,23 +17,19 @@ void disableRawMode(struct termios*);
 #endif
 
 
+void readline(char[], int);
+
 void selectOption(int*, int, bool*);
 
 void setOptionsStyle(char[][11], int);
+
+void showOptions(char[], char[][30], char[][11], int);
 
 bool proceed();
 
 void showGenericInfo(char[]);
 
 void showMainMenu(void);
-
-void showClientMenu(void);
-
-void showLawyerMenu(void);
-
-void showOfficeMenu(void);
-
-void showAppointmentMenu(void);
 
 void showAboutMenu(void);
 

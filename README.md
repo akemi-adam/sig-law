@@ -24,7 +24,7 @@ LAWYER {
     int id
     char[55] name
     char[55] email
-    char[10] telephone
+    char[12] telephone
     char[12] cpf
     cna char[12]
 }
@@ -44,10 +44,24 @@ OFFICE {
 }
 ```
 
-# Testes
+# Como executar
 
-Os testes unitários foram feitos com o Framework <a href="https://github.com/ThrowTheSwitch/Unity">Unity</a>. São executados ao rodar o `makefile`:
+Para compilar o projeto, garanta que haja o make instalado e então execute o `makefile`:
 
 ```bash
 make
+```
+
+Para a execução basta usar o comando:
+
+```bash
+./siglaw    #Para Windows: .\siglaw
+```
+
+# Testes
+
+Os testes unitários foram feitos com o Framework <a href="https://github.com/ThrowTheSwitch/Unity">Unity</a>. Por padrão, são executados ao rodar o `makefile`, impedindo que o programa seja compilado caso falhe nos testes. Para rodar os testes sem compilar o programa, use o seguinte comando:
+
+```bash
+make test
 ```
