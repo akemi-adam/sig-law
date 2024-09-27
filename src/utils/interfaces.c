@@ -207,6 +207,17 @@ void readline(char str[], int maxLength) {
     str[i] = '\0';
 }
 
+/**
+ * Define os valores de estilo padrões de um array de opções
+ * 
+ * @param char optionsStyles[][11]: Array de opções
+ * @param int size: Tamanho máximo do array
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void setOptionsStyle(char optionsStyles[][11], int size) {
     strcpy(optionsStyles[0], CYAN_STYLE);
     for (int i = 1; i < size; i++) {
