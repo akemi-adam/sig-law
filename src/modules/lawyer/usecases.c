@@ -37,12 +37,17 @@ void createLawyer() {
     free(lawyer->person);
     free(lawyer);
 
-    printf("\nUsuário cadastrado com sucesso!\nPressione <Enter> para prosseguir...");
+    printf("\nUsuário cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
 void listLawyers() {
-
+    printf("---- Listar Advogados ----\n");
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", 1, "", "", "", "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void readLawyer() {
