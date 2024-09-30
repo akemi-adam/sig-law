@@ -133,7 +133,11 @@ void showLawyerMenu() {
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            if (option >= 0 && option <= (size - 2)) actions[option](); else loop = false;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option]();
+            } else {
+                loop = false;
+            }
         }
     }
 }
