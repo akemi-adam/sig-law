@@ -34,7 +34,7 @@ APPOINTMENT {
     int clientId
     int lawyerId
     int officeId
-    Datetime date
+    Schedule schedule
 }
 
 OFFICE ||--|{ APPOINTMENT : contains
