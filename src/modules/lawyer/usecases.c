@@ -45,7 +45,7 @@ void createLawyer() {
     free(lawyer->person);
     free(lawyer);
 
-    printf("\nUsuário cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -120,7 +120,7 @@ void updateLawyer() {
     free(lawyer->person);
     free(lawyer);
 
-    printf("\nUsuário editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\nAdvogado editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
