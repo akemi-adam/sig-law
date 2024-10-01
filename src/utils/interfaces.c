@@ -255,10 +255,8 @@ void showGenericInfo(char message[]) {
         tcgetattr(STDIN_FILENO, &originalTerminal);
         enableRawMode();
     #endif
-    while (true) {
-        printf("%s", message);
-        if (proceed()) break;
-    }
+    printf("%s", message);
+    proceed();
     #ifdef __unix__
         disableRawMode(&originalTerminal);
     #endif 
