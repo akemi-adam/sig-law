@@ -318,7 +318,14 @@ void showMainMenu() {
     }
 }
 
-
+/**
+ * Exibe o menu sobre do projeto
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showAboutMenu() {
     showGenericInfo("--------------------------------------------- Sobre ---------------------------------------------\n| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C. |\n| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,   |\n| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a       |\n| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.          |\n-------------------------------------------------------------------------------------------------\n");
 }
