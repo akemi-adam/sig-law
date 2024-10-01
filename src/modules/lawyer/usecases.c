@@ -50,6 +50,14 @@ void listLawyers() {
     proceed();
 }
 
+/**
+ * Exibe os dados de um usuário específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void readLawyer() {
     int id;
     printf("---- Buscar Advogado ----\nCódigo do Advogado: ");
