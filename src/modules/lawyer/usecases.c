@@ -100,6 +100,14 @@ void deleteLawyer() {
     proceed();
 }
 
+/**
+ * Exibe o menu do módulo advogado e que pede para o usuário selecionar uma opção
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showLawyerMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
