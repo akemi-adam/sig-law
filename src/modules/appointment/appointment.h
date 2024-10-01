@@ -3,10 +3,10 @@
 
 #include "./../../utils/date.h"
 
-struct Schedule {
+typedef struct Schedule {
     Datetime *startDate;
     Datetime *endDate;
-};
+} Schedule;
 
 struct Appointment {
     int clientId;
