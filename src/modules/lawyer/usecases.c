@@ -41,6 +41,14 @@ void createLawyer() {
     proceed();
 }
 
+/**
+ * Lista todos os advogados do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void listLawyers() {
     printf("---- Listar Advogados ----\n");
     printf("------------------------------------------------------------------\n");
