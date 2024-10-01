@@ -12,14 +12,29 @@
 
 #endif
 
+/**
+ * Exibe o menu do módulo agendamento e que pede para o usuário selecionar uma opção
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showAppointmentMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int aux, option = 0, size = 5;
+    int option = 0, size = 6;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
+    char options[6][30] = {
+        "1. Cadastrar Agendamento", "2. Mostrar Agendamentos", "3. Achar Agendamento",
+        "4. Editar Agendamento", "5. Excluir Agendamento", "6. Voltar"
+    };
+    void (*actions[])() = {
+        createAppointment, listAppointments, readAppointment, updateAppointment, deleteAppointment
+    };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
         #ifdef __unix__
@@ -29,41 +44,19 @@ void showAppointmentMenu() {
             system("cls");
         #endif
         if (!isSelected) {
-            printf("----- Menu Agendamento -----\n");
-            printf("|                          |\n");
-            printf("| %s1. Cadastar agendamento%s  |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Mostar agendamento%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Editar agendamento%s    |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Exluir agendamento%s    |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Voltar ao menu%s        |\n", optionsStyles[4], RESET_STYLE);
-            printf("|                          |\n");
-            printf("----------------------------\n");
-            
-            aux = option;
+            showOptions("Menu Agendamento", options, optionsStyles, size);
+            strcpy(optionsStyles[option], RESET_STYLE);
             selectOption(&option, size - 1, &isSelected);
-
-            strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
-            #ifdef __unix__
+           #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            switch (option) {
-                case 0:
-                    //createAppointment();
-                    break;
-                case 1:
-                    //readAppointment();
-                    break;
-                case 2:
-                    //updateAppointment();
-                    break;
-                case 3:
-                    //deleteAppointment();
-                    break;
-                default:
-                    loop = false;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option]();
+            } else {
+                loop = false;
                     break;
             }
         }
