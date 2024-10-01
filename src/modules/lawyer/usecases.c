@@ -14,6 +14,14 @@
 
 #endif
 
+/**
+ * Formulário para cadastrar um advogado
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void createLawyer() {
     struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
     lawyer->person = malloc(sizeof(struct Person));
