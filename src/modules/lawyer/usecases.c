@@ -92,6 +92,14 @@ void updateLawyer() {
     proceed();
 }
 
+/**
+ * Deleta um advogado do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void deleteLawyer() {
     int id;
     printf("---- Deletar Advogado ----\nCódigo do Advogado: ");
