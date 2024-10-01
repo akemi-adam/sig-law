@@ -8,11 +8,11 @@ typedef struct Schedule {
     Datetime *endDate;
 } Schedule;
 
-struct Appointment {
+typedef struct Appointment {
     int clientId;
     int lawyerId;
     int officeId;
     Schedule *schedule;
-};
+} Appointment;
 
 #endif
