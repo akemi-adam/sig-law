@@ -69,7 +69,7 @@ void createAppointment() {
 void listAppointments() {
     printf("---- Listar Agendamentos ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nCódigo Cliente: %s\nCódigo Advogado: %s\nCódigo Escritório: %s\nData: %s\nHorário: %s\n", 1, 1, 1, 1, "", "");
+    printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\nHorário: %s\n", 1, 1, 1, 1, "", "");
     printf("------------------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
@@ -88,7 +88,7 @@ void readAppointment() {
     printf("---- Buscar Agendamento ----\nCódigo do Agendamento: ");
     scanf("%d", &id);
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nCódigo Cliente: %s\nCódigo Advogado: %s\nCódigo Escritório: %s\nData: %s\nHorário: %s\n", id, 1, 1, 1, "", "");
+    printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\nHorário: %s\n", id, 1, 1, 1, "", "");
     printf("------------------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
