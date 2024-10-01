@@ -14,10 +14,9 @@
 #include <unistd.h>
 
 /*
- * Desabilita o modo canônico e habilita o raw mode (modo bruto) do terminal
+ * Desabilita o modo canônico e habilita o raw mode (modo bruto) do termina
  *
- * Inputs: Void
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -38,9 +37,9 @@ void enableRawMode() {
 /*
  * Desabilita o raw mode e volta o terminal para a configuração original
  *
- * Inputs:
- *  - struct termios *originalTerminal: Configuração do terminal original
- * Outputs: Void
+ * @param struct termios *originalTerminal: Configuração do terminal original
+ * 
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -59,12 +58,11 @@ void disableRawMode(struct termios *originalTerminal) {
  * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow (B) ou Up-Arrow (A). Enter é interpretado como a seleção de uma opção.
  * Obs.: Funciona apenas em UNIX
  * 
- * Inputs:
- *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
- *  - int optionsAmount: Quantidade máxima de opções do menu
- *  - bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
+ * @param int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
+ * @param int optionsAmount: Quantidade máxima de opções do menu
+ * @param bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
  *
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -96,9 +94,10 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
 /**
  * Função que espera o usuário pressionar qualquer tecla
  * 
- * Inputs: Void
+ * Authors:
+ *  - https://github.com/akemi-adam
  * 
- * Outputs: Void
+ * @return void
  */
 bool proceed() {
     char buf[3];
@@ -114,12 +113,11 @@ bool proceed() {
  * 
  * Obs.: Funciona apenas em Windows
  * 
- * Inputs:
- *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
- *  - int optionsAmount: Quantidade máxima de opções do menu
- *  - bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
+ * @param int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
+ * @param int optionsAmount: Quantidade máxima de opções do menu
+ * @param bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
  *
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -150,9 +148,10 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
  * 
  * Obs.: Funciona apenas em Windows
  * 
- * Inputs: Void
+ * @return bool
  * 
- * Outputs: Void
+ * Authors:
+ *  - https://github.com/akemi-adam
  */
 bool proceed() {
     return (bool) getch();
@@ -163,8 +162,7 @@ bool proceed() {
 /**
  * Limpa o buffer de entrada
  * 
- * Inptus: Void
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - Huw Collingbourne
@@ -180,11 +178,10 @@ void flushInput() {
 /**
  * Ler os dados de entrada do teclado em uma string de tamanho x
  * 
- * Inputs:
- *  - char str[]: String a ser armazenada os dados do teclado
- *  - int maxLength: Tamanho máximo da string
+ * @param char str[]: String a ser armazenada os dados do teclado
+ * @param maxLength: Tamanho máximo da string
  * 
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - Huw Collingbourne
@@ -275,8 +272,7 @@ void showGenericInfo(char message[]) {
 /**
  * Exibe o menu principal
  * 
- * Inputs: Void
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
