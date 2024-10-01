@@ -110,7 +110,7 @@ void updateAppointment() {
     char date[11], startTime[6], endTime[6];
     int id;
 
-    printf("---- Cadastrar Agendamento ----\nCódigo do Agendamento:");
+    printf("---- Cadastrar Agendamento ----\nCódigo do Agendamento: ");
     scanf("%d", &id);
 
     printf("Código do Cliente: ");
