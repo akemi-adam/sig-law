@@ -14,6 +14,14 @@
 
 #endif
 
+/**
+ * Formulário para cadastrar um agendamento
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void createAppointment() {
     Appointment *appointment = malloc(sizeof(Appointment));
     appointment->schedule = malloc(sizeof(Schedule));
@@ -21,7 +29,7 @@ void createAppointment() {
     appointment->schedule->startDate = malloc(sizeof(Datetime));
     char date[11], startTime[6], endTime[6];
 
-    printf("---- Cadastrar Advogado ----\n");
+    printf("---- Cadastrar Agendamento ----\n");
     printf("Código do Cliente: ");
     scanf("%d", &appointment->clientId);
 
@@ -46,7 +54,106 @@ void createAppointment() {
     free(appointment->schedule);
     free(appointment);
 
-    printf("\nUsuário cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\nAgendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Lista todos os agendamentos do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void listAppointments() {
+    printf("---- Listar Agendamentos ----\n");
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nCódigo Cliente: %s\nCódigo Advogado: %s\nCódigo Escritório: %s\nData: %s\nHorário: %s\n", 1, 1, 1, 1, "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Exibe os dados de um agendamento específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void readAppointment() {
+    int id;
+    printf("---- Buscar Agendamento ----\nCódigo do Agendamento: ");
+    scanf("%d", &id);
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nCódigo Cliente: %s\nCódigo Advogado: %s\nCódigo Escritório: %s\nData: %s\nHorário: %s\n", id, 1, 1, 1, "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Formulário para atualizar os dados de um agendamento específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void updateAppointment() {
+    Appointment *appointment = malloc(sizeof(Appointment));
+    appointment->schedule = malloc(sizeof(Schedule));
+    appointment->schedule->endDate = malloc(sizeof(Datetime));
+    appointment->schedule->startDate = malloc(sizeof(Datetime));
+    char date[11], startTime[6], endTime[6];
+    int id;
+
+    printf("---- Cadastrar Agendamento ----\nCódigo do Agendamento:");
+    scanf("%d", &id);
+
+    printf("Código do Cliente: ");
+    scanf("%d", &appointment->clientId);
+
+    printf("Código do Advogado: ");
+    scanf("%d", &appointment->lawyerId);
+
+    printf("Código do Escritório: ");
+    scanf("%d", &appointment->officeId);
+    flushInput();
+
+    printf("Data (dd/mm/aaaa): ");
+    readline(date, 11);
+
+    printf("Horário do início da consulta (hh:mm): ");
+    readline(startTime, 11);
+
+    printf("Horário do término da consulta (hh:mm): ");
+    readline(endTime, 11);
+
+    free(appointment->schedule->startDate);
+    free(appointment->schedule->endDate);
+    free(appointment->schedule);
+    free(appointment);
+
+    printf("\nAgendamento editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Deleta um agendamento
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void deleteAppointment() {
+    int id;
+    printf("---- Deletar Agendamento ----\nCódigo do Agendamento: ");
+    scanf("%d", &id);
+    printf("Agendamento deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
