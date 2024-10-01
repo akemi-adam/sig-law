@@ -61,6 +61,14 @@ void readLawyer() {
     proceed();
 }
 
+/**
+ * Formulário para atualizar os dados de um advogado específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void updateLawyer() {
     struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
     lawyer->person = malloc(sizeof(struct Person));
