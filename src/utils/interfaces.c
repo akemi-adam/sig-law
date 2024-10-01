@@ -249,6 +249,16 @@ void showOptions(char title[], char options[][30], char optionsStyles[][11], int
     
 }
 
+/**
+ * Função que abstrai a exibição de mensagens de texto genéricas e espera o usuário pressionar qualquer tecla para prosseguir
+ * 
+ * @param char message[]: Mensagem a ser exibida
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showGenericInfo(char message[]) {
     #ifdef __unix__
         struct termios originalTerminal;
