@@ -17,6 +17,10 @@ void createClient() {
 }
 
 void listClients() {
+
+}
+
+void readClient() {
     
 }
 
