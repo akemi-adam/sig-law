@@ -16,6 +16,10 @@ void createClient() {
 
 }
 
+void listClients() {
+    
+}
+
 void showClientMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
