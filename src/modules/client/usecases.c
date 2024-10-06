@@ -12,14 +12,25 @@
 
 #endif
 
+void createClient() {
+
+}
+
 void showClientMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int aux, option = 0, size = 5;
+    int aux, option = 0, size = 6;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
+    char options[6][30] = {
+        "1. Cadastrar Cliente", "2. Mostrar Clientes", "3. Achar Cliente",
+        "4. Editar Cliente", "5. Excluir Cliente", "6. Voltar"
+    };
+    void (*actions[])() = {
+        createClient, listClients, readClient, updateClient, deleteClient
+    };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
         #ifdef __unix__
@@ -29,42 +40,20 @@ void showClientMenu() {
             system("cls");
         #endif
         if (!isSelected) {
-            printf("----- Menu Cliente -----\n");
-            printf("|                      |\n");
-            printf("| %s1. Cadastar cliente%s  |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Mostar cliente%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Editar cliente%s    |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Exluir cliente%s    |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Voltar ao menu%s    |\n", optionsStyles[4], RESET_STYLE);
-            printf("|                      |\n");
-            printf("------------------------\n");
-            
-            aux = option;
-            selectOption(&option, size - 1, &isSelected);
-
+            showOptions("Menu Cliente", options, optionsStyles, size);
             strcpy(optionsStyles[aux], RESET_STYLE);
+            selectOption(&option, size - 1, &isSelected);
             strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
             #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            switch (option) {
-                case 0:
-                    //createClient();
-                    break;
-                case 1:
-                    //readClient();
-                    break;
-                case 2:
-                    //updateClient();
-                    break;
-                case 3:
-                    //deleteClient();
-                    break;
-                default:
-                    loop = false;
-                    break;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option](); 
+            } 
+            else {
+                loop = false;
             }
         }
     }
