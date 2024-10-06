@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
+#include "./../../utils/date.h"
+#include "appointment.h"
 
 #ifdef __unix__
 
@@ -12,14 +14,172 @@
 
 #endif
 
+/**
+ * Formulário para cadastrar um agendamento
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void createAppointment() {
+    Appointment *appointment = malloc(sizeof(Appointment));
+    appointment->schedule = malloc(sizeof(Schedule));
+    appointment->schedule->endDate = malloc(sizeof(Datetime));
+    appointment->schedule->startDate = malloc(sizeof(Datetime));
+    char date[11], startTime[6], endTime[6];
+
+    printf("---- Cadastrar Agendamento ----\n");
+    printf("Código do Cliente: ");
+    scanf("%d", &appointment->clientId);
+
+    printf("Código do Advogado: ");
+    scanf("%d", &appointment->lawyerId);
+
+    printf("Código do Escritório: ");
+    scanf("%d", &appointment->officeId);
+    flushInput();
+
+    printf("Data (dd/mm/aaaa): ");
+    readline(date, 11);
+
+    printf("Horário do início da consulta (hh:mm): ");
+    readline(startTime, 11);
+
+    printf("Horário do término da consulta (hh:mm): ");
+    readline(endTime, 11);
+
+    free(appointment->schedule->startDate);
+    free(appointment->schedule->endDate);
+    free(appointment->schedule);
+    free(appointment);
+
+    printf("\nAgendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Lista todos os agendamentos do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void listAppointments() {
+    printf("---- Listar Agendamentos ----\n");
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\nHorário: %s\n", 1, 1, 1, 1, "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Exibe os dados de um agendamento específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void readAppointment() {
+    int id;
+    printf("---- Buscar Agendamento ----\nCódigo do Agendamento: ");
+    scanf("%d", &id);
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\nHorário: %s\n", id, 1, 1, 1, "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Formulário para atualizar os dados de um agendamento específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void updateAppointment() {
+    Appointment *appointment = malloc(sizeof(Appointment));
+    appointment->schedule = malloc(sizeof(Schedule));
+    appointment->schedule->endDate = malloc(sizeof(Datetime));
+    appointment->schedule->startDate = malloc(sizeof(Datetime));
+    char date[11], startTime[6], endTime[6];
+    int id;
+
+    printf("---- Cadastrar Agendamento ----\nCódigo do Agendamento: ");
+    scanf("%d", &id);
+
+    printf("Código do Cliente: ");
+    scanf("%d", &appointment->clientId);
+
+    printf("Código do Advogado: ");
+    scanf("%d", &appointment->lawyerId);
+
+    printf("Código do Escritório: ");
+    scanf("%d", &appointment->officeId);
+    flushInput();
+
+    printf("Data (dd/mm/aaaa): ");
+    readline(date, 11);
+
+    printf("Horário do início da consulta (hh:mm): ");
+    readline(startTime, 11);
+
+    printf("Horário do término da consulta (hh:mm): ");
+    readline(endTime, 11);
+
+    free(appointment->schedule->startDate);
+    free(appointment->schedule->endDate);
+    free(appointment->schedule);
+    free(appointment);
+
+    printf("\nAgendamento editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Deleta um agendamento
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void deleteAppointment() {
+    int id;
+    printf("---- Deletar Agendamento ----\nCódigo do Agendamento: ");
+    scanf("%d", &id);
+    printf("Agendamento deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
+ * Exibe o menu do módulo agendamento e que pede para o usuário selecionar uma opção
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showAppointmentMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int aux, option = 0, size = 5;
+    int option = 0, size = 6;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
+    char options[6][30] = {
+        "1. Cadastrar Agendamento", "2. Mostrar Agendamentos", "3. Achar Agendamento",
+        "4. Editar Agendamento", "5. Excluir Agendamento", "6. Voltar"
+    };
+    void (*actions[])() = {
+        createAppointment, listAppointments, readAppointment, updateAppointment, deleteAppointment
+    };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
         #ifdef __unix__
@@ -29,42 +189,19 @@ void showAppointmentMenu() {
             system("cls");
         #endif
         if (!isSelected) {
-            printf("----- Menu Agendamento -----\n");
-            printf("|                          |\n");
-            printf("| %s1. Cadastar agendamento%s  |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Mostar agendamento%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Editar agendamento%s    |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Exluir agendamento%s    |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Voltar ao menu%s        |\n", optionsStyles[4], RESET_STYLE);
-            printf("|                          |\n");
-            printf("----------------------------\n");
-            
-            aux = option;
+            showOptions("Menu Agendamento", options, optionsStyles, size);
+            strcpy(optionsStyles[option], RESET_STYLE);
             selectOption(&option, size - 1, &isSelected);
-
-            strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
-            #ifdef __unix__
+           #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            switch (option) {
-                case 0:
-                    //createAppointment();
-                    break;
-                case 1:
-                    //readAppointment();
-                    break;
-                case 2:
-                    //updateAppointment();
-                    break;
-                case 3:
-                    //deleteAppointment();
-                    break;
-                default:
-                    loop = false;
-                    break;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option]();
+            } else {
+                loop = false;
             }
         }
     }

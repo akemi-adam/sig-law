@@ -14,6 +14,14 @@
 
 #endif
 
+/**
+ * Formulário para cadastrar um advogado
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void createLawyer() {
     struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
     lawyer->person = malloc(sizeof(struct Person));
@@ -37,10 +45,18 @@ void createLawyer() {
     free(lawyer->person);
     free(lawyer);
 
-    printf("\nUsuário cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
+/**
+ * Lista todos os advogados do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void listLawyers() {
     printf("---- Listar Advogados ----\n");
     printf("------------------------------------------------------------------\n");
@@ -50,6 +66,14 @@ void listLawyers() {
     proceed();
 }
 
+/**
+ * Exibe os dados de um usuário específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void readLawyer() {
     int id;
     printf("---- Buscar Advogado ----\nCódigo do Advogado: ");
@@ -61,6 +85,14 @@ void readLawyer() {
     proceed();
 }
 
+/**
+ * Formulário para atualizar os dados de um advogado específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void updateLawyer() {
     struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
     lawyer->person = malloc(sizeof(struct Person));
@@ -88,10 +120,18 @@ void updateLawyer() {
     free(lawyer->person);
     free(lawyer);
 
-    printf("\nUsuário editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\nAdvogado editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
+/**
+ * Deleta um advogado do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void deleteLawyer() {
     int id;
     printf("---- Deletar Advogado ----\nCódigo do Advogado: ");
@@ -100,6 +140,14 @@ void deleteLawyer() {
     proceed();
 }
 
+/**
+ * Exibe o menu do módulo advogado e que pede para o usuário selecionar uma opção
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showLawyerMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
@@ -133,7 +181,11 @@ void showLawyerMenu() {
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            if (option >= 0 && option <= (size - 2)) actions[option](); else loop = false;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option]();
+            } else {
+                loop = false;
+            }
         }
     }
 }

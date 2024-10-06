@@ -14,10 +14,9 @@
 #include <unistd.h>
 
 /*
- * Desabilita o modo canônico e habilita o raw mode (modo bruto) do terminal
+ * Desabilita o modo canônico e habilita o raw mode (modo bruto) do termina
  *
- * Inputs: Void
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -38,9 +37,9 @@ void enableRawMode() {
 /*
  * Desabilita o raw mode e volta o terminal para a configuração original
  *
- * Inputs:
- *  - struct termios *originalTerminal: Configuração do terminal original
- * Outputs: Void
+ * @param struct termios *originalTerminal: Configuração do terminal original
+ * 
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -59,12 +58,11 @@ void disableRawMode(struct termios *originalTerminal) {
  * Incrementa ou decrementa um inteiro ao pressionar as teclas de Down-Arrow (B) ou Up-Arrow (A). Enter é interpretado como a seleção de uma opção.
  * Obs.: Funciona apenas em UNIX
  * 
- * Inputs:
- *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
- *  - int optionsAmount: Quantidade máxima de opções do menu
- *  - bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
+ * @param int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
+ * @param int optionsAmount: Quantidade máxima de opções do menu
+ * @param bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
  *
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -96,9 +94,10 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
 /**
  * Função que espera o usuário pressionar qualquer tecla
  * 
- * Inputs: Void
+ * Authors:
+ *  - https://github.com/akemi-adam
  * 
- * Outputs: Void
+ * @return void
  */
 bool proceed() {
     char buf[3];
@@ -114,12 +113,11 @@ bool proceed() {
  * 
  * Obs.: Funciona apenas em Windows
  * 
- * Inputs:
- *  - int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
- *  - int optionsAmount: Quantidade máxima de opções do menu
- *  - bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
+ * @param int *option: Um ponteiro de inteiro que representa a opção escolhida no menu
+ * @param int optionsAmount: Quantidade máxima de opções do menu
+ * @param bool *isSelected: Ponteiro para uma variável booleana que define se o usuário escolheu sua opção
  *
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -150,9 +148,10 @@ void selectOption(int *option, int optionsAmount, bool *isSelected) {
  * 
  * Obs.: Funciona apenas em Windows
  * 
- * Inputs: Void
+ * @return bool
  * 
- * Outputs: Void
+ * Authors:
+ *  - https://github.com/akemi-adam
  */
 bool proceed() {
     return (bool) getch();
@@ -163,8 +162,7 @@ bool proceed() {
 /**
  * Limpa o buffer de entrada
  * 
- * Inptus: Void
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - Huw Collingbourne
@@ -180,11 +178,10 @@ void flushInput() {
 /**
  * Ler os dados de entrada do teclado em uma string de tamanho x
  * 
- * Inputs:
- *  - char str[]: String a ser armazenada os dados do teclado
- *  - int maxLength: Tamanho máximo da string
+ * @param char str[]: String a ser armazenada os dados do teclado
+ * @param maxLength: Tamanho máximo da string
  * 
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - Huw Collingbourne
@@ -249,16 +246,24 @@ void showOptions(char title[], char options[][30], char optionsStyles[][11], int
     
 }
 
+/**
+ * Função que abstrai a exibição de mensagens de texto genéricas e espera o usuário pressionar qualquer tecla para prosseguir
+ * 
+ * @param char message[]: Mensagem a ser exibida
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showGenericInfo(char message[]) {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
         enableRawMode();
     #endif
-    while (true) {
-        printf("%s", message);
-        if (proceed()) break;
-    }
+    printf("%s", message);
+    proceed();
     #ifdef __unix__
         disableRawMode(&originalTerminal);
     #endif 
@@ -267,8 +272,7 @@ void showGenericInfo(char message[]) {
 /**
  * Exibe o menu principal
  * 
- * Inputs: Void
- * Outputs: Void
+ * @return void
  * 
  * Authors:
  *  - https://github.com/akemi-adam
@@ -311,16 +315,35 @@ void showMainMenu() {
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            if (option >= 0 && option <= (size - 2)) actions[option](); else loop = false;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option]();
+            } else {
+                loop = false;
+            }
         }
     }
 }
 
-
+/**
+ * Exibe o menu sobre do projeto
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showAboutMenu() {
     showGenericInfo("--------------------------------------------- Sobre ---------------------------------------------\n| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C. |\n| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,   |\n| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a       |\n| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.          |\n-------------------------------------------------------------------------------------------------\n");
 }
 
+/**
+ * Exibe o menu equipe do projeto
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 void showTeamMenu() {
     showGenericInfo("--------------------------------------------- Equipe ---------------------------------------------\n| O projeto foi feitos pelos alunos do curso de Bachalerado em Sistemas de Informação na UFRN:   |  \n|                                                                                                |\n| - Mosiah Adam Maria de Araújo: https://github.com/akemi-adam                                   |\n| - Felipe Erik: https://github.com/zfelip                                                       |\n--------------------------------------------------------------------------------------------------\n");   
 }
