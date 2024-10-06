@@ -21,7 +21,11 @@ void listClients() {
 }
 
 void readClient() {
-    
+
+}
+
+void updateClient() {
+
 }
 
 void showClientMenu() {
