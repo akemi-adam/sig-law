@@ -96,6 +96,22 @@ void updateOffice() {
 }
 
 /**
+ * Deleta um escritório do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
+void deleteOffice() {
+    int id;
+    printf("---- Deletar Escritório ----\nCódigo do Escritório: ");
+    scanf("%d", &id);
+    printf("Escritório deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
  * Exibe o menu do módulo escritórios e pede para o usuário selecionar uma opção
  * 
  * @return void
