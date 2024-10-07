@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
+#include "./../person/person.h"
+#include "client.h"
 
 #ifdef __unix__
 
@@ -13,7 +15,27 @@
 #endif
 
 void createClient() {
+    struct Client *client = malloc(sizeof(struct Client));
+    client->person = malloc(sizeof(struct Person));
+    
+    printf("---- Cadastrar Cliente ----\n");
+    printf("Nome: ");
+    readline(client->person->name, 55);
 
+    printf("CPF: ");
+    readline(client->person->cpf, 14);
+
+    printf("E-mail: ");
+    readline(client->person->email, 55);
+
+    printf("Telefone: ");
+    readline(client->person->telephone, 14);
+
+    free(client->person);
+    free(client);
+
+    printf("\nCliente cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void listClients() {
@@ -29,7 +51,7 @@ void updateClient() {
 }
 
 void deleteClient() {
-    
+
 }
 
 void showClientMenu() {
