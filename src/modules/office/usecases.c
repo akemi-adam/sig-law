@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
+#include "office.h"
 
 #ifdef __unix__
 
@@ -11,6 +12,27 @@
 #include <unistd.h>
 
 #endif
+
+/**
+ * Formulário para cadastrar um escritório
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
+void createOffice() {
+    struct Office *office = malloc(sizeof(struct Office));
+    
+    printf("---- Cadastrar Escritório ----\n");
+    printf("Endereço: ");
+    readline(office->address, 100);
+
+    free(office);
+
+    printf("\nEscritório cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
 
 /**
  * Exibe o menu do módulo escritórios e pede para o usuário selecionar uma opção

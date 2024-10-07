@@ -40,7 +40,7 @@ APPOINTMENT {
 OFFICE ||--|{ APPOINTMENT : contains
 OFFICE {
     int id
-    char[] address
+    char[100] address
 }
 ```
 
