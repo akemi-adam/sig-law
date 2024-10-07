@@ -71,6 +71,31 @@ void readOffice() {
 }
 
 /**
+ * Formulário para atualizar os dados de um escritório específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
+void updateOffice() {
+    struct Office *office = malloc(sizeof(struct Office));
+    int id;
+    
+    printf("---- Editar Escritório ----\nCódigo do Escritório: ");
+    scanf("%d", &id);
+    flushInput();
+
+    printf("Endereço: ");
+    readline(office->address, 100);
+
+    free(office);
+
+    printf("\nEscritório editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
  * Exibe o menu do módulo escritórios e pede para o usuário selecionar uma opção
  * 
  * @return void
