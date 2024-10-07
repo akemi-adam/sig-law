@@ -52,6 +52,25 @@ void listOffices() {
 }
 
 /**
+ * Exibe os dados de um escritório específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
+void readOffice() {
+    int id;
+    printf("---- Buscar Escritório ----\nCódigo do Escritório: ");
+    scanf("%d", &id);
+    printf("----------------------------------------------------------\n");
+    printf("ID: %d\nEscritório: %s\n", id, "");
+    printf("----------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
  * Exibe o menu do módulo escritórios e pede para o usuário selecionar uma opção
  * 
  * @return void
