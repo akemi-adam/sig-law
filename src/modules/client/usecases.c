@@ -82,6 +82,14 @@ void readClient() {
     proceed();
 }
 
+/**
+ * Formulário para atualizar os dados de um cliente específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
 void updateClient() {
     struct Client *client = malloc(sizeof(struct Client));
     client->person = malloc(sizeof(struct Person));
