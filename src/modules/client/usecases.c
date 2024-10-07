@@ -118,6 +118,14 @@ void updateClient() {
     proceed();
 }
 
+/**
+ * Deleta um cliente do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
 void deleteClient() {
     int id;
     printf("---- Deletar Cliente ----\nCódigo do Cliente: ");
