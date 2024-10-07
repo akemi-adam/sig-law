@@ -3,7 +3,7 @@
 
 struct Office {
     int id;
-    char adress[];
+    char address[100];
 };
 
 #endif
