@@ -35,6 +35,23 @@ void createOffice() {
 }
 
 /**
+ * Lista todos os escritórios do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
+void listOffices() {
+    printf("---- Listar Escritórios ----\n");
+    printf("---------------------------------------------------------\n");
+    printf("ID: %d\nEndereço: %s\n", 1, "");
+    printf("---------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
+}
+
+/**
  * Exibe o menu do módulo escritórios e pede para o usuário selecionar uma opção
  * 
  * @return void
