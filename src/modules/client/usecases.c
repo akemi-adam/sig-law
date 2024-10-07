@@ -46,6 +46,14 @@ void createClient() {
     proceed();
 }
 
+/**
+ * Lista todos os clientes do sistema
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
 void listClients() {
     printf("---- Listar Clientes ----\n");
     printf("------------------------------------------------------------------\n");
