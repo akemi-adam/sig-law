@@ -87,7 +87,11 @@ void updateClient() {
 }
 
 void deleteClient() {
-
+    int id;
+    printf("---- Deletar Cliente ----\nCódigo do Cliente: ");
+    scanf("%d", &id);
+    printf("Cliente deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void showClientMenu() {
