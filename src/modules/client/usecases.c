@@ -59,7 +59,31 @@ void readClient() {
 }
 
 void updateClient() {
+    struct Client *client = malloc(sizeof(struct Client));
+    client->person = malloc(sizeof(struct Person));
+    int id;
+    
+    printf("---- Editar Cliente ----\nCódigo do Cliente: ");
+    scanf("%d", &id);
+    flushInput();
 
+    printf("Nome: ");
+    readline(client->person->name, 55);
+
+    printf("CPF: ");
+    readline(client->person->cpf, 14);
+
+    printf("E-mail: ");
+    readline(client->person->email, 55);
+
+    printf("Telefone: ");
+    readline(client->person->telephone, 14);
+
+    free(client->person);
+    free(client);
+
+    printf("\nCliente editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void deleteClient() {
