@@ -12,14 +12,29 @@
 
 #endif
 
+/**
+ * Exibe o menu do módulo escritórios e pede para o usuário selecionar uma opção
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
 void showOfficeMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int aux, option = 0, size = 5;
+    int aux, option = 0, size = 6;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
+    char options[6][30] = {
+        "1. Cadastrar Escritório", "2. Mostrar Escritórios", "3. Achar Escritório",
+        "4. Editar Escritório", "5. Excluir Escritório", "6. Voltar"
+    };
+    void (*actions[])() = {
+        createOffice, listOffices, readOffice, updateOffice, deleteOffice
+    };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
         #ifdef __unix__
@@ -29,42 +44,20 @@ void showOfficeMenu() {
             system("cls");
         #endif
         if (!isSelected) {
-            printf("----- Menu Escritório -----\n");
-            printf("|                         |\n");
-            printf("| %s1. Cadastar escritório%s  |\n", optionsStyles[0], RESET_STYLE);
-            printf("| %s2. Mostar escritório%s    |\n", optionsStyles[1], RESET_STYLE);
-            printf("| %s3. Editar escritório%s    |\n", optionsStyles[2], RESET_STYLE);
-            printf("| %s4. Exluir escritório%s    |\n", optionsStyles[3], RESET_STYLE);
-            printf("| %s5. Voltar ao menu%s       |\n", optionsStyles[4], RESET_STYLE);
-            printf("|                         |\n");
-            printf("---------------------------\n");
-            
-            aux = option;
+            showOptions("Menu Escritório", options, optionsStyles, size);
+            strcpy(optionsStyles[option], RESET_STYLE);
             selectOption(&option, size - 1, &isSelected);
-
-            strcpy(optionsStyles[aux], RESET_STYLE);
             strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
             #ifdef __unix__
                 disableRawMode(&originalTerminal);
             #endif
             isSelected = false;
-            switch (option) {
-                case 0:
-                    //createOffice();
-                    break;
-                case 1:
-                    //readOffice();
-                    break;
-                case 2:
-                    //updateOffice();
-                    break;
-                case 3:
-                    //deleteOffice();
-                    break;
-                default:
-                    loop = false;
-                    break;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option]();
+            }
+            else {
+                loop = false;
             }
         }
     }
