@@ -63,6 +63,14 @@ void listClients() {
     proceed();
 }
 
+/**
+ * Exibe os dados de um cliente específico
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
 void readClient() {
     int id;
     printf("---- Buscar Cliente ----\nCódigo do Cliente: ");
