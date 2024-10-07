@@ -94,6 +94,14 @@ void deleteClient() {
     proceed();
 }
 
+/**
+ * Exibe o menu do módulo cliente e pede para o usuário selecionar uma opção
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
 void showClientMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
