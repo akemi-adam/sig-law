@@ -124,7 +124,7 @@ void showOfficeMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int aux, option = 0, size = 6;
+    int option = 0, size = 6;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
     char options[6][30] = {
@@ -154,8 +154,7 @@ void showOfficeMenu() {
             isSelected = false;
             if (option >= 0 && option <= (size - 2)) {
                 actions[option]();
-            }
-            else {
+            } else {
                 loop = false;
             }
         }
