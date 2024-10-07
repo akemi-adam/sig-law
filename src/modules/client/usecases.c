@@ -28,6 +28,10 @@ void updateClient() {
 
 }
 
+void deleteClient() {
+    
+}
+
 void showClientMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
