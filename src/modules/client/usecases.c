@@ -167,7 +167,7 @@ void showClientMenu() {
         #endif
         if (!isSelected) {
             showOptions("Menu Cliente", options, optionsStyles, size);
-            strcpy(optionsStyles[aux], RESET_STYLE);
+            strcpy(optionsStyles[option], RESET_STYLE);
             selectOption(&option, size - 1, &isSelected);
             strcpy(optionsStyles[option], CYAN_STYLE);
         } else {
