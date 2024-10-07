@@ -48,7 +48,14 @@ void listClients() {
 }
 
 void readClient() {
-
+    int id;
+    printf("---- Buscar Cliente ----\nCódigo do Cliente: ");
+    scanf("%d", &id);
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void updateClient() {
