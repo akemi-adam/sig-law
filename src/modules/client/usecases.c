@@ -39,7 +39,12 @@ void createClient() {
 }
 
 void listClients() {
-
+    printf("---- Listar Clientes ----\n");
+    printf("------------------------------------------------------------------\n");
+    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", 1, "", "", "", "");
+    printf("------------------------------------------------------------------\n");
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void readClient() {
