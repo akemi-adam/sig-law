@@ -14,6 +14,14 @@
 
 #endif
 
+/**
+ * Formulário para cadastrar um cliente
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/zfelip
+ */
 void createClient() {
     struct Client *client = malloc(sizeof(struct Client));
     client->person = malloc(sizeof(struct Person));
