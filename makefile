@@ -1,3 +1,7 @@
+# Makefile Author: ChatGPT
+# This file is responsible for compiler and create the executable program
+# Furthermore, the make run the units tests
+
 CFLAGS := -W -Wall -pedantic
 INCLUDE_DIRS := -I src/utils -I src/modules/appointment -I src/modules/lawyer -I src/modules/client -I src/modules/office -I src/modules/person -I src/utils
 
