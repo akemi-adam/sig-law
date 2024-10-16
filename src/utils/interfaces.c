@@ -3,10 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../modules/appointment/usecases.h"
-#include "./../lawyer/usecases.h"
-#include "./../office/usecases.h"
-#include "./../client/usecases.h"
+#include "./../modules/appointment/appointment.h"
+#include "./../modules/lawyer/lawyer.h"
+#include "./../modules/office/office.h"
+#include "./../modules/client/client.h"
 
 #ifdef __unix__
 
