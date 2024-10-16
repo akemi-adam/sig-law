@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../modules/appointment/usecases.h"
+#include "../modules/appointment/appointment.h"
 #include "./../lawyer/usecases.h"
 #include "./../office/usecases.h"
 #include "./../client/usecases.h"
