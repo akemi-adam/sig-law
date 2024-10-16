@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../modules/appointment/appointment.h"
-#include "./../lawyer/usecases.h"
+#include "./../modules/appointment/appointment.h"
+#include "./../modules/lawyer/lawyer.h"
 #include "./../office/usecases.h"
 #include "./../modules/client/client.h"
 
