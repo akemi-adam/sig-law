@@ -5,7 +5,7 @@
 CFLAGS := -W -Wall -pedantic
 INCLUDE_DIRS := -I src/utils -I src/modules/appointment -I src/modules/lawyer -I src/modules/client -I src/modules/office -I src/modules/person -I src/utils
 
-MODULES := src/modules/appointment/appointment.c src/modules/lawyer/usecases.c src/modules/client/usecases.c src/modules/office/usecases.c
+MODULES := src/modules/appointment/appointment.c src/modules/lawyer/usecases.c src/modules/client/client.c src/modules/office/usecases.c
 MODULES_OBJS := $(MODULES:.c=.o)
 
 .PHONY: test clean

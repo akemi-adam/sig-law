@@ -6,7 +6,7 @@
 #include "../modules/appointment/appointment.h"
 #include "./../lawyer/usecases.h"
 #include "./../office/usecases.h"
-#include "./../client/usecases.h"
+#include "./../modules/client/client.h"
 
 #ifdef __unix__
 
