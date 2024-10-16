@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "./../modules/appointment/appointment.h"
 #include "./../modules/lawyer/lawyer.h"
-#include "./../modules/office/usecases.h"
+#include "./../modules/office/office.h"
 #include "./../modules/client/client.h"
 
 #ifdef __unix__
