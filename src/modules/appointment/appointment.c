@@ -22,10 +22,10 @@
  *  - https://github.com/akemi-adam
  */
 void createAppointment() {
-    Appointment *appointment = malloc(sizeof(Appointment));
-    appointment->schedule = malloc(sizeof(Schedule));
-    appointment->schedule->endDate = malloc(sizeof(Datetime));
-    appointment->schedule->startDate = malloc(sizeof(Datetime));
+    Appointment *appointment = (Appointment*) malloc(sizeof(Appointment));
+    appointment->schedule = (Schedule*) malloc(sizeof(Schedule));
+    appointment->schedule->endDate = (Datetime*) malloc(sizeof(Datetime));
+    appointment->schedule->startDate = (Datetime*) malloc(sizeof(Datetime));
     char date[11], startTime[6], endTime[6];
 
     printf("---- Cadastrar Agendamento ----\n");
@@ -102,10 +102,10 @@ void readAppointment() {
  *  - https://github.com/akemi-adam
  */
 void updateAppointment() {
-    Appointment *appointment = malloc(sizeof(Appointment));
-    appointment->schedule = malloc(sizeof(Schedule));
-    appointment->schedule->endDate = malloc(sizeof(Datetime));
-    appointment->schedule->startDate = malloc(sizeof(Datetime));
+    Appointment *appointment = (Appointment*) malloc(sizeof(Appointment));
+    appointment->schedule = (Schedule*) malloc(sizeof(Schedule));
+    appointment->schedule->endDate = (Datetime*) malloc(sizeof(Datetime));
+    appointment->schedule->startDate = (Datetime*) malloc(sizeof(Datetime));
     char date[11], startTime[6], endTime[6];
     int id;
 
