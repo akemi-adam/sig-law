@@ -22,8 +22,8 @@
  *  - https://github.com/akemi-adam
  */
 void createLawyer() {
-    struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
-    lawyer->person = malloc(sizeof(struct Person));
+    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
+    lawyer->person = (Person*) malloc(sizeof(Person));
     
     printf("---- Cadastrar Advogado ----\n");
     printf("Nome: ");
@@ -93,8 +93,8 @@ void readLawyer() {
  *  - https://github.com/akemi-adam
  */
 void updateLawyer() {
-    struct Lawyer *lawyer = malloc(sizeof(struct Lawyer));
-    lawyer->person = malloc(sizeof(struct Person));
+    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
+    lawyer->person = (Person*) malloc(sizeof(Person));
     int id;
     
     printf("---- Editar Advogado ----\nCódigo do Advogado: ");
