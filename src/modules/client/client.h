@@ -3,9 +3,9 @@
 
 #include "./../person/person.h"
 
-struct Client {
-    struct Person *person;
-};
+typedef struct Client {
+    Person *person;
+} Client;
 
 void showClientMenu(void);
 

@@ -1,4 +1,3 @@
-#include "office.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -22,7 +21,7 @@
  *  - https://github.com/zfelip
  */
 void createOffice() {
-    struct Office *office = malloc(sizeof(struct Office));
+    Office *office = (Office*) malloc(sizeof(Office));
     
     printf("---- Cadastrar Escritório ----\n");
     printf("Endereço: ");
@@ -79,7 +78,7 @@ void readOffice() {
  *  - https://github.com/zfelip
  */
 void updateOffice() {
-    struct Office *office = malloc(sizeof(struct Office));
+    Office *office = (Office*) malloc(sizeof(Office));
     int id;
     
     printf("---- Editar Escritório ----\nCódigo do Escritório: ");

@@ -3,10 +3,10 @@
 
 #include "./../person/person.h"
 
-struct Lawyer {
+typedef struct Lawyer {
     struct Person *person;
     char cna[13];
-};
+} Lawyer;
 
 void showLawyerMenu(void);
 

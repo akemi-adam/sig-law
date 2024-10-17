@@ -1,4 +1,3 @@
-#include "lawyer.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -23,8 +22,8 @@
  *  - https://github.com/zfelip
  */
 void createClient() {
-    struct Client *client = malloc(sizeof(struct Client));
-    client->person = malloc(sizeof(struct Person));
+    Client *client = (Client*) malloc(sizeof(Client));
+    client->person = (Person*) malloc(sizeof(Person));
     
     printf("---- Cadastrar Cliente ----\n");
     printf("Nome: ");
@@ -91,8 +90,8 @@ void readClient() {
  *  - https://github.com/zfelip
  */
 void updateClient() {
-    struct Client *client = malloc(sizeof(struct Client));
-    client->person = malloc(sizeof(struct Person));
+    Client *client = (Client*) malloc(sizeof(Client));
+    client->person = (Person*) malloc(sizeof(Person));
     int id;
     
     printf("---- Editar Cliente ----\nCódigo do Cliente: ");
