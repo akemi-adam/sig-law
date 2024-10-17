@@ -21,7 +21,7 @@
  *  - https://github.com/zfelip
  */
 void createOffice() {
-    struct Office *office = malloc(sizeof(struct Office));
+    Office *office = malloc(sizeof(Office));
     
     printf("---- Cadastrar Escritório ----\n");
     printf("Endereço: ");

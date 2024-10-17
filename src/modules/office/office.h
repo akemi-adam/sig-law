@@ -1,10 +1,10 @@
 #ifndef OFFICE
 #define OFFICE
 
-struct Office {
+typedef struct Office {
     int id;
     char address[100];
-};
+} Office ;
 
 void showOfficeMenu(void);
 
