@@ -7,6 +7,7 @@
 #include "./../modules/lawyer/lawyer.h"
 #include "./../modules/office/office.h"
 #include "./../modules/client/client.h"
+#include "./str.h"
 
 #ifdef __unix__
 
@@ -236,14 +237,24 @@ void setOptionsStyle(char optionsStyles[][11], int size) {
  *  - https://github.com/akemi-adam
  */
 void showOptions(char title[], char options[][30], char optionsStyles[][11], int size) {
-    printf("----- %s -----\n", title);
-    printf("|                        |\n");
+    int width = 28;
+    int titleLen = strlen(title);
+    int paddingLeft = (width - titleLen) / 2;
+    int paddingRight = width - titleLen - paddingLeft;
+
+    printf("------------------------------\n");
+    printf("|%*s%s%*s|\n", paddingLeft, "", title, paddingRight, "");
+    printf("------------------------------\n");
+
     for (int i = 0; i < size; i++) {
-        printf("| %s%-*s%s|\n", optionsStyles[i], 23, options[i], RESET_STYLE);
+        int accentsNumber = countAccents(options[i]);
+        int spaceLength = accentsNumber
+            ? 26 + accentsNumber - 1
+            : 26;
+
+        printf("| %s%-*.*s%s |\n", optionsStyles[i], spaceLength, spaceLength, options[i], RESET_STYLE);
     }
-    printf("|                        |\n");
-    printf("--------------------------\n");
-    
+    printf("------------------------------\n");
 }
 
 /**
@@ -289,7 +300,7 @@ void showMainMenu() {
     #endif
     int option = 0, size = 7;
     char options[7][30] = {
-        "1. Modulo Clientes", "2. Modulo Advogados", "3. Modulo Escritorios",
+        "1. Modulo Clientes", "2. Modulo Advogados", "3. Modulo Escritórios",
         "4. Modulo Agendamentos", "5. Modulo Sobre", "6. Modulo Equipe", "7. Encerrar Programa"
     };
     char optionsStyles[size][11];
@@ -333,7 +344,7 @@ void showMainMenu() {
  *  - https://github.com/akemi-adam
  */
 void showAboutMenu() {
-    showGenericInfo("--------------------------------------------- Sobre ---------------------------------------------\n| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C. |\n| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,   |\n| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a       |\n| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.          |\n-------------------------------------------------------------------------------------------------\n");
+    showGenericInfo("-------------------------------------------------------------------------------------------------\n|                                             Sobre                                             |\n-------------------------------------------------------------------------------------------------\n| O projeto desenvolvido é um sistema de agendamento para uma advocacia, criado em linguagem C. |\n| Ele tem como principal funcionalidade o agendamento de reuniões entre clientes e advogados,   |\n| facilitando a organização dos atendimentos. Este trabalho é uma tarefa realizada para a       |\n| disciplina de Programação do curso de Bacharelado em Sistemas de Informação na UFRN.          |\n-------------------------------------------------------------------------------------------------\n");
 }
 
 /**
@@ -345,5 +356,5 @@ void showAboutMenu() {
  *  - https://github.com/akemi-adam
  */
 void showTeamMenu() {
-    showGenericInfo("--------------------------------------------- Equipe ---------------------------------------------\n| O projeto foi feitos pelos alunos do curso de Bachalerado em Sistemas de Informação na UFRN:   |  \n|                                                                                                |\n| - Mosiah Adam Maria de Araújo: https://github.com/akemi-adam                                   |\n| - Felipe Erik: https://github.com/zfelip                                                       |\n--------------------------------------------------------------------------------------------------\n");   
+    showGenericInfo("--------------------------------------------------------------------------------------------------\n|                                             Equipe                                             |\n--------------------------------------------------------------------------------------------------\n| O projeto foi feitos pelos alunos do curso de Bachalerado em Sistemas de Informação na UFRN:   |  \n|                                                                                                |\n| - Mosiah Adam Maria de Araújo: https://github.com/akemi-adam                                   |\n| - Felipe Erik: https://github.com/zfelip                                                       |\n--------------------------------------------------------------------------------------------------\n");   
 }
