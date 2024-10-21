@@ -7,6 +7,7 @@
 #include "./../modules/lawyer/lawyer.h"
 #include "./../modules/office/office.h"
 #include "./../modules/client/client.h"
+#include "./str.h"
 
 #ifdef __unix__
 
@@ -246,7 +247,12 @@ void showOptions(char title[], char options[][30], char optionsStyles[][11], int
     printf("------------------------------\n");
 
     for (int i = 0; i < size; i++) {
-        printf("| %s%-26.26s%s |\n", optionsStyles[i], options[i], RESET_STYLE);
+        int accentsNumber = countAccents(options[i]);
+        int spaceLength = accentsNumber
+            ? 26 + accentsNumber - 1
+            : 26;
+
+        printf("| %s%-*.*s%s |\n", optionsStyles[i], spaceLength, spaceLength, options[i], RESET_STYLE);
     }
     printf("------------------------------\n");
 }
