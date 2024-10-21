@@ -17,3 +17,21 @@ bool isAccentedChar(const char c) {
     }
     return false;
 }
+
+/**
+ * Conta todos os acentos de uma string
+ * 
+ * @param const char* str: String a ser avaliada
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+int countAccents(const char* str) {
+    int count = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isAccentedChar(str[i])) count++;
+    }
+    return count;
+}
