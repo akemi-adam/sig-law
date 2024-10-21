@@ -72,7 +72,9 @@ void test_SetOptionStylesFunction_StoresCyanAndResetCodesInArray(void) {
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_SetOptionStylesFunction_StoresCyanAndResetCodesInArray);
-    RUN_TEST(test_EnableRawMode_Works);
-    RUN_TEST(test_DisableRawMode_Works);
+    #ifdef __unix__
+        RUN_TEST(test_EnableRawMode_Works);
+        RUN_TEST(test_DisableRawMode_Works);
+    #endif
     return UNITY_END();
 }
