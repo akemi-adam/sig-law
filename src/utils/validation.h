@@ -21,6 +21,8 @@ bool isCna(char[13]);
 
 bool isLeapYear(int);
 
+int maxDaysInMonth(int, int);
+
 
 
 #endif
