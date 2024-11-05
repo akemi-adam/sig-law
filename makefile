@@ -27,7 +27,6 @@ main.o: main.c src/utils/interfaces.h
 interfaces.o: src/utils/interfaces.c src/utils/interfaces.h $(MODULES_OBJS)
 	gcc $(CFLAGS) $(INCLUDE_DIRS) -o interfaces.o src/utils/interfaces.c -c
 
-# Compile the utility str.c file
 str.o: src/utils/str.c src/utils/str.h
 	gcc $(CFLAGS) $(INCLUDE_DIRS) -o str.o src/utils/str.c -c
 
@@ -35,9 +34,14 @@ str.o: src/utils/str.c src/utils/str.h
 test_interfaces: tests/utils/TestInterfaces.c $(MODULES_OBJS) $(UTILS_OBJS)
 	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestInterfaces.c src/utils/interfaces.c src/utils/str.c unity/unity.c $(MODULES) -o test_interfaces
 
+test_str: tests/utils/TestStr.c $(MODULES_OBJS) $(UTILS_OBJS)
+	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestStr.c src/utils/str.c unity/unity.c -o test_str
+
+
+
 # Searches for all files with the pattern test_* and executes those that are executable. If a test fails, the output is 1 and the flow is terminated.
 # Author: ChatGPT
-test: test_interfaces
+test: test_interfaces test_str
 	@echo "Running all tests..."
 	@if [ -d . ]; then \
 		for test_exec in test_*; do \
