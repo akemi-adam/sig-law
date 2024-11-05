@@ -49,8 +49,31 @@ bool isAccentedChar(const char c) {
  */
 int countAccents(const char* str) {
     int count = 0;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (isAccentedChar(str[i])) count++;
+    size_t i = 0;
+
+    while (str[i] != '\0') {
+        unsigned char currentByte = str[i];
+
+        // Se o byte atual é o início de um caractere UTF-8
+        if (isStartOfUtf8Char(currentByte)) {
+            // Avança para verificar o caractere completo
+            if (isAccentedChar(currentByte)) {
+                count++;
+            }
+
+            // Verifica se é um caractere de 2 ou 3 bytes
+            if ((currentByte & 0xE0) == 0xC0) { // Caractere de 2 bytes
+                i += 2; // Avança 2 bytes
+            } else if ((currentByte & 0xF0) == 0xE0) { // Caractere de 3 bytes
+                i += 3; // Avança 3 bytes
+            } else {
+                i++; // Caso inesperado, apenas avança 1 byte
+            }
+        } else {
+            // Se é um byte de continuação, apenas avança
+            i++;
+        }
     }
+    
     return count;
 }
