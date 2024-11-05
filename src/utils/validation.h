@@ -23,6 +23,8 @@ bool isLeapYear(int);
 
 int maxDaysInMonth(int, int);
 
+bool isDay(int, int, int);
+
 
 
 #endif

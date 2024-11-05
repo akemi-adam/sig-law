@@ -211,3 +211,20 @@ int maxDaysInMonth(int month, int year) {
         ? daysInMonth[month - 1]
         : 0;
 }
+
+/**
+ * Verifica se o dia é válido
+ * 
+ * @param int day
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isDay(int day, int month, int year) {
+    int maxDays = maxDaysInMonth(month, year);
+    if (!maxDays) return false;
+    return day >= 1 && day <= maxDays;
+}
+
