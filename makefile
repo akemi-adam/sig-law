@@ -40,11 +40,12 @@ test_interfaces: tests/utils/TestInterfaces.c $(MODULES_OBJS) $(UTILS_OBJS)
 test_str: tests/utils/TestStr.c $(MODULES_OBJS) $(UTILS_OBJS)
 	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestStr.c src/utils/str.c unity/unity.c -o test_str
 
-
+test_validation: tests/utils/TestValidation.c $(MODULES_OBJS) $(UTILS_OBJS)
+	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestValidation.c src/utils/validation.c src/utils/str.c unity/unity.c -o test_validation
 
 # Searches for all files with the pattern test_* and executes those that are executable. If a test fails, the output is 1 and the flow is terminated.
 # Author: ChatGPT
-test: test_interfaces test_str
+test: test_interfaces test_str test_validation
 	@echo "Running all tests..."
 	@if [ -d . ]; then \
 		for test_exec in test_*; do \
