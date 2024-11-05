@@ -53,14 +53,14 @@ bool isPositive(int number) {
 /**
  * Verifica se o e-mail é válido
  * 
- * @param char email[55]
+ * @param char *email
  * 
  * @return bool
  * 
  * Authors:
  *  - ChatGPT
  */
-bool isEmail(char email[55]) {
+bool isEmail(const char *email) {
     int atPos = -1, dotPos = -1, len = strlen(email);
     for (int i = 0; i < len; i++) {
         if (email[i] == '@') atPos = i;
@@ -72,15 +72,17 @@ bool isEmail(char email[55]) {
 /**
  * Verifica se o telefone é válido no formato XX 9XXXX-XXXX
  * 
- * @param char tel[14]
+ * @param char *tel
  * 
  * @return bool
  * 
  * Authors:
  *  - https://github.com/akemi-adam
  */
-bool isTelephone(const char tel[14]) {
-    if (strlen(tel) != 13 || !isdigit(tel[0]) || !isdigit(tel[1]) || tel[2] != ' ' || tel[3] != '9' || tel[8] != '-') {
+bool isTelephone(const char *tel) {
+    int telDefaultSize = 13;
+    int telSize = (int) strlen(tel);
+    if (telSize != telDefaultSize || !isdigit(tel[0]) || !isdigit(tel[1]) || tel[2] != ' ' || tel[3] != '9' || tel[8] != '-') {
         return false;
     }
 
@@ -100,7 +102,7 @@ bool isTelephone(const char tel[14]) {
     strncpy(ddd, tel, 2);
 
     for (int i = 0; i < 67; i++) {
-        if (strcmp(ddd, validDDDs)) {
+        if (strcmp(ddd, validDDDs[i])) {
             hasDDD = true;
             break;
         }
@@ -108,7 +110,7 @@ bool isTelephone(const char tel[14]) {
 
     if (!hasDDD) return false;
     
-    for (int i = 4; i < strlen(tel); i++) {
+    for (int i = 4; i < telDefaultSize; i++) {
         if (i == 8) continue;
         if (!isdigit(tel[i])) return false;
     }
@@ -119,14 +121,14 @@ bool isTelephone(const char tel[14]) {
 /**
  * Verifica a validade do CPF
  * 
- * @param char cpf[12]
+ * @param char *cpf
  * 
  * @return bool
  * 
  * Authors:
  *  - ChatGPT
  */
-bool isCpfValid(char cpf[12]) {
+bool isCpfValid(const char *cpf) {
     int sum = 0, remainder;
 
     for (int i = 0; i < 9; i++) sum += (cpf[i] - '0') * (10 - i);
@@ -146,14 +148,14 @@ bool isCpfValid(char cpf[12]) {
 /**
  * Verifica se o tamanho do CPF é válido e se é formado apenas por dígitos. Depois, faz o cálculo de verificação do CPF
  * 
- * @param char cpf[12]
+ * @param char *cpf
  * 
  * @return bool
  * 
  * Authors:
  *  - ChatGPT
  */
-bool isCpf(char cpf[12]) {
+bool isCpf(const char *cpf) {
     if (strlen(cpf) != 11) return false;
     for (int i = 0; i < 11; i++) if (!isdigit(cpf[i])) return false;
     return isCpfValid(cpf);
@@ -163,14 +165,14 @@ bool isCpf(char cpf[12]) {
 /**
  * Verifica se o CNA tem o tamanho válido e se é composto apenas por números
  * 
- * @param char cna[13]
+ * @param const char *cna
  * 
  * @return bool
  * 
  * Authors:
  *  - ChatGPT
  */
-bool isCna(char cna[13]) {
+bool isCna(const char *cna) {
     int cnaLength = strlen(cna);
     if (cnaLength > 12 || isEmpty(cna)) return false;
     for (int i = 0; i < cnaLength; i++) {
@@ -259,14 +261,14 @@ bool isYear(int year) {
 /**
  * Verifica se a data está no formato DD/MM/YYYY
  * 
- * @param char date[11]
+ * @param const char *dateStr
  * 
  * @return bool
  * 
  * Authors:
  *  - ChatGPT
  */
-bool isDate(char dateStr[11]) {
+bool isDate(const char *dateStr) {
     int day, month, year;
     char dayStr[3], monthStr[3], yearStr[5];
 

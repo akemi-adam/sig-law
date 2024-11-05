@@ -9,15 +9,15 @@ bool isEmpty(const char*);
 
 bool isPositive(int);
 
-bool isEmail(char[55]);
+bool isEmail(const char*);
 
-bool isTelephone(const char[14]);
+bool isTelephone(const char*);
 
-bool isCpfValid(char[12]);
+bool isCpfValid(const char*);
 
-bool isCpf(char[12]);
+bool isCpf(const char*);
 
-bool isCna(char[13]);
+bool isCna(const char*);
 
 bool isLeapYear(int);
 
@@ -29,6 +29,6 @@ bool isMonth(int);
 
 bool isYear(int);
 
-bool isDate(char[11]);
+bool isDate(const char*);
 
 #endif
