@@ -1,4 +1,23 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
 #include <stdbool.h>
+#include <stddef.h>
+
+
+/**
+ * Função auxiliar para verificar se um byte é parte de um caractere UTF-8. Verifica se não é um byte de continuação.
+ * 
+ * @param unsigned char byte
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isStartOfUtf8Char(unsigned char byte) {
+    return (byte & 0xC0) != 0x80;
+}
 
 /**
  * Verifica se um caracter é acentuado
