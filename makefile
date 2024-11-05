@@ -30,6 +30,9 @@ interfaces.o: src/utils/interfaces.c src/utils/interfaces.h $(MODULES_OBJS)
 str.o: src/utils/str.c src/utils/str.h
 	gcc $(CFLAGS) $(INCLUDE_DIRS) -o str.o src/utils/str.c -c
 
+validation.o: src/utils/validation.c src/utils/validation.h
+	gcc $(CFLAGS) $(INCLUDE_DIRS) -o validation.o src/utils/validation.c -c
+
 # Unit tests
 test_interfaces: tests/utils/TestInterfaces.c $(MODULES_OBJS) $(UTILS_OBJS)
 	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestInterfaces.c src/utils/interfaces.c src/utils/str.c unity/unity.c $(MODULES) -o test_interfaces
