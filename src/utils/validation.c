@@ -141,3 +141,41 @@ bool isCpfValid(char cpf[12]) {
     
     return remainder == (cpf[10] - '0');
 }
+
+
+/**
+ * Verifica se o tamanho do CPF é válido e se é formado apenas por dígitos. Depois, faz o cálculo de verificação do CPF
+ * 
+ * @param char cpf[12]
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isCpf(char cpf[12]) {
+    if (strlen(cpf) != 11) return false;
+    for (int i = 0; i < 11; i++) if (!isdigit(cpf[i])) return false;
+    return isCpfValid(cpf);
+}
+
+
+/**
+ * Verifica se o CNA tem o tamanho válido e se é composto apenas por números
+ * 
+ * @param char cna[13]
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isCna(char cna[13]) {
+    int cnaLength = strlen(cna);
+    if (cnaLength > 12 || isEmpty(cna)) return false;
+    for (int i = 0; i < cnaLength; i++) {
+        if (!isdigit(cna[i])) return false;
+    }
+    return true;
+}
+
