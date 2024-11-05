@@ -19,6 +19,8 @@ bool isCpf(char[12]);
 
 bool isCna(char[13]);
 
+bool isLeapYear(int);
+
 
 
 #endif
