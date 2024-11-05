@@ -38,9 +38,9 @@ bool isAccentedChar(const char c) {
 }
 
 /**
- * Conta todos os acentos de uma string
+ * Função que conta acentos em uma string, lidando com UTF-8.
  * 
- * @param const char* str: String a ser avaliada
+ * @param const char* str
  * 
  * @return int
  * 
