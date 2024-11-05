@@ -77,3 +77,28 @@ int countAccents(const char* str) {
     
     return count;
 }
+
+
+/**
+ * Converte uma String para int
+ * 
+ * @param char *str: String a ser convertida
+ * @param int *result: Endereço para atribuir o valor da conversão
+ * 
+ * @return bool: Resultado da conversão
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool parseInt(const char *str, int *result) {
+    if (str == NULL || *str == '\0') return false;
+
+    char *endptr;
+    errno = 0;
+    long value = strtol(str, &endptr, 10);
+    
+    if (endptr == str || errno != 0 || *endptr != '\0') return false;
+
+    *result = (int) value;
+    return true;
+}
