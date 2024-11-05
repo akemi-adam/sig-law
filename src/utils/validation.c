@@ -116,4 +116,28 @@ bool isTelephone(const char tel[14]) {
     return true;
 }
 
+/**
+ * Verifica a validade do CPF
+ * 
+ * @param char cpf[12]
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isCpfValid(char cpf[12]) {
+    int sum = 0, remainder;
 
+    for (int i = 0; i < 9; i++) sum += (cpf[i] - '0') * (10 - i);
+    remainder = (sum * 10) % 11;
+    if (remainder == 10) remainder = 0;
+    if (remainder != (cpf[9] - '0')) return false;
+
+    sum = 0;
+    for (int i = 0; i < 10; i++) sum += (cpf[i] - '0') * (11 - i);
+    remainder = (sum * 10) % 11;
+    if (remainder == 10) remainder = 0;
+    
+    return remainder == (cpf[10] - '0');
+}

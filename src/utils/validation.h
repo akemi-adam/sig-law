@@ -13,6 +13,8 @@ bool isEmail(char[55]);
 
 bool isTelephone(const char[14]);
 
+bool isCpf(char[12]);
+
 
 
 #endif
