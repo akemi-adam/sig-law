@@ -36,5 +36,17 @@ bool isEmpty(const char *str) {
     return str[0] == '\0';
 }
 
-
+/**
+ * Verifica se o número é positivo
+ * 
+ * @param int number
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isPositive(int number) {
+    return number >= 0;
+}
 
