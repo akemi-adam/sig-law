@@ -29,5 +29,6 @@ bool isMonth(int);
 
 bool isYear(int);
 
+bool isDate(char[11]);
 
 #endif

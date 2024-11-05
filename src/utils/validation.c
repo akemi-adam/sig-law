@@ -256,4 +256,30 @@ bool isYear(int year) {
     return year > 0;
 }
 
+/**
+ * Verifica se a data está no formato DD/MM/YYYY
+ * 
+ * @param char date[11]
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isDate(char dateStr[11]) {
+    int day, month, year;
+    char dayStr[3], monthStr[3], yearStr[5];
 
+    if (strlen(dateStr) != 10 || dateStr[2] != '/' || dateStr[5] != '/') return false;
+
+    strncpy(dayStr, dateStr, 2);
+    dayStr[2] = '\0';
+    strncpy(monthStr, dateStr + 3, 2);
+    monthStr[2] = '\0';
+    strncpy(yearStr, dateStr + 6, 4);
+    yearStr[4] = '\0';
+
+    if (!parseInt(dayStr, &day) || !parseInt(monthStr, &month) || !parseInt(yearStr, &year)) return false;
+
+    return isDay(day, month, year) && isMonth(month) && isYear(year);
+}
