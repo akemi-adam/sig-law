@@ -22,3 +22,19 @@ bool isString(const char *str) {
     return true;
 }
 
+/**
+ * Verifica se a string é vazia
+ * 
+ * @param const char *str
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isEmpty(const char *str) {
+    return str[0] == '\0';
+}
+
+
+

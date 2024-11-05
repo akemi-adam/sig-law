@@ -5,6 +5,8 @@
 
 bool isString(const char*);
 
+bool isEmpty(const char*);
+
 
 
 #endif
