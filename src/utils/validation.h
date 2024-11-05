@@ -27,6 +27,7 @@ bool isDay(int, int, int);
 
 bool isMonth(int);
 
+bool isYear(int);
 
 
 #endif

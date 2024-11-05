@@ -242,3 +242,18 @@ bool isMonth(int month) {
     return month >= 1 && month <= 12;
 }
 
+/**
+ * Verifica se o ano é maior que zero
+ * 
+ * @param int year
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isYear(int year) {
+    return year > 0;
+}
+
+
