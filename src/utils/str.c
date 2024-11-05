@@ -102,3 +102,27 @@ bool parseInt(const char *str, int *result) {
     *result = (int) value;
     return true;
 }
+
+/**
+ * Converte uma String para double
+ * 
+ * @param char *str: String a ser convertida
+ * @param double *result: Endereço para atribuir o valor da conversão
+ * 
+ * @return bool: Resultado da conversão
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool parseDouble(const char *str, double *result) {
+    if (str == NULL || *str == '\0') return false;
+
+    char *endptr;
+    errno = 0;
+    double val = strtod(str, &endptr);
+
+    if (errno != 0 || endptr == str || *endptr != '\0') return false;
+
+    *result = val;
+    return true;
+}
