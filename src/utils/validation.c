@@ -50,3 +50,22 @@ bool isPositive(int number) {
     return number >= 0;
 }
 
+/**
+ * Verifica se o e-mail é válido
+ * 
+ * @param char email[55]
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isEmail(char email[55]) {
+    int atPos = -1, dotPos = -1, len = strlen(email);
+    for (int i = 0; i < len; i++) {
+        if (email[i] == '@') atPos = i;
+        if (email[i] == '.') dotPos = i;
+    }
+    return atPos > 0 && dotPos > atPos + 1 && dotPos < len - 1;
+}
+

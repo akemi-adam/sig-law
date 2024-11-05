@@ -9,6 +9,8 @@ bool isEmpty(const char*);
 
 bool isPositive(int);
 
+bool isEmail(char[55]);
+
 
 
 #endif
