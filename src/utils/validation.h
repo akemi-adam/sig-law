@@ -25,6 +25,8 @@ int maxDaysInMonth(int, int);
 
 bool isDay(int, int, int);
 
+bool isMonth(int);
+
 
 
 #endif

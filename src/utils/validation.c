@@ -228,3 +228,17 @@ bool isDay(int day, int month, int year) {
     return day >= 1 && day <= maxDays;
 }
 
+/**
+ * Verifica se o mês é válido
+ * 
+ * @param int month
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isMonth(int month) {
+    return month >= 1 && month <= 12;
+}
+
