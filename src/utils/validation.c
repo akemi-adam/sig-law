@@ -334,3 +334,7 @@ int validateTelephone(const char *tel) {
     return isTelephone(tel) ? NO_VALIDATION_ERROR : IS_TELEPHONE_ERROR;
 }
 
+int validateCpf(const char *cpf) {
+    return isCpf(cpf) ? NO_VALIDATION_ERROR : IS_CPF_ERROR;
+}
+

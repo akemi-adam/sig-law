@@ -54,5 +54,8 @@ int validateEmail(const char*);
 
 int validateTelephone(const char*);
 
+int validateCpf(const char*);
+
+
 
 #endif
