@@ -4,7 +4,7 @@
 #include "./../person/person.h"
 
 typedef struct Lawyer {
-    struct Person *person;
+    Person person;
     char cna[13];
 } Lawyer;
 
