@@ -48,4 +48,7 @@ bool isNumber(const char*);
 
 int validateString(const char*);
 
+int validateRequired(const char*);
+
+
 #endif

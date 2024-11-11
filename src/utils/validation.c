@@ -322,3 +322,6 @@ int validateString(const char *str) {
     return isString(str) ? NO_VALIDATION_ERROR : IS_STRING_ERROR;
 }
 
+int validateRequired(const char *str) {
+    return isRequired(str) ? NO_VALIDATION_ERROR : IS_REQUIRED_ERROR;
+}
