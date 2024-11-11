@@ -338,3 +338,7 @@ int validateCpf(const char *cpf) {
     return isCpf(cpf) ? NO_VALIDATION_ERROR : IS_CPF_ERROR;
 }
 
+int validateCna(const char *cna) {
+    return isCna(cna) ? NO_VALIDATION_ERROR : IS_CNA_ERROR;
+}
+

@@ -56,6 +56,7 @@ int validateTelephone(const char*);
 
 int validateCpf(const char*);
 
+int validateCna(const char*);
 
 
 #endif
