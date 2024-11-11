@@ -33,4 +33,6 @@ bool isYear(int);
 
 bool isDate(const char*);
 
+bool isNumber(const char*);
+
 #endif

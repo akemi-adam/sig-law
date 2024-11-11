@@ -51,6 +51,23 @@ bool isRequired(const char *str) {
 }
 
 /**
+ * Alias para a função isdigit
+ * 
+ * @param const char *str
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+bool isNumber(const char *str) {
+    for (size_t i = 0; i < strlen(str); i++) {
+        if (!isdigit(str[i])) return false;
+    }
+    return true;
+}
+
+/**
  * Verifica se o número é positivo
  * 
  * @param int number
