@@ -86,7 +86,7 @@ int countAccents(const char* str) {
  * @param char *str: String a ser convertida
  * @param int *result: Endereço para atribuir o valor da conversão
  * 
- * @return bool: Resultado da conversão
+ * @return bool: Status da conversão
  * 
  * Authors:
  *  - ChatGPT
