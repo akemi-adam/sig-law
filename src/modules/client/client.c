@@ -22,24 +22,20 @@
  *  - https://github.com/zfelip
  */
 void createClient() {
-    Client *client = (Client*) malloc(sizeof(Client));
-    client->person = (Person*) malloc(sizeof(Person));
+    Client client;
     
     printf("---- Cadastrar Cliente ----\n");
     printf("Nome: ");
-    readline(client->person->name, 55);
+    readline(client.person.name, 55);
 
     printf("CPF: ");
-    readline(client->person->cpf, 14);
+    readline(client.person.cpf, 14);
 
     printf("E-mail: ");
-    readline(client->person->email, 55);
+    readline(client.person.email, 55);
 
     printf("Telefone: ");
-    readline(client->person->telephone, 14);
-
-    free(client->person);
-    free(client);
+    readline(client.person.telephone, 14);
 
     printf("\nCliente cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -90,8 +86,7 @@ void readClient() {
  *  - https://github.com/zfelip
  */
 void updateClient() {
-    Client *client = (Client*) malloc(sizeof(Client));
-    client->person = (Person*) malloc(sizeof(Person));
+    Client client;
     int id;
     
     printf("---- Editar Cliente ----\nCódigo do Cliente: ");
@@ -99,19 +94,17 @@ void updateClient() {
     flushInput();
 
     printf("Nome: ");
-    readline(client->person->name, 55);
+    readline(client.person.name, 55);
 
     printf("CPF: ");
-    readline(client->person->cpf, 14);
+    readline(client.person.cpf, 14);
 
     printf("E-mail: ");
-    readline(client->person->email, 55);
+    readline(client.person.email, 55);
 
     printf("Telefone: ");
-    readline(client->person->telephone, 14);
+    readline(client.person.telephone, 14);
 
-    free(client->person);
-    free(client);
 
     printf("\nCliente editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
