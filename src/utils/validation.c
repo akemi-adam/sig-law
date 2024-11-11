@@ -329,3 +329,8 @@ int validateRequired(const char *str) {
 int validateEmail(const char *email) {
     return isEmail(email) ? NO_VALIDATION_ERROR : IS_EMAIL_ERROR;
 }
+
+int validateTelephone(const char *tel) {
+    return isTelephone(tel) ? NO_VALIDATION_ERROR : IS_TELEPHONE_ERROR;
+}
+
