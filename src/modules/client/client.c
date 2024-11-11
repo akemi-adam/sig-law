@@ -67,11 +67,12 @@ void listClients() {
  *  - https://github.com/zfelip
  */
 void readClient() {
-    int id;
-    printf("---- Buscar Cliente ----\nCódigo do Cliente: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Buscar Cliente ----\n");
+    readStrField(id, "Código do Cliente", 6, idRules, 3);
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "");
+    printf("ID: %s\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "");
     printf("------------------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
