@@ -22,21 +22,18 @@
  *  - https://github.com/akemi-adam
  */
 void createAppointment() {
-    Appointment *appointment = (Appointment*) malloc(sizeof(Appointment));
-    appointment->schedule = (Schedule*) malloc(sizeof(Schedule));
-    appointment->schedule->endDate = (Datetime*) malloc(sizeof(Datetime));
-    appointment->schedule->startDate = (Datetime*) malloc(sizeof(Datetime));
+    Appointment appointment;
     char date[11], startTime[6], endTime[6];
 
     printf("---- Cadastrar Agendamento ----\n");
     printf("Código do Cliente: ");
-    scanf("%d", &appointment->clientId);
+    scanf("%d", &appointment.clientId);
 
     printf("Código do Advogado: ");
-    scanf("%d", &appointment->lawyerId);
+    scanf("%d", &appointment.lawyerId);
 
     printf("Código do Escritório: ");
-    scanf("%d", &appointment->officeId);
+    scanf("%d", &appointment.officeId);
     flushInput();
 
     printf("Data (dd/mm/aaaa): ");
@@ -47,11 +44,6 @@ void createAppointment() {
 
     printf("Horário do término da consulta (hh:mm): ");
     readline(endTime, 11);
-
-    free(appointment->schedule->startDate);
-    free(appointment->schedule->endDate);
-    free(appointment->schedule);
-    free(appointment);
 
     printf("\nAgendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -102,10 +94,7 @@ void readAppointment() {
  *  - https://github.com/akemi-adam
  */
 void updateAppointment() {
-    Appointment *appointment = (Appointment*) malloc(sizeof(Appointment));
-    appointment->schedule = (Schedule*) malloc(sizeof(Schedule));
-    appointment->schedule->endDate = (Datetime*) malloc(sizeof(Datetime));
-    appointment->schedule->startDate = (Datetime*) malloc(sizeof(Datetime));
+    Appointment appointment;
     char date[11], startTime[6], endTime[6];
     int id;
 
@@ -113,13 +102,13 @@ void updateAppointment() {
     scanf("%d", &id);
 
     printf("Código do Cliente: ");
-    scanf("%d", &appointment->clientId);
+    scanf("%d", &appointment.clientId);
 
     printf("Código do Advogado: ");
-    scanf("%d", &appointment->lawyerId);
+    scanf("%d", &appointment.lawyerId);
 
     printf("Código do Escritório: ");
-    scanf("%d", &appointment->officeId);
+    scanf("%d", &appointment.officeId);
     flushInput();
 
     printf("Data (dd/mm/aaaa): ");
@@ -130,11 +119,6 @@ void updateAppointment() {
 
     printf("Horário do término da consulta (hh:mm): ");
     readline(endTime, 11);
-
-    free(appointment->schedule->startDate);
-    free(appointment->schedule->endDate);
-    free(appointment->schedule);
-    free(appointment);
 
     printf("\nAgendamento editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
