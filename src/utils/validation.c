@@ -317,3 +317,8 @@ bool isDate(const char *dateStr) {
 
     return isDay(day, month, year) && isMonth(month) && isYear(year);
 }
+
+int validateString(const char *str) {
+    return isString(str) ? NO_VALIDATION_ERROR : IS_STRING_ERROR;
+}
+

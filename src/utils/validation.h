@@ -46,4 +46,6 @@ bool isDate(const char*);
 
 bool isNumber(const char*);
 
+int validateString(const char*);
+
 #endif
