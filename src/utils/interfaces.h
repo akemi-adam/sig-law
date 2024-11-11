@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 
+typedef int (*Validation)(const char*);
 
 #ifdef __unix__
 
@@ -39,5 +40,6 @@ void showTeamMenu(void);
 
 void showErrorMessage(int);
 
+void readStrField(char*, char*, int, Validation[], int);
 
 #endif

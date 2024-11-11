@@ -403,3 +403,37 @@ void showErrorMessage(int errorCode) {
     }
 }
 
+/**
+ * Ler um valor de texto do teclado e o valida, exibindo uma mensagem de erro em caso de falha
+ * 
+ * @param char *field: Ponteiro do campo que irá armazenar o valor digitado
+ * @param char *label: Nome do campo para ser printado no formulário
+ * @param int maxLength: Valor máximo de caracteres que o campo armazena
+ * @param Validation validation[]: Funções de validação
+ * @param int validationSize: Tamanho do array de validação
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void readStrField(char *field, char *label, int maxLength, Validation validation[], int validationSize) {
+    int i = 0;
+    int status; 
+    bool isValidated = true;
+    do {
+        printf("%s: ", label);
+        readline(field, maxLength);
+        while (i < validationSize) {
+            status = validation[i](field);
+            if (status) {
+                isValidated = false;
+                showErrorMessage(status);
+                break;
+            } else {
+                isValidated = true;
+                i++;
+            }
+        }
+    } while (!isValidated);
+}
