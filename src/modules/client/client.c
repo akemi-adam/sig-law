@@ -26,18 +26,16 @@
 void createClient() {
     Client client;
     
+    Validation nameRules[2] = {validateRequired, validateString},
+        cpfRules[2] = {validateRequired, validateCpf},
+        emailRules[2] = {validateRequired, validateEmail},
+        telephoneRules[2] = {validateRequired, validateTelephone};
+
     printf("---- Cadastrar Cliente ----\n");
-    printf("Nome: ");
-    readline(client.person.name, 55);
-
-    printf("CPF: ");
-    readline(client.person.cpf, 14);
-
-    printf("E-mail: ");
-    readline(client.person.email, 55);
-
-    printf("Telefone: ");
-    readline(client.person.telephone, 14);
+    readStrField(client.person.name, "Nome", 55, nameRules, 2);
+    readStrField(client.person.cpf, "CPF", 12, cpfRules, 2);
+    readStrField(client.person.email, "E-mail", 55, emailRules, 2);
+    readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
 
     printf("\nCliente cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
