@@ -62,5 +62,6 @@ int validateDate(const char*);
 
 int validatePositive(const char*);
 
+int validateNumber(const char*);
 
 #endif

@@ -351,3 +351,7 @@ int validatePositive(const char *strNumber) {
     if (!parseInt(strNumber, &number)) return IS_POSITIVE_ERROR;
     return isPositive(number) ? NO_VALIDATION_ERROR : IS_POSITIVE_ERROR;
 }
+
+int validateNumber(const char *number) {
+    return isNumber(number) ? NO_VALIDATION_ERROR : IS_NUMBER_ERROR;
+}
