@@ -115,9 +115,10 @@ void updateClient() {
  *  - https://github.com/zfelip
  */
 void deleteClient() {
-    int id;
-    printf("---- Deletar Cliente ----\nCódigo do Cliente: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Deletar Cliente ----\n");
+    readStrField(id, "Código do Cliente", 6, idRules, 3);
     printf("Cliente deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
