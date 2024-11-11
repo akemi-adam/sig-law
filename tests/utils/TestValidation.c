@@ -14,8 +14,13 @@ void tearDown(void) {
 void test_isString(void) {
     TEST_ASSERT_TRUE(isString("abc"));              // Apenas letras
     TEST_ASSERT_TRUE(isString("Teste"));            // Letras maiúsculas e minúsculas
+    TEST_ASSERT_TRUE(isString("Isso é um teste"));            // Espaços entre as palavras
     TEST_ASSERT_FALSE(isString("Test123"));         // Contém números
     TEST_ASSERT_FALSE(isString("Test!"));           // Contém caracteres especiais
+    TEST_ASSERT_FALSE(isString(" Test! "));           // Contém espaço no início e no fim
+    TEST_ASSERT_FALSE(isString(" Test!"));           // Contém espaço no início
+    TEST_ASSERT_FALSE(isString("Test! "));           // Contém espaço no fim
+    TEST_ASSERT_FALSE(isString(""));           // String vazia
 }
 
 void test_isEmpty(void) {
