@@ -24,27 +24,20 @@
  *  - https://github.com/akemi-adam
  */
 void createLawyer() {
-    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
-    lawyer->person = (Person*) malloc(sizeof(Person));
+    Lawyer lawyer;
+
+    Validation nameRules[2] = {validateRequired, validateString},
+        cpfRules[2] = {validateRequired, validateCpf},
+        cnaRules[2] = {validateRequired, validateCna},
+        emailRules[2] = {validateRequired, validateEmail},
+        telephoneRules[2] = {validateRequired, validateTelephone};
     
     printf("---- Cadastrar Advogado ----\n");
-    printf("Nome: ");
-    readline(lawyer->person->name, 55);
-
-    printf("CPF: ");
-    readline(lawyer->person->cpf, 14);
-
-    printf("CNA: ");
-    readline(lawyer->cna, 15);
-
-    printf("E-mail: ");
-    readline(lawyer->person->email, 55);
-
-    printf("Telefone: ");
-    readline(lawyer->person->telephone, 14);
-
-    free(lawyer->person);
-    free(lawyer);
+    readStrField(lawyer.person.name, "Nome", 55, nameRules, 2);
+    readStrField(lawyer.person.cpf, "CPF", 12, cpfRules, 2);
+    readStrField(lawyer.cna, "CNA", 13, cnaRules, 2);
+    readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
+    readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
     printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
