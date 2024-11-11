@@ -69,11 +69,12 @@ void listLawyers() {
  *  - https://github.com/akemi-adam
  */
 void readLawyer() {
-    int id;
-    printf("---- Buscar Advogado ----\nCódigo do Advogado: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Buscar Advogado ----\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
+    printf("ID: %s\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
     printf("------------------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
