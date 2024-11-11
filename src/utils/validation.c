@@ -37,6 +37,20 @@ bool isEmpty(const char *str) {
 }
 
 /**
+ * Verifica se a string não é vazia
+ * 
+ * @param const char *str
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+bool isRequired(const char *str) {
+    return !isEmpty(str);
+}
+
+/**
  * Verifica se o número é positivo
  * 
  * @param int number

@@ -7,6 +7,8 @@ bool isString(const char*);
 
 bool isEmpty(const char*);
 
+bool isRequired(const char*);
+
 bool isPositive(int);
 
 bool isEmail(const char*);
