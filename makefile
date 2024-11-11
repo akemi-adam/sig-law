@@ -35,10 +35,10 @@ validation.o: src/utils/validation.c src/utils/validation.h
 
 # Unit tests
 test_interfaces: tests/utils/TestInterfaces.c $(MODULES_OBJS) $(UTILS_OBJS)
-	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestInterfaces.c src/utils/interfaces.c src/utils/str.c unity/unity.c $(MODULES) -o test_interfaces
+	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestInterfaces.c src/utils/interfaces.c src/utils/str.c src/utils/validation.c unity/unity.c $(MODULES) -o test_interfaces
 
 test_str: tests/utils/TestStr.c $(MODULES_OBJS) $(UTILS_OBJS)
-	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestStr.c src/utils/str.c unity/unity.c -o test_str
+	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestStr.c src/utils/str.c src/utils/validation.c unity/unity.c -o test_str
 
 test_validation: tests/utils/TestValidation.c $(MODULES_OBJS) $(UTILS_OBJS)
 	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestValidation.c src/utils/validation.c src/utils/str.c unity/unity.c -o test_validation
