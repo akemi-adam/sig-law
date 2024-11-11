@@ -50,5 +50,7 @@ int validateString(const char*);
 
 int validateRequired(const char*);
 
+int validateEmail(const char*);
+
 
 #endif
