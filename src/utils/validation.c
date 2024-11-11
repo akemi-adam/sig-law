@@ -346,3 +346,8 @@ int validateDate(const char *dateStr) {
     return isDate(dateStr) ? NO_VALIDATION_ERROR : IS_DATE_ERROR;
 }
 
+int validatePositive(const char *strNumber) {
+    int number = 123;
+    if (!parseInt(strNumber, &number)) return IS_POSITIVE_ERROR;
+    return isPositive(number) ? NO_VALIDATION_ERROR : IS_POSITIVE_ERROR;
+}

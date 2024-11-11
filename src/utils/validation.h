@@ -60,5 +60,7 @@ int validateCna(const char*);
 
 int validateDate(const char*);
 
+int validatePositive(const char*);
+
 
 #endif
