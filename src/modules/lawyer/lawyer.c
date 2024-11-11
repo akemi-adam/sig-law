@@ -119,9 +119,10 @@ void updateLawyer() {
  *  - https://github.com/akemi-adam
  */
 void deleteLawyer() {
-    int id;
-    printf("---- Deletar Advogado ----\nCódigo do Advogado: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Deletar Advogado ----\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
     printf("Advogado deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
