@@ -8,6 +8,7 @@
 #include "./../modules/office/office.h"
 #include "./../modules/client/client.h"
 #include "./str.h"
+#include "./validation.h"
 
 #ifdef __unix__
 
@@ -358,3 +359,47 @@ void showAboutMenu() {
 void showTeamMenu() {
     showGenericInfo("--------------------------------------------------------------------------------------------------\n|                                             Equipe                                             |\n--------------------------------------------------------------------------------------------------\n| O projeto foi feitos pelos alunos do curso de Bachalerado em Sistemas de Informação na UFRN:   |  \n|                                                                                                |\n| - Mosiah Adam Maria de Araújo: https://github.com/akemi-adam                                   |\n| - Felipe Erik: https://github.com/zfelip                                                       |\n--------------------------------------------------------------------------------------------------\n");   
 }
+
+/**
+ * Exibe uma mensagem de erro com base em um código de erro correspondente
+ * 
+ * @param int errorCode
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void showErrorMessage(int errorCode) {
+    printf("Erro de validação: ");
+    switch (errorCode) {
+        case IS_STRING_ERROR:
+            printf("%sO campo não é um texto válido%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_REQUIRED_ERROR:
+            printf("%sO campo deve ser obrigatório%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_POSITIVE_ERROR:
+            printf("%sO campo deve ser maior do que 1%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_EMAIL_ERROR:
+            printf("%sO campo é não é um e-mail válido (<palavra>@<palavra>.<domínio>)%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_TELEPHONE_ERROR:
+            printf("%sO campo é não é um telefone válido (XX 9XXXX-XXXX)%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_CPF_ERROR:
+            printf("%sO campo é não é um CPF válido (XXXXXXXXXXX)%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_CNA_ERROR:
+            printf("%sO campo é não é uma CNA válida (XXXXXXXXXXXX)%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_DATE_ERROR:
+            printf("%sO campo é não é uma data válida (DD/MM/AAAA)%s\n", RED_STYLE, RESET_STYLE);
+            break;
+        case IS_NUMBER_ERROR:
+            printf("%sO campo é não é um número válido%s\n", RED_STYLE, RESET_STYLE);
+            break;
+    }
+}
+
