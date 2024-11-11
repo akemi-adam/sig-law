@@ -21,13 +21,11 @@
  *  - https://github.com/zfelip
  */
 void createOffice() {
-    Office *office = (Office*) malloc(sizeof(Office));
+    Office office;
     
     printf("---- Cadastrar Escritório ----\n");
     printf("Endereço: ");
-    readline(office->address, 100);
-
-    free(office);
+    readline(office.address, 100);
 
     printf("\nEscritório cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -78,7 +76,7 @@ void readOffice() {
  *  - https://github.com/zfelip
  */
 void updateOffice() {
-    Office *office = (Office*) malloc(sizeof(Office));
+    Office office;
     int id;
     
     printf("---- Editar Escritório ----\nCódigo do Escritório: ");
@@ -86,9 +84,7 @@ void updateOffice() {
     flushInput();
 
     printf("Endereço: ");
-    readline(office->address, 100);
-
-    free(office);
+    readline(office.address, 100);
 
     printf("\nEscritório editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
