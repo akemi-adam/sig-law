@@ -89,31 +89,22 @@ void readLawyer() {
  *  - https://github.com/akemi-adam
  */
 void updateLawyer() {
-    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
-    lawyer->person = (Person*) malloc(sizeof(Person));
-    int id;
+    Lawyer lawyer;
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
+        nameRules[2] = {validateRequired, validateString},
+        cpfRules[2] = {validateRequired, validateCpf},
+        cnaRules[2] = {validateRequired, validateCna},
+        emailRules[2] = {validateRequired, validateEmail},
+        telephoneRules[2] = {validateRequired, validateTelephone};
     
-    printf("---- Editar Advogado ----\nCódigo do Advogado: ");
-    scanf("%d", &id);
-    flushInput();
-
-    printf("Nome: ");
-    readline(lawyer->person->name, 55);
-
-    printf("CPF: ");
-    readline(lawyer->person->cpf, 14);
-
-    printf("CNA: ");
-    readline(lawyer->cna, 15);
-
-    printf("E-mail: ");
-    readline(lawyer->person->email, 55);
-
-    printf("Telefone: ");
-    readline(lawyer->person->telephone, 14);
-
-    free(lawyer->person);
-    free(lawyer);
+    printf("---- Editar Advogado ----\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
+    readStrField(lawyer.person.name, "Nome", 55, nameRules, 2);
+    readStrField(lawyer.person.cpf, "CPF", 12, cpfRules, 2);
+    readStrField(lawyer.cna, "CNA", 13, cnaRules, 2);
+    readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
+    readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
     printf("\nAdvogado editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
