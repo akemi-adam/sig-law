@@ -46,6 +46,9 @@ void test_isEmail(void) {
 void test_isTelephone(void) {
     TEST_ASSERT_TRUE(isTelephone("11 91234-5678")); // Telefone válido
     TEST_ASSERT_FALSE(isTelephone("12 1234-5678")); // Não começa com 9
+    TEST_ASSERT_FALSE(isTelephone("78 1234-5678")); // DDD inválido
+    TEST_ASSERT_FALSE(isTelephone("05 1234-5678")); // DDD inválido
+    TEST_ASSERT_FALSE(isTelephone("40 1234-5678")); // DDD inválido
     TEST_ASSERT_FALSE(isTelephone("11 91234-567")); // Número incompleto
     TEST_ASSERT_FALSE(isTelephone("11A91234-5678")); // Caractere não numérico
     TEST_ASSERT_FALSE(isTelephone(""));             // String vazia
