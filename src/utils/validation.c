@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include "./str.h"
+#include "./validation.h"
 
 /**
  * Verifica se a string conter apenas caracteres alpha
