@@ -8,7 +8,7 @@ INCLUDE_DIRS := -I src/utils -I src/modules/appointment -I src/modules/lawyer -I
 MODULES := src/modules/appointment/appointment.c src/modules/lawyer/lawyer.c src/modules/client/client.c src/modules/office/office.c
 MODULES_OBJS := $(MODULES:.c=.o)
 
-UTILS := src/utils/str.c
+UTILS := src/utils/str.c src/utils/validation.c
 UTILS_OBJS := $(UTILS:.c=.o)
 
 .PHONY: test clean
