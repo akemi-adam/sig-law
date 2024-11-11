@@ -126,3 +126,19 @@ bool parseDouble(const char *str, double *result) {
     *result = val;
     return true;
 }
+
+/**
+ * Verifica se há espaços em branco no início ou no final da string
+ * 
+ * @param const char str*
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ * 
+ */
+bool hasInvalidSpaces(const char *str) {
+    int end = (int) strlen(str) - 1;
+    return str[0] == ' ' || str[end] == ' ';
+}

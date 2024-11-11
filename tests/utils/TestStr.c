@@ -109,6 +109,19 @@ void test_parseDouble_should_return_false_for_invalid_string(void) {
     TEST_ASSERT_FALSE(parseDouble("", &result));
 }
 
+/**
+ * Testa a função que verifica se uma string começa ou termina com espaços
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void test_hasInvalidSpaces_function(void) {
+    TEST_ASSERT_TRUE(hasInvalidSpaces(" Teste"));
+    TEST_ASSERT_TRUE(hasInvalidSpaces("Teste "));
+    TEST_ASSERT_TRUE(hasInvalidSpaces(" Teste "));
+    TEST_ASSERT_FALSE(hasInvalidSpaces("Teste"));
+}
+
 
 int main(void) {
     UNITY_BEGIN();
@@ -121,6 +134,7 @@ int main(void) {
     RUN_TEST(test_parseInt_should_return_false_for_invalid_string);
     RUN_TEST(test_parseDouble_should_convert_valid_string_to_double);
     RUN_TEST(test_parseDouble_should_return_false_for_invalid_string);
+    RUN_TEST(test_hasInvalidSpaces_function);
     
     return UNITY_END();
 }
