@@ -342,3 +342,7 @@ int validateCna(const char *cna) {
     return isCna(cna) ? NO_VALIDATION_ERROR : IS_CNA_ERROR;
 }
 
+int validateDate(const char *dateStr) {
+    return isDate(dateStr) ? NO_VALIDATION_ERROR : IS_DATE_ERROR;
+}
+

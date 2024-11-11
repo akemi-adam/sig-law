@@ -58,5 +58,7 @@ int validateCpf(const char*);
 
 int validateCna(const char*);
 
+int validateDate(const char*);
+
 
 #endif
