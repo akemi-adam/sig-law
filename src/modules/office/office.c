@@ -60,9 +60,10 @@ void listOffices() {
  *  - https://github.com/zfelip
  */
 void readOffice() {
-    int id;
-    printf("---- Buscar Escritório ----\nCódigo do Escritório: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Buscar Escritório ----\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 3);
     printf("----------------------------------------------------------\n");
     printf("ID: %d\nEscritório: %s\n", id, "");
     printf("----------------------------------------------------------\n");
