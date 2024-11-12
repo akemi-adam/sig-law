@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
+#include "./../../utils/validation.h"
+#include "./../../utils/str.h"
 #include "./../person/person.h"
 #include "lawyer.h"
 
@@ -22,27 +24,20 @@
  *  - https://github.com/akemi-adam
  */
 void createLawyer() {
-    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
-    lawyer->person = (Person*) malloc(sizeof(Person));
+    Lawyer lawyer;
+
+    Validation nameRules[2] = {validateRequired, validateString},
+        cpfRules[2] = {validateRequired, validateCpf},
+        cnaRules[2] = {validateRequired, validateCna},
+        emailRules[2] = {validateRequired, validateEmail},
+        telephoneRules[2] = {validateRequired, validateTelephone};
     
     printf("---- Cadastrar Advogado ----\n");
-    printf("Nome: ");
-    readline(lawyer->person->name, 55);
-
-    printf("CPF: ");
-    readline(lawyer->person->cpf, 14);
-
-    printf("CNA: ");
-    readline(lawyer->cna, 15);
-
-    printf("E-mail: ");
-    readline(lawyer->person->email, 55);
-
-    printf("Telefone: ");
-    readline(lawyer->person->telephone, 14);
-
-    free(lawyer->person);
-    free(lawyer);
+    readStrField(lawyer.person.name, "Nome", 55, nameRules, 2);
+    readStrField(lawyer.person.cpf, "CPF", 12, cpfRules, 2);
+    readStrField(lawyer.cna, "CNA", 13, cnaRules, 2);
+    readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
+    readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
     printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -74,11 +69,12 @@ void listLawyers() {
  *  - https://github.com/akemi-adam
  */
 void readLawyer() {
-    int id;
-    printf("---- Buscar Advogado ----\nCódigo do Advogado: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Buscar Advogado ----\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
+    printf("ID: %s\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
     printf("------------------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
@@ -93,31 +89,22 @@ void readLawyer() {
  *  - https://github.com/akemi-adam
  */
 void updateLawyer() {
-    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
-    lawyer->person = (Person*) malloc(sizeof(Person));
-    int id;
+    Lawyer lawyer;
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
+        nameRules[2] = {validateRequired, validateString},
+        cpfRules[2] = {validateRequired, validateCpf},
+        cnaRules[2] = {validateRequired, validateCna},
+        emailRules[2] = {validateRequired, validateEmail},
+        telephoneRules[2] = {validateRequired, validateTelephone};
     
-    printf("---- Editar Advogado ----\nCódigo do Advogado: ");
-    scanf("%d", &id);
-    flushInput();
-
-    printf("Nome: ");
-    readline(lawyer->person->name, 55);
-
-    printf("CPF: ");
-    readline(lawyer->person->cpf, 14);
-
-    printf("CNA: ");
-    readline(lawyer->cna, 15);
-
-    printf("E-mail: ");
-    readline(lawyer->person->email, 55);
-
-    printf("Telefone: ");
-    readline(lawyer->person->telephone, 14);
-
-    free(lawyer->person);
-    free(lawyer);
+    printf("---- Editar Advogado ----\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
+    readStrField(lawyer.person.name, "Nome", 55, nameRules, 2);
+    readStrField(lawyer.person.cpf, "CPF", 12, cpfRules, 2);
+    readStrField(lawyer.cna, "CNA", 13, cnaRules, 2);
+    readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
+    readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
     printf("\nAdvogado editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -132,9 +119,10 @@ void updateLawyer() {
  *  - https://github.com/akemi-adam
  */
 void deleteLawyer() {
-    int id;
-    printf("---- Deletar Advogado ----\nCódigo do Advogado: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Deletar Advogado ----\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
     printf("Advogado deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }

@@ -4,7 +4,7 @@
 #include "./../person/person.h"
 
 typedef struct Client {
-    Person *person;
+    Person person;
 } Client;
 
 void showClientMenu(void);

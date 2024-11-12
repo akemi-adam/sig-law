@@ -2,9 +2,11 @@
 #define INTERFACES
 #define CYAN_STYLE "\033[0;36m"
 #define RESET_STYLE "\033[0m"
+#define RED_STYLE "\033[0;31m"
 
 #include <stdbool.h>
 
+typedef int (*Validation)(const char*);
 
 #ifdef __unix__
 
@@ -35,5 +37,9 @@ void showMainMenu(void);
 void showAboutMenu(void);
 
 void showTeamMenu(void);
+
+void showErrorMessage(int);
+
+void readStrField(char*, char*, int, Validation[], int);
 
 #endif

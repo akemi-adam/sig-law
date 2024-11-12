@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
+#include "./../../utils/validation.h"
+#include "./../../utils/str.h"
 #include "./../person/person.h"
 #include "client.h"
 
@@ -22,24 +24,18 @@
  *  - https://github.com/zfelip
  */
 void createClient() {
-    Client *client = (Client*) malloc(sizeof(Client));
-    client->person = (Person*) malloc(sizeof(Person));
+    Client client;
     
+    Validation nameRules[2] = {validateRequired, validateString},
+        cpfRules[2] = {validateRequired, validateCpf},
+        emailRules[2] = {validateRequired, validateEmail},
+        telephoneRules[2] = {validateRequired, validateTelephone};
+
     printf("---- Cadastrar Cliente ----\n");
-    printf("Nome: ");
-    readline(client->person->name, 55);
-
-    printf("CPF: ");
-    readline(client->person->cpf, 14);
-
-    printf("E-mail: ");
-    readline(client->person->email, 55);
-
-    printf("Telefone: ");
-    readline(client->person->telephone, 14);
-
-    free(client->person);
-    free(client);
+    readStrField(client.person.name, "Nome", 55, nameRules, 2);
+    readStrField(client.person.cpf, "CPF", 12, cpfRules, 2);
+    readStrField(client.person.email, "E-mail", 55, emailRules, 2);
+    readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
 
     printf("\nCliente cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -71,11 +67,12 @@ void listClients() {
  *  - https://github.com/zfelip
  */
 void readClient() {
-    int id;
-    printf("---- Buscar Cliente ----\nCódigo do Cliente: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Buscar Cliente ----\n");
+    readStrField(id, "Código do Cliente", 6, idRules, 3);
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "");
+    printf("ID: %s\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "");
     printf("------------------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
@@ -90,28 +87,20 @@ void readClient() {
  *  - https://github.com/zfelip
  */
 void updateClient() {
-    Client *client = (Client*) malloc(sizeof(Client));
-    client->person = (Person*) malloc(sizeof(Person));
-    int id;
-    
-    printf("---- Editar Cliente ----\nCódigo do Cliente: ");
-    scanf("%d", &id);
-    flushInput();
+    Client client;
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
+        nameRules[2] = {validateRequired, validateString},
+        cpfRules[2] = {validateRequired, validateCpf},
+        emailRules[2] = {validateRequired, validateEmail},
+        telephoneRules[2] = {validateRequired, validateTelephone};
 
-    printf("Nome: ");
-    readline(client->person->name, 55);
-
-    printf("CPF: ");
-    readline(client->person->cpf, 14);
-
-    printf("E-mail: ");
-    readline(client->person->email, 55);
-
-    printf("Telefone: ");
-    readline(client->person->telephone, 14);
-
-    free(client->person);
-    free(client);
+    printf("---- Editar Cliente ----\n");
+    readStrField(id, "Código do Cliente", 6, idRules, 3);
+    readStrField(client.person.name, "Nome", 55, nameRules, 2);
+    readStrField(client.person.cpf, "CPF", 12, cpfRules, 2);
+    readStrField(client.person.email, "E-mail", 55, emailRules, 2);
+    readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
 
     printf("\nCliente editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -126,9 +115,10 @@ void updateClient() {
  *  - https://github.com/zfelip
  */
 void deleteClient() {
-    int id;
-    printf("---- Deletar Cliente ----\nCódigo do Cliente: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Deletar Cliente ----\n");
+    readStrField(id, "Código do Cliente", 6, idRules, 3);
     printf("Cliente deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }

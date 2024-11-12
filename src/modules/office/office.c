@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
+#include "./../../utils/validation.h"
+#include "./../../utils/str.h"
 #include "office.h"
 
 #ifdef __unix__
@@ -21,13 +23,12 @@
  *  - https://github.com/zfelip
  */
 void createOffice() {
-    Office *office = (Office*) malloc(sizeof(Office));
+    Office office;
+
+    Validation enderecoRules[2] = {validateRequired, validateString};
     
     printf("---- Cadastrar Escritório ----\n");
-    printf("Endereço: ");
-    readline(office->address, 100);
-
-    free(office);
+    readStrField(office.address, "Endereço", 100, enderecoRules, 2);
 
     printf("\nEscritório cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -59,11 +60,12 @@ void listOffices() {
  *  - https://github.com/zfelip
  */
 void readOffice() {
-    int id;
-    printf("---- Buscar Escritório ----\nCódigo do Escritório: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Buscar Escritório ----\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 3);
     printf("----------------------------------------------------------\n");
-    printf("ID: %d\nEscritório: %s\n", id, "");
+    printf("ID: %s\nEscritório: %s\n", id, "");
     printf("----------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
@@ -78,17 +80,14 @@ void readOffice() {
  *  - https://github.com/zfelip
  */
 void updateOffice() {
-    Office *office = (Office*) malloc(sizeof(Office));
-    int id;
+    Office office;
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
+        enderecoRules[2] = {validateRequired, validateString};
     
-    printf("---- Editar Escritório ----\nCódigo do Escritório: ");
-    scanf("%d", &id);
-    flushInput();
-
-    printf("Endereço: ");
-    readline(office->address, 100);
-
-    free(office);
+    printf("---- Editar Escritório ----\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 3);
+    readStrField(office.address, "Endereço", 100, enderecoRules, 2);
 
     printf("\nEscritório editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
@@ -103,9 +102,10 @@ void updateOffice() {
  *  - https://github.com/zfelip
  */
 void deleteOffice() {
-    int id;
-    printf("---- Deletar Escritório ----\nCódigo do Escritório: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Deletar Escritório ----\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 3);
     printf("Escritório deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
