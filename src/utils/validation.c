@@ -370,7 +370,7 @@ int validateString(const char *str) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isRequired foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
@@ -384,7 +384,7 @@ int validateRequired(const char *str) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isEmail foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
@@ -398,7 +398,7 @@ int validateEmail(const char *email) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isTelephone foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
@@ -412,7 +412,7 @@ int validateTelephone(const char *tel) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isCpf foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
@@ -426,7 +426,7 @@ int validateCpf(const char *cpf) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isCna foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
@@ -440,7 +440,7 @@ int validateCna(const char *cna) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isDate foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
@@ -454,7 +454,7 @@ int validateDate(const char *dateStr) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isPositive foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
@@ -470,7 +470,7 @@ int validatePositive(const char *strNumber) {
 }
 
 /**
- * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * Verifica se isNumber foi bem sucedida e emite um código de sucesso ou de erro
  * 
  * @param const char *str
  * 
