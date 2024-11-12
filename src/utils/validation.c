@@ -134,7 +134,7 @@ bool isTelephone(const char *tel) {
     strncpy(ddd, tel, 2);
 
     for (int i = 0; i < 67; i++) {
-        if (strcmp(ddd, validDDDs[i])) {
+        if (strcmp(ddd, validDDDs[i]) == 0) {
             hasDDD = true;
             break;
         }
