@@ -65,7 +65,7 @@ void readOffice() {
     printf("---- Buscar Escritório ----\n");
     readStrField(id, "Código do Escritório", 6, idRules, 3);
     printf("----------------------------------------------------------\n");
-    printf("ID: %d\nEscritório: %s\n", id, "");
+    printf("ID: %s\nEscritório: %s\n", id, "");
     printf("----------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
