@@ -400,6 +400,9 @@ void showErrorMessage(int errorCode) {
         case IS_NUMBER_ERROR:
             printf("%sO campo é não é um número válido%s\n", RED_STYLE, RESET_STYLE);
             break;
+        case IS_HOUR_ERROR:
+            printf("%sO campo é não é um horário válido (hh:mm)%s\n", RED_STYLE, RESET_STYLE);
+            break;
     }
 }
 
