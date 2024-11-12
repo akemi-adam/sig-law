@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
+#include "./../../utils/validation.h"
+#include "./../../utils/str.h"
 #include "office.h"
 
 #ifdef __unix__
