@@ -102,9 +102,10 @@ void updateOffice() {
  *  - https://github.com/zfelip
  */
 void deleteOffice() {
-    int id;
-    printf("---- Deletar Escritório ----\nCódigo do Escritório: ");
-    scanf("%d", &id);
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    printf("---- Deletar Escritório ----\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 3);
     printf("Escritório deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
