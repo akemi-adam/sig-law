@@ -132,6 +132,15 @@ void test_isDate(void) {
     TEST_ASSERT_FALSE(isDate(""));                  // String vazia
 }
 
+void test_isHour(void) {
+    TEST_ASSERT_TRUE(isHour("14:12"));
+    TEST_ASSERT_FALSE(isHour("25:00"));
+    TEST_ASSERT_FALSE(isHour(" 15:00"));
+    TEST_ASSERT_FALSE(isHour("15:00 "));
+    TEST_ASSERT_FALSE(isHour(" 15:00 "));
+    TEST_ASSERT_FALSE(isHour("05:71"));
+}
+
 
 int main(void) {
     UNITY_BEGIN();
@@ -149,6 +158,7 @@ int main(void) {
     RUN_TEST(test_isMonth);
     RUN_TEST(test_isYear);
     RUN_TEST(test_isDate);
+    RUN_TEST(test_isHour);
 
     return UNITY_END();
 }

@@ -318,6 +318,30 @@ bool isDate(const char *dateStr) {
     return isDay(day, month, year) && isMonth(month) && isYear(year);
 }
 
+/**
+ * Valida se um horário hora-minuto é válido
+ * 
+ * @param const char *time
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isHour(const char *time) {
+    if (time == NULL || time[2] != ':' || time[5] != '\0') return false;
+
+    if (!isdigit(time[0]) || !isdigit(time[1]) || !isdigit(time[3]) || !isdigit(time[4])) return false;
+
+    int hours = (time[0] - '0') * 10 + (time[1] - '0');
+    int minutes = (time[3] - '0') * 10 + (time[4] - '0');
+
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return false;
+
+    return true;
+}
+
+
 int validateString(const char *str) {
     return isString(str) ? NO_VALIDATION_ERROR : IS_STRING_ERROR;
 }
