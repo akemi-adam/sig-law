@@ -25,6 +25,8 @@ bool isPositive(int);
 
 bool isEmail(const char*);
 
+bool isDDD(const char*);
+
 bool isTelephone(const char*);
 
 bool isCpfValid(const char*);

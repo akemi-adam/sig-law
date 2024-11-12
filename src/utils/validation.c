@@ -102,21 +102,12 @@ bool isEmail(const char *email) {
 }
 
 /**
- * Verifica se o telefone é válido no formato XX 9XXXX-XXXX
+ * Verifica se o DDD brasileiro é válido
  * 
- * @param char *tel
- * 
- * @return bool
- * 
- * Authors:
- *  - https://github.com/akemi-adam
+ * @param const char *tel
  */
-bool isTelephone(const char *tel) {
-    int telDefaultSize = 13;
-    int telSize = (int) strlen(tel);
-    if (telSize != telDefaultSize || !isdigit(tel[0]) || !isdigit(tel[1]) || tel[2] != ' ' || tel[3] != '9' || tel[8] != '-') {
-        return false;
-    }
+bool isDDD(const char *tel) {
+    if (!isdigit(tel[0]) || !isdigit(tel[1])) return false;
 
     const char* validDDDs[] = {
         "61", "62", "64", "65", "66", "67", "82", "71", "73",
@@ -129,18 +120,30 @@ bool isTelephone(const char *tel) {
         "54", "55", "47", "48"
     };
 
-    bool hasDDD = false;
     char ddd[3];
     strncpy(ddd, tel, 2);
 
     for (int i = 0; i < 67; i++) {
-        if (strcmp(ddd, validDDDs[i]) == 0) {
-            hasDDD = true;
-            break;
-        }
+        if (strcmp(ddd, validDDDs[i]) == 0) return true;
     }
 
-    if (!hasDDD) return false;
+    return false;
+}
+
+/**
+ * Verifica se o telefone é válido no formato XX 9XXXX-XXXX
+ * 
+ * @param const char *tel
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+bool isTelephone(const char *tel) {
+    int telDefaultSize = 13, telSize = (int) strlen(tel);
+    bool isFormated = (tel[2] != ' ' || tel[3] != '9' || tel[8] != '-');
+    if (telSize != telDefaultSize || !isFormated || !isDDD(tel)) return false;
     
     for (int i = 4; i < telDefaultSize; i++) {
         if (i == 8) continue;
