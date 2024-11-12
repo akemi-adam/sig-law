@@ -81,14 +81,13 @@ void readOffice() {
  */
 void updateOffice() {
     Office office;
-    int id;
+    char id[6];
+    Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
+        enderecoRules[2] = {validateRequired, validateString};
     
-    printf("---- Editar Escritório ----\nCódigo do Escritório: ");
-    scanf("%d", &id);
-    flushInput();
-
-    printf("Endereço: ");
-    readline(office.address, 100);
+    printf("---- Editar Escritório ----\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 3);
+    readStrField(office.address, "Endereço", 100, enderecoRules, 2);
 
     printf("\nEscritório editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
