@@ -341,41 +341,144 @@ bool isHour(const char *time) {
     return true;
 }
 
+/**
+ * Verifica se isHour foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *time
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+int validateHour(const char *time) {
+    return isHour(time) ? NO_VALIDATION_ERROR : IS_HOUR_ERROR;
+}
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateString(const char *str) {
     return isString(str) ? NO_VALIDATION_ERROR : IS_STRING_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateRequired(const char *str) {
     return isRequired(str) ? NO_VALIDATION_ERROR : IS_REQUIRED_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateEmail(const char *email) {
     return isEmail(email) ? NO_VALIDATION_ERROR : IS_EMAIL_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateTelephone(const char *tel) {
     return isTelephone(tel) ? NO_VALIDATION_ERROR : IS_TELEPHONE_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateCpf(const char *cpf) {
     return isCpf(cpf) ? NO_VALIDATION_ERROR : IS_CPF_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateCna(const char *cna) {
     return isCna(cna) ? NO_VALIDATION_ERROR : IS_CNA_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateDate(const char *dateStr) {
     return isDate(dateStr) ? NO_VALIDATION_ERROR : IS_DATE_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validatePositive(const char *strNumber) {
     int number = 123;
     if (!parseInt(strNumber, &number)) return IS_POSITIVE_ERROR;
     return isPositive(number) ? NO_VALIDATION_ERROR : IS_POSITIVE_ERROR;
 }
 
+/**
+ * Verifica se isString foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
 int validateNumber(const char *number) {
     return isNumber(number) ? NO_VALIDATION_ERROR : IS_NUMBER_ERROR;
 }
