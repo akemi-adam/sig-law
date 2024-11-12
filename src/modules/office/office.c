@@ -24,10 +24,11 @@
  */
 void createOffice() {
     Office office;
+
+    Validation enderecoRules[2] = {validateRequired, validateString};
     
     printf("---- Cadastrar Escritório ----\n");
-    printf("Endereço: ");
-    readline(office.address, 100);
+    readStrField(office.address, "Endereço", 100, enderecoRules, 2);
 
     printf("\nEscritório cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
