@@ -43,6 +43,13 @@ void test_isEmail(void) {
     TEST_ASSERT_FALSE(isEmail(""));                 // String vazia
 }
 
+void test_isDDD(void) {
+    TEST_ASSERT_TRUE(isDDD("84"));
+    TEST_ASSERT_FALSE(isDDD("05"));
+    TEST_ASSERT_FALSE(isDDD("a"));
+    TEST_ASSERT_FALSE(isDDD("b"));
+}
+
 void test_isTelephone(void) {
     TEST_ASSERT_TRUE(isTelephone("11 91234-5678")); // Telefone válido
     TEST_ASSERT_FALSE(isTelephone("12 1234-5678")); // Não começa com 9
@@ -159,6 +166,7 @@ int main(void) {
     RUN_TEST(test_isYear);
     RUN_TEST(test_isDate);
     RUN_TEST(test_isHour);
+    RUN_TEST(test_isDDD);
 
     return UNITY_END();
 }

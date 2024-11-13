@@ -143,7 +143,7 @@ bool isDDD(const char *tel) {
 bool isTelephone(const char *tel) {
     int telDefaultSize = 13, telSize = (int) strlen(tel);
     bool isFormated = (tel[2] != ' ' || tel[3] != '9' || tel[8] != '-');
-    if (telSize != telDefaultSize || !isFormated || !isDDD(tel)) return false;
+    if (telSize != telDefaultSize || isFormated || !isDDD(tel)) return false;
     
     for (int i = 4; i < telDefaultSize; i++) {
         if (i == 8) continue;

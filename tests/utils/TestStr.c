@@ -67,6 +67,9 @@ void test_parseInt_should_convert_valid_string_to_int(void) {
     TEST_ASSERT_TRUE(parseInt("123", &result));
     TEST_ASSERT_EQUAL_INT(123, result);
 
+    TEST_ASSERT_TRUE(parseInt("012", &result));
+    TEST_ASSERT_EQUAL_INT(12, result);
+
     TEST_ASSERT_TRUE(parseInt("-456", &result));
     TEST_ASSERT_EQUAL_INT(-456, result);
 }
