@@ -7,7 +7,7 @@ typedef struct Datetime {
     int year;
     int hour;
     int minute;
-    char date[17];
+    char date[18];
 } Datetime;
 
 void loadDatetime(Datetime*, const char[11], const char[6]);
