@@ -37,7 +37,8 @@ void createAppointment() {
     readStrField(date, "Data (dd/mm/aaaa)", 11, dateRules, 2);
     readStrField(startTime, "Horário do início da consulta (hh:mm)", 6, hourRules, 2);
     readStrField(endTime, "Horário do término da consulta (hh:mm)", 6, hourRules, 2);
-
+    loadDatetime(&appointment.startDate, date, startTime);
+    loadDatetime(&appointment.endDate, date, endTime);
     printf("\nAgendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -102,6 +103,8 @@ void updateAppointment() {
     readStrField(date, "Data (dd/mm/aaaa)", 11, dateRules, 2);
     readStrField(startTime, "Horário do início da consulta (hh:mm)", 6, hourRules, 2);
     readStrField(endTime, "Horário do término da consulta (hh:mm)", 6, hourRules, 2);
+    loadDatetime(&appointment.startDate, date, startTime);
+    loadDatetime(&appointment.endDate, date, endTime);
 
     printf("\nAgendamento editado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
