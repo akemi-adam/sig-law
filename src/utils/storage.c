@@ -20,3 +20,21 @@ bool saveFile(const void *ptr, const size_t size, const char *filename) {
     return true;
 }
 
+/**
+ * Ler o conteúdo de um arquivo
+ * 
+ * @param void *ptr: Destino da leitura do arquivo
+ * @param const size_t: Tamanho do tipo do conteúdo
+ * @param const char *filename: Nome do arquivo
+ * 
+ * @return bool: False se houver alguma falha na leitura do arquivo, true se ler com sucesso
+ */
+bool readFile(void *ptr, const size_t size, const char *filename) {
+    FILE *fp;
+    fp = fopen(filename, "rb");
+    if (fp == NULL) return false;
+    // fread(ptr, size, sizeof(ptr), fp);
+    fread(ptr, size, 1, fp);
+    fclose(fp);
+    return true;
+}
