@@ -6,6 +6,7 @@
 #include "./../../utils/validation.h"
 #include "./../../utils/storage.h"
 #include "./../../utils/date.h"
+#include "./../../utils/str.h"
 #include "appointment.h"
 
 #ifdef __unix__
@@ -41,6 +42,9 @@ void createAppointment() {
     loadDatetime(&appointment.startDate, date, startTime);
     loadDatetime(&appointment.endDate, date, endTime);
 
+    parseInt(clientId, &appointment.clientId);
+    parseInt(lawyerId, &appointment.lawyerId);
+    parseInt(officeId, &appointment.officeId);
     saveFile(&appointment, sizeof(Appointment), "appointments.dat");
 
     printf("\nAgendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
