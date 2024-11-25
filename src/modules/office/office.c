@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
 #include "./../../utils/validation.h"
+#include "./../../utils/storage.h"
 #include "./../../utils/str.h"
 #include "office.h"
 
@@ -30,6 +31,8 @@ void createOffice() {
     printf("---- Cadastrar Escritório ----\n");
     readStrField(office.address, "Endereço", 100, enderecoRules, 2);
 
+    saveFile(&office, sizeof(Office), "offices.dat");
+
     printf("\nEscritório cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -43,10 +46,15 @@ void createOffice() {
  *  - https://github.com/zfelip
  */
 void listOffices() {
+    Office *office = (Office*) malloc(sizeof(Office));
+    readFile(office, sizeof(Office),  "offices.dat");
+    
     printf("---- Listar Escritórios ----\n");
     printf("---------------------------------------------------------\n");
-    printf("ID: %d\nEndereço: %s\n", 1, "");
+    printf("ID: %d\nEndereço: %s\n", 1, office->address);
     printf("---------------------------------------------------------\n");
+
+    free(office);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
