@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
 #include "./../../utils/validation.h"
+#include "./../../utils/storage.h"
 #include "./../../utils/date.h"
 #include "appointment.h"
 
@@ -39,6 +40,9 @@ void createAppointment() {
     readStrField(endTime, "Horário do término da consulta (hh:mm)", 6, hourRules, 2);
     loadDatetime(&appointment.startDate, date, startTime);
     loadDatetime(&appointment.endDate, date, endTime);
+
+    saveFile(&appointment, sizeof(Appointment), "appointments.dat");
+
     printf("\nAgendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -52,9 +56,12 @@ void createAppointment() {
  *  - https://github.com/akemi-adam
  */
 void listAppointments() {
+    Appointment *appointment = (Appointment*) malloc(sizeof(Appointment));
+    readFile(appointment, sizeof(Appointment), "appointments.dat");
     printf("---- Listar Agendamentos ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\nHorário: %s\n", 1, 1, 1, 1, "", "");
+    printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\n", 1, appointment->clientId, appointment->lawyerId, appointment->officeId, appointment->startDate.date);
+    free(appointment);
     printf("------------------------------------------------------------------\n");
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
