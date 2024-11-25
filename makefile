@@ -32,7 +32,7 @@ TEST_EXECUTABLES := $(patsubst $(TEST_DIR)/%.c, $(TEST_OBJ_DIR)/%, $(TEST_SOURCE
 .PHONY: all siglaw clean test start
 
 # Regra para compilar o executável principal
-all: siglaw
+all: clean siglaw
 
 siglaw: $(SRC_OBJ_FILES) obj/main.o
 	$(CC) $(CFLAGS) $(SRC_OBJ_FILES) obj/main.o -o $(BIN)
@@ -48,7 +48,7 @@ $(OBJ_DIR)/%.o: %.c
 
 # Limpeza de arquivos compilados
 clean:
-	rm -rf $(OBJ_DIR) $(BIN)
+	rm -rf $(OBJ_DIR) $(BIN) *.dat
 
 # Regras para compilar os arquivos de objetos de teste
 $(TEST_OBJ_DIR)/%.o: $(TEST_DIR)/%.c
