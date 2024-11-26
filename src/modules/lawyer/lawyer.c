@@ -39,6 +39,8 @@ void createLawyer() {
     readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
     readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
+    saveFile(&lawyer, sizeof(Lawyer), "lawyers.dat");
+
     printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
