@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
 #include "./../../utils/validation.h"
+#include "./../../utils/storage.h"
 #include "./../../utils/str.h"
 #include "./../person/person.h"
 #include "client.h"
@@ -37,6 +38,8 @@ void createClient() {
     readStrField(client.person.email, "E-mail", 55, emailRules, 2);
     readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
 
+    saveFile(&client, sizeof(Client), "clients.dat");
+
     printf("\nCliente cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -50,10 +53,15 @@ void createClient() {
  *  - https://github.com/zfelip
  */
 void listClients() {
+    Client *client = (Client*) malloc(sizeof(Client));
+    readFile(client, sizeof(Client), "clients.dat");
+
     printf("---- Listar Clientes ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", 1, "", "", "", "");
+    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", 1, client->person.name, client->person.cpf, client->person.email, client->person.telephone);
     printf("------------------------------------------------------------------\n");
+
+    free(client);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
