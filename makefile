@@ -1,62 +1,73 @@
-# Makefile Author: ChatGPT
-# This file is responsible for compiling and creating the executable program
-# Furthermore, the make runs the unit tests
+# Makefile para Projeto C com Testes Unitários usando Unity
+# Author: ChatGPT
+# Date: 24/11/2024
 
+# Compilador e Flags
+CC := gcc
 CFLAGS := -W -Wall -pedantic
-INCLUDE_DIRS := -I src/utils -I src/modules/appointment -I src/modules/lawyer -I src/modules/client -I src/modules/office -I src/modules/person -I src/utils
+INCLUDE_DIRS := -I src/utils -I src/modules/appointment -I src/modules/lawyer -I src/modules/client -I src/modules/office -I src/modules/person -I unity
 
-MODULES := src/modules/appointment/appointment.c src/modules/lawyer/lawyer.c src/modules/client/client.c src/modules/office/office.c
-MODULES_OBJS := $(MODULES:.c=.o)
+# Diretórios
+SRC_DIR := src
+TEST_DIR := tests
+OBJ_DIR := obj
+TEST_OBJ_DIR := $(OBJ_DIR)/tests
+UNITY_DIR := unity
 
-UTILS := src/utils/str.c src/utils/validation.c
-UTILS_OBJS := $(UTILS:.c=.o)
+# Arquivos Fonte
+SRC_FILES := $(filter-out main.c, $(shell find $(SRC_DIR) -type f -name "*.c"))
+TEST_SOURCES := $(shell find $(TEST_DIR) -type f -name "*.c")
 
-.PHONY: test clean
+# Arquivos Objeto
+SRC_OBJ_FILES := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
+TEST_OBJ_FILES := $(patsubst $(TEST_DIR)/%.c, $(TEST_OBJ_DIR)/%.o, $(TEST_SOURCES))
 
-all: test siglaw
+# Executável Principal
+BIN := siglaw
 
-siglaw: main.o interfaces.o $(MODULES_OBJS) $(UTILS_OBJS)
-	gcc -o siglaw main.o interfaces.o $(MODULES_OBJS) $(UTILS_OBJS)
+# Executáveis de Teste
+TEST_EXECUTABLES := $(patsubst $(TEST_DIR)/%.c, $(TEST_OBJ_DIR)/%, $(TEST_SOURCES))
 
-%.o: %.c
-	gcc $(CFLAGS) $(INCLUDE_DIRS) -o $@ $< -c
+# Alvo Principal
+.PHONY: all siglaw clean test start
 
-main.o: main.c src/utils/interfaces.h
-	gcc $(CFLAGS) $(INCLUDE_DIRS) -o main.o main.c -c
+# Regra para compilar o executável principal
+all: siglaw
 
-interfaces.o: src/utils/interfaces.c src/utils/interfaces.h $(MODULES_OBJS)
-	gcc $(CFLAGS) $(INCLUDE_DIRS) -o interfaces.o src/utils/interfaces.c -c
+siglaw: $(SRC_OBJ_FILES) obj/main.o
+	$(CC) $(CFLAGS) $(SRC_OBJ_FILES) obj/main.o -o $(BIN)
 
-str.o: src/utils/str.c src/utils/str.h
-	gcc $(CFLAGS) $(INCLUDE_DIRS) -o str.o src/utils/str.c -c
+obj/main.o: main.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDE_DIRS) -c main.c -o $@
 
-validation.o: src/utils/validation.c src/utils/validation.h
-	gcc $(CFLAGS) $(INCLUDE_DIRS) -o validation.o src/utils/validation.c -c
+# Regra para compilar arquivos objeto do projeto
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
-# Unit tests
-test_interfaces: tests/utils/TestInterfaces.c $(MODULES_OBJS) $(UTILS_OBJS)
-	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestInterfaces.c src/utils/interfaces.c src/utils/str.c src/utils/validation.c unity/unity.c $(MODULES) -o test_interfaces
-
-test_str: tests/utils/TestStr.c $(MODULES_OBJS) $(UTILS_OBJS)
-	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestStr.c src/utils/str.c src/utils/validation.c unity/unity.c -o test_str
-
-test_validation: tests/utils/TestValidation.c $(MODULES_OBJS) $(UTILS_OBJS)
-	gcc $(CFLAGS) $(INCLUDE_DIRS) tests/utils/TestValidation.c src/utils/validation.c src/utils/str.c unity/unity.c -o test_validation
-
-# Searches for all files with the pattern test_* and executes those that are executable. If a test fails, the output is 1 and the flow is terminated.
-# Author: ChatGPT
-test: test_interfaces test_str test_validation
-	@echo "Running all tests..."
-	@if [ -d . ]; then \
-		for test_exec in test_*; do \
-			if [ -x "$$test_exec" ]; then \
-				echo "Running $$test_exec"; \
-				./$$test_exec || exit 1; \
-			fi \
-		done; \
-	fi
-
-# Clean the executable and object files
-# Author: ChatGPT
+# Limpeza de arquivos compilados
 clean:
-	find . -type f \( -name "*.o" -o -name "*~" -o -name "siglaw" -o -name "test_*" \) -exec rm -f {} +;
+	rm -rf $(OBJ_DIR) $(BIN) *.dat
+
+# Regras para compilar os arquivos de objetos de teste
+$(TEST_OBJ_DIR)/%.o: $(TEST_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDE_DIRS) -c $< -o $@
+
+# Regras para compilar os executáveis de teste
+$(TEST_OBJ_DIR)/%: $(TEST_OBJ_DIR)/%.o $(filter-out obj/main.o, $(SRC_OBJ_FILES)) $(UNITY_DIR)/unity.c $(UNITY_DIR)/unity.h $(UNITY_DIR)/unity_internals.h
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDE_DIRS) $< $(filter-out obj/main.o, $(SRC_OBJ_FILES)) $(UNITY_DIR)/unity.c -o $@
+
+# Alvo para compilar e executar todos os testes
+test: $(TEST_EXECUTABLES)
+	@echo "Executando todos os testes..."
+	@for test_exec in $(TEST_EXECUTABLES); do \
+		echo "Executando $$test_exec"; \
+		./$$test_exec || exit 1; \
+	done
+
+# Alvo para iniciar o executável principal
+start: siglaw
+	./$(BIN)
