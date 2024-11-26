@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "./../../utils/interfaces.h"
 #include "./../../utils/validation.h"
+#include "./../../utils/storage.h"
 #include "./../../utils/str.h"
 #include "./../person/person.h"
 #include "lawyer.h"
@@ -39,6 +40,8 @@ void createLawyer() {
     readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
     readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
+    saveFile(&lawyer, sizeof(Lawyer), "lawyers.dat");
+
     printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -52,10 +55,15 @@ void createLawyer() {
  *  - https://github.com/akemi-adam
  */
 void listLawyers() {
+    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
+    readFile(lawyer, sizeof(Lawyer), "lawyers.dat");
+
     printf("---- Listar Advogados ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", 1, "", "", "", "", "");
+    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", 1, lawyer->person.name, lawyer->person.cpf, lawyer->cna, lawyer->person.email, lawyer->person);
     printf("------------------------------------------------------------------\n");
+
+    free(lawyer);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
