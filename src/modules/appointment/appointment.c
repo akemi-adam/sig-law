@@ -30,6 +30,7 @@
  */
 void createAppointment() {
     Appointment appointment;
+    int tempId;
     char date[11], startTime[6], endTime[6], clientId[6], lawyerId[6], officeId[6];
 
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
@@ -38,8 +39,38 @@ void createAppointment() {
         
     printf("---- Cadastrar Agendamento ----\n");
     readStrField(clientId, "Código do Cliente", 6, idRules, 3);
+    parseInt(clientId, &tempId);
+    Client *client = findClient(tempId);
+    if (client == NULL) {
+        free(client);
+        printf("Cliente não encontrado!\n");
+        proceed();
+        return;
+    }
+    free(client);
+
     readStrField(lawyerId, "Código do Advogado", 6, idRules, 3);
+    parseInt(lawyerId, &tempId);
+    Lawyer *lawyer = findLawyer(tempId);
+    if (lawyer == NULL) {
+        free(lawyer);
+        printf("Advogado não encontrado!\n");
+        proceed();
+        return;
+    }
+    free(lawyer);
+
     readStrField(officeId, "Código do Escritório", 6, idRules, 3);
+    parseInt(officeId, &tempId);
+    Office *office = findOffice(tempId);
+    if (office == NULL) {
+        free(office);
+        printf("Escritório não encontrado!\n");
+        proceed();
+        return;
+    }
+    free(office);
+
     readStrField(date, "Data (dd/mm/aaaa)", 11, dateRules, 2);
     readStrField(startTime, "Horário do início da consulta (hh:mm)", 6, hourRules, 2);
     readStrField(endTime, "Horário do término da consulta (hh:mm)", 6, hourRules, 2);
@@ -51,7 +82,9 @@ void createAppointment() {
     parseInt(officeId, &appointment.officeId);
     saveFile(&appointment, sizeof(Appointment), "appointments.dat");
 
-    printf("\nAgendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    bool status = addElementToFile(&appointment, sizeof(Appointment), "appointments.dat");
+
+    printf("\n%s\n", status ? "Agendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o agendamento!");
     proceed();
 }
 
