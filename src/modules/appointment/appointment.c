@@ -80,8 +80,8 @@ void createAppointment() {
     parseInt(clientId, &appointment.clientId);
     parseInt(lawyerId, &appointment.lawyerId);
     parseInt(officeId, &appointment.officeId);
-    saveFile(&appointment, sizeof(Appointment), "appointments.dat");
-
+    appointment.isDeleted = false;
+    
     bool status = addElementToFile(&appointment, sizeof(Appointment), "appointments.dat");
 
     printf("\n%s\n", status ? "Agendamento cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o agendamento!");
