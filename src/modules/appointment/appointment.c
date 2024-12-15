@@ -211,3 +211,37 @@ Appointment* getAppointments(int *officesNumber) {
     return appointments;
 }
 
+/**
+ * Retorna um agendamento específico a partir de seu ID
+ * 
+ * @param const char *id: ID a ser procurado
+ * 
+ * @return Appointment*|NULL: Agendamento correspondente ao ID | NULL, caso não encontre
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Appointment* findAppointment(int id) {
+    int count;
+    id--;
+
+    Appointment* appointments = getAppointments(&count);
+    if (!appointments || id < 0 || id >= count) {
+        free(appointments);
+        return NULL;
+    }
+
+    if (appointments[id].isDeleted) {
+        free(appointments);
+        return NULL;
+    }
+
+    Appointment* appointment = (Appointment*) malloc(sizeof(Appointment));
+
+    *appointment = appointments[id];
+    free(appointments);
+
+    return appointment;
+}
+
+
