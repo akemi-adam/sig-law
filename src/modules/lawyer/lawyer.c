@@ -58,14 +58,19 @@ void createLawyer() {
  *  - https://github.com/akemi-adam
  */
 void listLawyers() {
-    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
-    readFile(lawyer, sizeof(Lawyer), "lawyers.dat");
+    int count;
+    Lawyer *lawyers = getLawyers(&count);
+    
     printf("---- Listar Advogados ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", 1, lawyer->person.name, lawyer->person.cpf, lawyer->cna, lawyer->person.email, lawyer->person.telephone);
+    for (int i = 0; i < count; i++) {
+        if (!lawyers[i].isDeleted) {
+            printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", i + 1, lawyers[i].person.name, lawyers[i].person.cpf, lawyers[i].cna, lawyers[i].person.email, lawyers[i].person.telephone);
+        }
+    }
     printf("------------------------------------------------------------------\n");
 
-    free(lawyer);
+    free(lawyers);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
