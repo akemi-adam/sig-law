@@ -16,7 +16,7 @@
  *  - ChatGPT
  */
 bool isString(const char *str) {
-    if (str == NULL || str[0] == '\0' || hasInvalidSpaces(str)) return false;
+    if (hasInvalidSpaces(str)) return false;
     for (int i = 0; str[i] != '\0'; i++) {
         if (!(isalpha(str[i]) || str[i] == ' ' || isAccentedChar(str[i]))) return false;
     }
