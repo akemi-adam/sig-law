@@ -54,15 +54,19 @@ void createClient() {
  *  - https://github.com/zfelip
  */
 void listClients() {
-    Client *client = (Client*) malloc(sizeof(Client));
-    readFile(client, sizeof(Client), "clients.dat");
+    int count;
+    Client *clients = getClients(&count);
 
     printf("---- Listar Clientes ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", 1, client->person.name, client->person.cpf, client->person.email, client->person.telephone);
-    printf("------------------------------------------------------------------\n");
+    for (int i = 0; i < count; i++) {
+        if (!clients[i].isDeleted) {
+            printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", i + 1, clients[i].person.name, clients[i].person.cpf, clients[i].person.email, clients[i].person.telephone);
+            printf("------------------------------------------------------------------\n");
+        }
+    }
 
-    free(client);
+    free(clients);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
