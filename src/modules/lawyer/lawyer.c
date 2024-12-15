@@ -84,13 +84,25 @@ void listLawyers() {
  *  - https://github.com/akemi-adam
  */
 void readLawyer() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
     printf("---- Buscar Advogado ----\n");
     readStrField(id, "Código do Advogado", 6, idRules, 3);
-    printf("------------------------------------------------------------------\n");
-    printf("ID: %s\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
-    printf("------------------------------------------------------------------\n");
+
+    parseInt(id, &intId);
+
+    Lawyer *lawyer = findLawyer(intId);
+
+    if (lawyer != NULL) {
+        printf("------------------------------------------------------------------\n");
+        printf("ID: %s\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, lawyer->person.name, lawyer->person.cpf, lawyer->cna, lawyer->person.email, lawyer->person.telephone);
+        printf("------------------------------------------------------------------\n");
+        free(lawyer);
+    } else {
+        printf("O código informado não corresponde a nenhum advogado\n");
+    }
+
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
