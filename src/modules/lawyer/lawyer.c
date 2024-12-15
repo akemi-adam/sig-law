@@ -204,3 +204,36 @@ Lawyer* getLawyers(int *officesNumber) {
     return lawyers;
 }
 
+/**
+ * Retorna um advogado específico a partir de seu ID
+ * 
+ * @param const char *id: ID a ser procurado
+ * 
+ * @return Lawyer*|NULL: Advogado correspondente ao ID | NULL, caso não encontre
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Lawyer* findLawyer(int id) {
+    int count;
+    id--;
+
+    Lawyer* lawyers = getLawyers(&count);
+    if (!lawyers || id < 0 || id >= count) {
+        free(lawyers);
+        return NULL;
+    }
+
+    if (lawyers[id].isDeleted) {
+        free(lawyers);
+        return NULL;
+    }
+
+    Lawyer* lawyer = (Lawyer*) malloc(sizeof(Lawyer));
+
+    *lawyer = lawyers[id];
+    free(lawyers);
+
+    return lawyer;
+}
+
