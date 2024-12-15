@@ -159,11 +159,25 @@ void updateLawyer() {
  *  - https://github.com/akemi-adam
  */
 void deleteLawyer() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    
     printf("---- Deletar Advogado ----\n");
     readStrField(id, "Código do Advogado", 6, idRules, 3);
-    printf("Advogado deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    parseInt(id, &intId);
+    Lawyer *lawyer = findLawyer(intId);
+
+    if (lawyer != NULL) {
+        lawyer->isDeleted = true;
+        editLawyers(intId, lawyer);
+        free(lawyer);
+        printf("Advogado deletado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum advogado\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
