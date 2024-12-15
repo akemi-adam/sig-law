@@ -184,3 +184,23 @@ void showLawyerMenu() {
         }
     }
 }
+
+/**
+ * Retorna uma lista contendo todos os advogados
+ * 
+ * @param int *officesNumber: Número de advogados cadastrados
+ * 
+ * @return Office*: endereço da lista de advogados
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Lawyer* getLawyers(int *officesNumber) {
+    const size_t structSize = sizeof(Lawyer);
+    *officesNumber = getNumberOfElements("lawyers.dat", structSize);
+    Lawyer *lawyers = (Lawyer*) malloc(structSize * (*officesNumber));
+    readFile(lawyers, structSize, *officesNumber, "lawyers.dat");
+
+    return lawyers;
+}
+
