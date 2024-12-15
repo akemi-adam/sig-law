@@ -41,9 +41,11 @@ void createLawyer() {
     readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
     readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
-    saveFile(&lawyer, sizeof(Lawyer), "lawyers.dat");
+    lawyer.isDeleted = false;
 
-    printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    bool status = addElementToFile(&lawyer, sizeof(Lawyer), "lawyers.dat");
+
+    printf("\n%s\n", status ? "Advogado cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o advogado!");
     proceed();
 }
 
@@ -56,14 +58,19 @@ void createLawyer() {
  *  - https://github.com/akemi-adam
  */
 void listLawyers() {
-    Lawyer *lawyer = (Lawyer*) malloc(sizeof(Lawyer));
-    readFile(lawyer, sizeof(Lawyer), "lawyers.dat");
+    int count;
+    Lawyer *lawyers = getLawyers(&count);
+    
     printf("---- Listar Advogados ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", 1, lawyer->person.name, lawyer->person.cpf, lawyer->cna, lawyer->person.email, lawyer->person.telephone);
+    for (int i = 0; i < count; i++) {
+        if (!lawyers[i].isDeleted) {
+            printf("ID: %d\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", i + 1, lawyers[i].person.name, lawyers[i].person.cpf, lawyers[i].cna, lawyers[i].person.email, lawyers[i].person.telephone);
+        }
+    }
     printf("------------------------------------------------------------------\n");
 
-    free(lawyer);
+    free(lawyers);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -77,13 +84,25 @@ void listLawyers() {
  *  - https://github.com/akemi-adam
  */
 void readLawyer() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
     printf("---- Buscar Advogado ----\n");
     readStrField(id, "Código do Advogado", 6, idRules, 3);
-    printf("------------------------------------------------------------------\n");
-    printf("ID: %s\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "", "");
-    printf("------------------------------------------------------------------\n");
+
+    parseInt(id, &intId);
+
+    Lawyer *lawyer = findLawyer(intId);
+
+    if (lawyer != NULL) {
+        printf("------------------------------------------------------------------\n");
+        printf("ID: %s\nNome: %s\nCPF: %s\nCNA: %s\nE-mail: %s\nTelefone: %s\n", id, lawyer->person.name, lawyer->person.cpf, lawyer->cna, lawyer->person.email, lawyer->person.telephone);
+        printf("------------------------------------------------------------------\n");
+        free(lawyer);
+    } else {
+        printf("O código informado não corresponde a nenhum advogado\n");
+    }
+
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -92,29 +111,42 @@ void readLawyer() {
  * Formulário para atualizar os dados de um advogado específico
  * 
  * @return void
- * 
+ *  
  * Authors:
  *  - https://github.com/akemi-adam
  */
 void updateLawyer() {
-    Lawyer lawyer;
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
-        nameRules[2] = {validateRequired, validateString},
-        cpfRules[2] = {validateRequired, validateCpf},
-        cnaRules[2] = {validateRequired, validateCna},
-        emailRules[2] = {validateRequired, validateEmail},
-        telephoneRules[2] = {validateRequired, validateTelephone};
+        nameRules[1] = {validateString},
+        cpfRules[1] = {validateCpf},
+        cnaRules[1] = {validateCna},
+        emailRules[1] = {validateEmail},
+        telephoneRules[1] = {validateTelephone};
     
-    printf("---- Editar Advogado ----\n");
-    readStrField(id, "Código do Advogado", 6, idRules, 3);
-    readStrField(lawyer.person.name, "Nome", 55, nameRules, 2);
-    readStrField(lawyer.person.cpf, "CPF", 12, cpfRules, 2);
-    readStrField(lawyer.cna, "CNA", 13, cnaRules, 2);
-    readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
-    readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
-    printf("\nAdvogado editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
+    parseInt(id, &intId);
+    Lawyer *lawyer = findLawyer(intId);
+
+    if (lawyer != NULL) {
+        printf("Advogado encontrado!\n\n---- Editar Advogado ----\n");
+        readStrField(lawyer->person.name, "Nome", 55, nameRules, 1);
+        readStrField(lawyer->person.cpf, "CPF", 12, cpfRules, 1);
+        readStrField(lawyer->cna, "CNA", 13, cnaRules, 1);
+        readStrField(lawyer->person.email, "E-mail", 55, emailRules, 1);
+        readStrField(lawyer->person.telephone, "Telefone", 14, telephoneRules, 1);
+
+        editLawyers(intId, lawyer);
+        free(lawyer);
+
+        printf("\nAdvogado editado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum advogado\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -127,11 +159,25 @@ void updateLawyer() {
  *  - https://github.com/akemi-adam
  */
 void deleteLawyer() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    
     printf("---- Deletar Advogado ----\n");
     readStrField(id, "Código do Advogado", 6, idRules, 3);
-    printf("Advogado deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    parseInt(id, &intId);
+    Lawyer *lawyer = findLawyer(intId);
+
+    if (lawyer != NULL) {
+        lawyer->isDeleted = true;
+        editLawyers(intId, lawyer);
+        free(lawyer);
+        printf("Advogado deletado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum advogado\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -183,4 +229,76 @@ void showLawyerMenu() {
             }
         }
     }
+}
+
+/**
+ * Retorna uma lista contendo todos os advogados
+ * 
+ * @param int *officesNumber: Número de advogados cadastrados
+ * 
+ * @return Office*: endereço da lista de advogados
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Lawyer* getLawyers(int *officesNumber) {
+    const size_t structSize = sizeof(Lawyer);
+    *officesNumber = getNumberOfElements("lawyers.dat", structSize);
+    Lawyer *lawyers = (Lawyer*) malloc(structSize * (*officesNumber));
+    readFile(lawyers, structSize, *officesNumber, "lawyers.dat");
+
+    return lawyers;
+}
+
+/**
+ * Retorna um advogado específico a partir de seu ID
+ * 
+ * @param const char *id: ID a ser procurado
+ * 
+ * @return Lawyer*|NULL: Advogado correspondente ao ID | NULL, caso não encontre
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Lawyer* findLawyer(int id) {
+    int count;
+    id--;
+
+    Lawyer* lawyers = getLawyers(&count);
+    if (!lawyers || id < 0 || id >= count) {
+        free(lawyers);
+        return NULL;
+    }
+
+    if (lawyers[id].isDeleted) {
+        free(lawyers);
+        return NULL;
+    }
+
+    Lawyer* lawyer = (Lawyer*) malloc(sizeof(Lawyer));
+
+    *lawyer = lawyers[id];
+    free(lawyers);
+
+    return lawyer;
+}
+
+
+/**
+ * Edita/atualiza a lista de advogados no arquivo
+ * 
+ * @param int id: ID do advogado
+ * @param Lawyer *lawyer: Advogado
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void editLawyers(int id, Lawyer *lawyer) {
+    int count;
+    Lawyer *lawyers = getLawyers(&count);
+    lawyers[id - 1] = *lawyer;
+    saveFile(lawyers, sizeof(Lawyer), count, "lawyers.dat");
+    free(lawyers);
 }

@@ -22,18 +22,20 @@
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void createOffice() {
     Office office;
 
-    Validation enderecoRules[2] = {validateRequired, validateString};
+    Validation enderecoRules[2] = {validateRequired, validateisStringWithNumbers};
     
     printf("---- Cadastrar Escritório ----\n");
     readStrField(office.address, "Endereço", 100, enderecoRules, 2);
+    office.isDeleted = false;
 
-    saveFile(&office, sizeof(Office), "offices.dat");
+    bool status = addElementToFile(&office, sizeof(Office), "offices.dat");
 
-    printf("\nEscritório cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\n%s\n", status ? "Escritório cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o escritório!");
     proceed();
 }
 
@@ -44,17 +46,22 @@ void createOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void listOffices() {
-    Office *office = (Office*) malloc(sizeof(Office));
-    readFile(office, sizeof(Office),  "offices.dat");
+    int count;
+    Office *offices = getOffices(&count);
     
     printf("---- Listar Escritórios ----\n");
     printf("---------------------------------------------------------\n");
-    printf("ID: %d\nEndereço: %s\n", 1, office->address);
-    printf("---------------------------------------------------------\n");
-
-    free(office);
+    for (int i = 0; i < count; i++) {
+        if (!offices[i].isDeleted) {
+            printf("ID: %d\nEndereço: %s\n", i + 1, offices[i].address);
+            printf("---------------------------------------------------------\n");
+        }
+    }
+    
+    free(offices);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -66,15 +73,27 @@ void listOffices() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void readOffice() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
     printf("---- Buscar Escritório ----\n");
     readStrField(id, "Código do Escritório", 6, idRules, 3);
-    printf("----------------------------------------------------------\n");
-    printf("ID: %s\nEscritório: %s\n", id, "");
-    printf("----------------------------------------------------------\n");
+    parseInt(id, &intId);
+    
+    Office *office = findOffice(intId);
+
+    if (office != NULL) {
+        printf("----------------------------------------------------------\n");
+        printf("ID: %s\nEscritório: %s\n", id, office->address);
+        printf("----------------------------------------------------------\n");
+        free(office);
+    } else {
+        printf("O código informado não corresponde a nenhum escritório\n");
+    }
+
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -86,18 +105,31 @@ void readOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void updateOffice() {
-    Office office;
+    int intId;
     char id[6];
-    Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
-        enderecoRules[2] = {validateRequired, validateString};
-    
-    printf("---- Editar Escritório ----\n");
-    readStrField(id, "Código do Escritório", 6, idRules, 3);
-    readStrField(office.address, "Endereço", 100, enderecoRules, 2);
+    Validation idRules[3] = {validateNumber, validatePositive},
+        enderecoRules[1] = {validateisStringWithNumbers};
 
-    printf("\nEscritório editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 2);
+    parseInt(id, &intId);
+    Office *office = findOffice(intId);
+
+    if (office != NULL) {
+        printf("Escritório encontrado!\n\n---- Editar Escritório ----\n");
+        readStrField(office->address, "Endereço", 100, enderecoRules, 1);
+        
+        editOffices(intId, office);
+        free(office);
+
+        printf("\nEscritório editado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum escritório\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -108,13 +140,28 @@ void updateOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void deleteOffice() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    
     printf("---- Deletar Escritório ----\n");
     readStrField(id, "Código do Escritório", 6, idRules, 3);
-    printf("Escritório deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    parseInt(id, &intId);
+    Office *office = findOffice(intId);
+
+    if (office != NULL) {
+        office->isDeleted = true;
+        editOffices(intId, office);
+        free(office);
+        printf("Escritório deletado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum escritório\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -125,6 +172,7 @@ void deleteOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void showOfficeMenu() {
     #ifdef __unix__
@@ -166,4 +214,75 @@ void showOfficeMenu() {
             }
         }
     }
+}
+
+/**
+ * Retorna uma lista contendo todos os escritórios
+ * 
+ * @param int *officesNumber: Número de escritórios cadastrados
+ * 
+ * @return Office*: endereço da lista de escritórios
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Office* getOffices(int *officesNumber) {
+    const size_t structSize = sizeof(Office);
+    *officesNumber = getNumberOfElements("offices.dat", structSize);
+    Office *offices = (Office*) malloc(structSize * (*officesNumber));
+    readFile(offices, structSize, *officesNumber, "offices.dat");
+
+    return offices;
+}
+
+/**
+ * Retorna um escritório específico a partir de seu ID
+ * 
+ * @param const char *id: ID a ser procurado
+ * 
+ * @return Office*|NULL: Escritório correspondente ao ID | NULL, caso não encontre
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Office* findOffice(int id) {
+    int count;
+    id--;
+
+    Office* offices = getOffices(&count);
+    if (!offices || id < 0 || id >= count) {
+        free(offices);
+        return NULL;
+    }
+
+    if (offices[id].isDeleted) {
+        free(offices);
+        return NULL;
+    }
+
+    Office* office = (Office*) malloc(sizeof(Office));
+
+    *office = offices[id];
+    free(offices);
+
+    return office;
+}
+
+/**
+ * Edita/atualiza a lista de escritórios no arquivo
+ * 
+ * @param int id: ID do escritório
+ * @param Office *office: Escritório
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void editOffices(int id, Office *office) {
+    int count;
+    Office *offices = getOffices(&count);
+    offices[id - 1] = *office;
+    saveFile(offices, sizeof(Office), count, "offices.dat");
+    free(offices);
 }

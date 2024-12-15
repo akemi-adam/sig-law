@@ -8,8 +8,10 @@ typedef struct Datetime {
     int hour;
     int minute;
     char date[18];
+    char onlyDate[11];
+    char time[6];
 } Datetime;
 
-void loadDatetime(Datetime*, const char[11], const char[6]);
+void loadDatetime(Datetime*, const char*, const char*);
 
 #endif

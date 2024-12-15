@@ -424,9 +424,16 @@ void readStrField(char *field, char *label, int maxLength, Validation validation
     int i = 0;
     int status; 
     bool isValidated = true;
+    char *defaultValue = (char*) malloc(sizeof(char));
     do {
         printf("%s: ", label);
+
+        if (strlen(field)) strcpy(defaultValue, field);
+        
         readline(field, maxLength);
+
+        if (!strlen(field)) strcpy(field, defaultValue);
+
         while (i < validationSize) {
             status = validation[i](field);
             if (status) {
@@ -439,4 +446,5 @@ void readStrField(char *field, char *label, int maxLength, Validation validation
             }
         }
     } while (!isValidated);
+    free(defaultValue);
 }

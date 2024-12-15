@@ -37,10 +37,11 @@ void createClient() {
     readStrField(client.person.cpf, "CPF", 12, cpfRules, 2);
     readStrField(client.person.email, "E-mail", 55, emailRules, 2);
     readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
+    client.isDeleted = false;
 
-    saveFile(&client, sizeof(Client), "clients.dat");
+    bool status = addElementToFile(&client, sizeof(Client), "clients.dat");
 
-    printf("\nCliente cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\n%s\n", status ? "Cliente cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o cliente!");
     proceed();
 }
 
@@ -53,15 +54,19 @@ void createClient() {
  *  - https://github.com/zfelip
  */
 void listClients() {
-    Client *client = (Client*) malloc(sizeof(Client));
-    readFile(client, sizeof(Client), "clients.dat");
+    int count;
+    Client *clients = getClients(&count);
 
     printf("---- Listar Clientes ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", 1, client->person.name, client->person.cpf, client->person.email, client->person.telephone);
-    printf("------------------------------------------------------------------\n");
+    for (int i = 0; i < count; i++) {
+        if (!clients[i].isDeleted) {
+            printf("ID: %d\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", i + 1, clients[i].person.name, clients[i].person.cpf, clients[i].person.email, clients[i].person.telephone);
+            printf("------------------------------------------------------------------\n");
+        }
+    }
 
-    free(client);
+    free(clients);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -75,13 +80,23 @@ void listClients() {
  *  - https://github.com/zfelip
  */
 void readClient() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
     printf("---- Buscar Cliente ----\n");
     readStrField(id, "Código do Cliente", 6, idRules, 3);
-    printf("------------------------------------------------------------------\n");
-    printf("ID: %s\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "");
-    printf("------------------------------------------------------------------\n");
+    parseInt(id, &intId);
+    Client *client = findClient(intId);
+
+    if (client != NULL) {
+        printf("------------------------------------------------------------------\n");
+        printf("ID: %s\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, client->person.name, client->person.cpf, client->person.email, client->person.telephone);
+        printf("------------------------------------------------------------------\n");
+        free(client);
+    } else {
+        printf("O código informado não corresponde a nenhum cliente\n");
+    }
+
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
@@ -95,22 +110,34 @@ void readClient() {
  *  - https://github.com/zfelip
  */
 void updateClient() {
-    Client client;
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
-        nameRules[2] = {validateRequired, validateString},
-        cpfRules[2] = {validateRequired, validateCpf},
-        emailRules[2] = {validateRequired, validateEmail},
-        telephoneRules[2] = {validateRequired, validateTelephone};
+        nameRules[1] = {validateString},
+        cpfRules[1] = {validateCpf},
+        emailRules[1] = {validateEmail},
+        telephoneRules[1] = {validateTelephone};
 
-    printf("---- Editar Cliente ----\n");
     readStrField(id, "Código do Cliente", 6, idRules, 3);
-    readStrField(client.person.name, "Nome", 55, nameRules, 2);
-    readStrField(client.person.cpf, "CPF", 12, cpfRules, 2);
-    readStrField(client.person.email, "E-mail", 55, emailRules, 2);
-    readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
+    parseInt(id, &intId);
+    Client *client = findClient(intId);
 
-    printf("\nCliente editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    if (client != NULL) {
+        printf("Cliente encontrado!\n\n---- Editar Cliente ----\n");
+        readStrField(client->person.name, "Nome", 55, nameRules, 1);
+        readStrField(client->person.cpf, "CPF", 12, cpfRules, 1);
+        readStrField(client->person.email, "E-mail", 55, emailRules, 1);
+        readStrField(client->person.telephone, "Telefone", 14, telephoneRules, 1);
+
+        editClients(intId, client);
+        free(client);
+
+        printf("\nCliente editado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum cliente\n");
+    }
+
+    printf("\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -123,11 +150,25 @@ void updateClient() {
  *  - https://github.com/zfelip
  */
 void deleteClient() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+
     printf("---- Deletar Cliente ----\n");
     readStrField(id, "Código do Cliente", 6, idRules, 3);
-    printf("Cliente deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    parseInt(id, &intId);
+    Client *client = findClient(intId);
+
+    if (client != NULL) {
+        client->isDeleted = true;
+        editClients(intId, client);
+        free(client);
+        printf("Cliente deletado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum cliente\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -179,4 +220,76 @@ void showClientMenu() {
             }
         }
     }
+}
+
+/**
+ * Retorna uma lista contendo todos os clientes
+ * 
+ * @param int *officesNumber: Número de clientes cadastrados
+ * 
+ * @return Office*: endereço da lista de clientes
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Client* getClients(int *officesNumber) {
+    const size_t structSize = sizeof(Client);
+    *officesNumber = getNumberOfElements("clients.dat", structSize);
+    Client *clients = (Client*) malloc(structSize * (*officesNumber));
+    readFile(clients, structSize, *officesNumber, "clients.dat");
+
+    return clients;
+}
+
+/**
+ * Retorna um cliente específico a partir de seu ID
+ * 
+ * @param const char *id: ID a ser procurado
+ * 
+ * @return Client*|NULL: Cliente correspondente ao ID | NULL, caso não encontre
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Client* findClient(int id) {
+    int count;
+    id--;
+
+    Client* clients = getClients(&count);
+    if (!clients || id < 0 || id >= count) {
+        free(clients);
+        return NULL;
+    }
+
+    if (clients[id].isDeleted) {
+        free(clients);
+        return NULL;
+    }
+
+    Client* client = (Client*) malloc(sizeof(Client));
+
+    *client = clients[id];
+    free(clients);
+
+    return client;
+}
+
+
+/**
+ * Edita/atualiza a lista de clientes no arquivo
+ * 
+ * @param int id: ID do cliente
+ * @param Client *client: Cliente
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void editClients(int id, Client *client) {
+    int count;
+    Client *clients = getClients(&count);
+    clients[id - 1] = *client;
+    saveFile(clients, sizeof(Client), count, "clients.dat");
+    free(clients);
 }
