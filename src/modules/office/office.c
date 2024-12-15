@@ -22,18 +22,20 @@
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void createOffice() {
     Office office;
 
-    Validation enderecoRules[2] = {validateRequired, validateString};
+    Validation enderecoRules[2] = {validateRequired, validateisStringWithNumbers};
     
     printf("---- Cadastrar Escritório ----\n");
     readStrField(office.address, "Endereço", 100, enderecoRules, 2);
+    office.isDeleted = false;
 
-    saveFile(&office, sizeof(Office), "offices.dat");
+    bool status = addElementToFile(&office, sizeof(Office), "offices.dat");
 
-    printf("\nEscritório cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\n%s\n", status ? "Escritório cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o escritório!");
     proceed();
 }
 
