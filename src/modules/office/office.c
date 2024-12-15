@@ -219,3 +219,22 @@ Office* findOffice(int id) {
 
     return office;
 }
+
+/**
+ * Edita/atualiza a lista de escritórios no arquivo
+ * 
+ * @param int id: ID do escritório
+ * @param Office *office: Escritório
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void editOffices(int id, Office *office) {
+    int count;
+    Office *offices = getOffices(&count);
+    offices[id - 1] = *office;
+    saveFile(offices, sizeof(Office), count, "offices.dat");
+    free(offices);
+}
