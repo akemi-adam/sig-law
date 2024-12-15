@@ -17,6 +17,8 @@
 
 bool isString(const char*);
 
+bool isStringWithNumbers(const char*);
+
 bool isEmpty(const char*);
 
 bool isRequired(const char*);
@@ -54,6 +56,8 @@ bool isHour(const char*);
 int validateHour(const char*);
 
 int validateString(const char*);
+
+int validateisStringWithNumbers(const char*);
 
 int validateRequired(const char*);
 

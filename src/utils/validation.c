@@ -24,6 +24,24 @@ bool isString(const char *str) {
 }
 
 /**
+ * Verifica se a string conter apenas caracteres alphanuméricos
+ * 
+ * @param char *str
+ * 
+ * @return bool
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool isStringWithNumbers(const char *str) {
+    if (hasInvalidSpaces(str)) return false;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!(isalpha(str[i]) || isdigit(str[i]) || str[i] == ' ' || isAccentedChar(str[i]))) return false;
+    }
+    return true;
+}
+
+/**
  * Verifica se a string é vazia
  * 
  * @param const char *str
@@ -370,6 +388,20 @@ int validateHour(const char *time) {
  */
 int validateString(const char *str) {
     return isString(str) ? NO_VALIDATION_ERROR : IS_STRING_ERROR;
+}
+
+/**
+ * Verifica se isStringWithNumbers foi bem sucedida e emite um código de sucesso ou de erro
+ * 
+ * @param const char *str
+ * 
+ * @return int
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+int validateisStringWithNumbers(const char *str) {
+    return isStringWithNumbers(str) ? NO_VALIDATION_ERROR : IS_STRING_ERROR;
 }
 
 /**
