@@ -245,3 +245,21 @@ Appointment* findAppointment(int id) {
 }
 
 
+/**
+ * Edita/atualiza a lista de agendamentos no arquivo
+ * 
+ * @param int id: ID do agendamento
+ * @param Appointment *appointment: Agendamento
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void editAppointments(int id, Appointment *appointment) {
+    int count;
+    Appointment *appointments = getAppointments(&count);
+    appointments[id - 1] = *appointment;
+    saveFile(appointments, sizeof(Appointment), count, "appointments.dat");
+    free(appointments);
+}
