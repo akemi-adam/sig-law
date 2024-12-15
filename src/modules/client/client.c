@@ -180,3 +180,23 @@ void showClientMenu() {
         }
     }
 }
+
+/**
+ * Retorna uma lista contendo todos os clientes
+ * 
+ * @param int *officesNumber: Número de clientes cadastrados
+ * 
+ * @return Office*: endereço da lista de clientes
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Client* getClients(int *officesNumber) {
+    const size_t structSize = sizeof(Client);
+    *officesNumber = getNumberOfElements("clients.dat", structSize);
+    Client *clients = (Client*) malloc(structSize * (*officesNumber));
+    readFile(clients, structSize, *officesNumber, "clients.dat");
+
+    return clients;
+}
+
