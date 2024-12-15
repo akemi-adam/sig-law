@@ -110,22 +110,34 @@ void readClient() {
  *  - https://github.com/zfelip
  */
 void updateClient() {
-    Client client;
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
-        nameRules[2] = {validateRequired, validateString},
-        cpfRules[2] = {validateRequired, validateCpf},
-        emailRules[2] = {validateRequired, validateEmail},
-        telephoneRules[2] = {validateRequired, validateTelephone};
+        nameRules[1] = {validateString},
+        cpfRules[1] = {validateCpf},
+        emailRules[1] = {validateEmail},
+        telephoneRules[1] = {validateTelephone};
 
-    printf("---- Editar Cliente ----\n");
     readStrField(id, "Código do Cliente", 6, idRules, 3);
-    readStrField(client.person.name, "Nome", 55, nameRules, 2);
-    readStrField(client.person.cpf, "CPF", 12, cpfRules, 2);
-    readStrField(client.person.email, "E-mail", 55, emailRules, 2);
-    readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
+    parseInt(id, &intId);
+    Client *client = findClient(intId);
 
-    printf("\nCliente editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    if (client != NULL) {
+        printf("Cliente encontrado!\n\n---- Editar Cliente ----\n");
+        readStrField(client->person.name, "Nome", 55, nameRules, 1);
+        readStrField(client->person.cpf, "CPF", 12, cpfRules, 1);
+        readStrField(client->person.email, "E-mail", 55, emailRules, 1);
+        readStrField(client->person.telephone, "Telefone", 14, telephoneRules, 1);
+
+        editClients(intId, client);
+        free(client);
+
+        printf("\nCliente editado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum cliente\n");
+    }
+
+    printf("\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
