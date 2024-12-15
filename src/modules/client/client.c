@@ -37,10 +37,11 @@ void createClient() {
     readStrField(client.person.cpf, "CPF", 12, cpfRules, 2);
     readStrField(client.person.email, "E-mail", 55, emailRules, 2);
     readStrField(client.person.telephone, "Telefone", 14, telephoneRules, 2);
+    client.isDeleted = false;
 
-    saveFile(&client, sizeof(Client), "clients.dat");
+    bool status = addElementToFile(&client, sizeof(Client), "clients.dat");
 
-    printf("\nCliente cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    printf("\n%s\n", status ? "Cliente cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o cliente!");
     proceed();
 }
 
