@@ -105,18 +105,31 @@ void readOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void updateOffice() {
-    Office office;
+    int intId;
     char id[6];
-    Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
-        enderecoRules[2] = {validateRequired, validateString};
-    
-    printf("---- Editar Escritório ----\n");
-    readStrField(id, "Código do Escritório", 6, idRules, 3);
-    readStrField(office.address, "Endereço", 100, enderecoRules, 2);
+    Validation idRules[3] = {validateNumber, validatePositive},
+        enderecoRules[1] = {validateisStringWithNumbers};
 
-    printf("\nEscritório editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    readStrField(id, "Código do Escritório", 6, idRules, 2);
+    parseInt(id, &intId);
+    Office *office = findOffice(intId);
+
+    if (office != NULL) {
+        printf("Escritório encontrado!\n\n---- Editar Escritório ----\n");
+        readStrField(office->address, "Endereço", 100, enderecoRules, 1);
+        
+        editOffices(intId, office);
+        free(office);
+
+        printf("\nEscritório editado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum escritório\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
