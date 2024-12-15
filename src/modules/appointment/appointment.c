@@ -97,13 +97,20 @@ void createAppointment() {
  *  - https://github.com/akemi-adam
  */
 void listAppointments() {
-    Appointment *appointment = (Appointment*) malloc(sizeof(Appointment));
-    readFile(appointment, sizeof(Appointment), "appointments.dat");
+    int count;
+    Appointment *appointments = getAppointments(&count);
+    
     printf("---- Listar Agendamentos ----\n");
     printf("------------------------------------------------------------------\n");
-    printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\n", 1, appointment->clientId, appointment->lawyerId, appointment->officeId, appointment->startDate.date);
-    free(appointment);
-    printf("------------------------------------------------------------------\n");
+    for (int i = 0; i < count; i++) {
+        if (!appointments[i].isDeleted) {
+            printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData início: %s\nData término: %s\n", i + 1, appointments[i].clientId, appointments[i].lawyerId, appointments[i].officeId, appointments[i].startDate.date, appointments[i].endDate.date);
+            printf("------------------------------------------------------------------\n");
+        }
+    }
+
+    free(appointments);
+    
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
