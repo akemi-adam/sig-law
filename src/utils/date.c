@@ -15,7 +15,7 @@
  * Authors:
  *  - https://github.com/akemi-adam
  */
-void loadDatetime(Datetime *datetime, const char date[11], const char time[6]) {
+void loadDatetime(Datetime *datetime, const char *date, const char *time) {
     char strYear[5], strMonth[3], strDay[3], strHour[3], strMinute[3];
     
     strncpy(strDay, date, 2);
@@ -23,6 +23,9 @@ void loadDatetime(Datetime *datetime, const char date[11], const char time[6]) {
     strncpy(strYear, date + 6, 4);
     strncpy(strHour, time, 2);
     strncpy(strMinute, time + 3, 2);
+
+    strcpy(datetime->onlyDate, date);
+    strcpy(datetime->time, time);
 
     parseInt(strYear, &datetime->year);
     parseInt(strMonth, &datetime->month);
