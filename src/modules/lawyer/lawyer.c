@@ -237,3 +237,22 @@ Lawyer* findLawyer(int id) {
     return lawyer;
 }
 
+
+/**
+ * Edita/atualiza a lista de advogados no arquivo
+ * 
+ * @param int id: ID do advogado
+ * @param Lawyer *lawyer: Advogado
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void editLawyers(int id, Lawyer *lawyer) {
+    int count;
+    Lawyer *lawyers = getLawyers(&count);
+    lawyers[id - 1] = *lawyer;
+    saveFile(lawyers, sizeof(Lawyer), count, "lawyers.dat");
+    free(lawyers);
+}
