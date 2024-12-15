@@ -151,26 +151,109 @@ void readAppointment() {
  * 
  * Authors:
  *  - https://github.com/akemi-adam
+ * 
+ * Obs.: Algumas melhorias podem ser feitas nessa função, como fazer uma função genérica para a verificação da foreign key. Outra melhoria é a atribuição das datas e sua atualização.
  */
 void updateAppointment() {
-    Appointment appointment;
-    char date[11], startTime[6], endTime[6], appointmentId[6], clientId[6], lawyerId[6], officeId[6];
+    int tempId, intId;
+    char *date = (char*) malloc(sizeof(char)),
+        *startTime = (char*) malloc(sizeof(char)),
+        *endTime = (char*) malloc(sizeof(char));
+
+    char appointmentId[6], clientId[6], lawyerId[6], officeId[6];
+
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
-        dateRules[2] = {validateRequired, validateDate},
-        hourRules[2] = {validateRequired, validateHour};
+        fkRules[2] = {validateNumber, validatePositive},
+        dateRules[1] = {validateDate},
+        hourRules[1] = {validateHour};
     
     printf("---- Atualizar Agendamento ----\n");
     readStrField(appointmentId, "Código do Agendamento", 6, idRules, 3);
-    readStrField(clientId, "Código do Cliente", 6, idRules, 3);
-    readStrField(lawyerId, "Código do Advogado", 6, idRules, 3);
-    readStrField(officeId, "Código do Escritório", 6, idRules, 3);
-    readStrField(date, "Data (dd/mm/aaaa)", 11, dateRules, 2);
-    readStrField(startTime, "Horário do início da consulta (hh:mm)", 6, hourRules, 2);
-    readStrField(endTime, "Horário do término da consulta (hh:mm)", 6, hourRules, 2);
-    loadDatetime(&appointment.startDate, date, startTime);
-    loadDatetime(&appointment.endDate, date, endTime);
+    parseInt(appointmentId, &intId);
+    Appointment *appointment = findAppointment(intId);
 
-    printf("\nAgendamento editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    if (appointment != NULL) {
+
+        sprintf(clientId, "%d", appointment->clientId);
+        readStrField(clientId, "Código do Cliente", 6, fkRules, 2);
+        if (parseInt(clientId, &tempId)) {
+            Client *client = findClient(tempId);
+            if (client == NULL) {
+                free(client);
+                free(date);
+                free(startTime);
+                free(endTime);
+                printf("Cliente não encontrado!\n");
+                proceed();
+                return;
+            }
+            free(client);
+        }
+
+        sprintf(lawyerId, "%d", appointment->lawyerId);
+        readStrField(lawyerId, "Código do Advogado", 6, fkRules, 2);
+        if (parseInt(lawyerId, &tempId)) {
+            Lawyer *lawyer = findLawyer(tempId);
+            if (lawyer == NULL) {
+                free(lawyer);
+                free(date);
+                free(startTime);
+                free(endTime);
+                printf("Advogado não encontrado!\n");
+                proceed();
+                return;
+            }
+            free(lawyer);
+        }
+
+        sprintf(officeId, "%d", appointment->officeId);
+        readStrField(officeId, "Código do Escritório", 6, fkRules, 2);
+        if (parseInt(officeId, &tempId)) {
+            Office *office = findOffice(tempId);
+            if (office == NULL) {
+                free(office);
+                free(date);
+                free(startTime);
+                free(endTime);
+                printf("Escritório não encontrado!\n");
+                proceed();
+                return;
+            }
+            free(office);
+        }
+
+        printf("apenas data: %s\n", appointment->startDate.onlyDate);
+        readStrField(appointment->startDate.onlyDate, "Data (dd/mm/aaaa)", 11, dateRules, 1);
+        strcpy(date, appointment->startDate.onlyDate);
+
+        readStrField(appointment->startDate.time, "Horário do início da consulta (hh:mm)", 6, hourRules, 1);
+        strcpy(startTime, appointment->startDate.time);
+
+        readStrField(appointment->endDate.time, "Horário do término da consulta (hh:mm)", 6, hourRules, 1);
+        strcpy(endTime, appointment->endDate.time);
+
+        printf("Data: %s, start: %s, end: %s", date, startTime, endTime);
+
+        loadDatetime(&appointment->startDate, date, startTime);
+        loadDatetime(&appointment->endDate, date, endTime);
+
+        parseInt(clientId, &appointment->clientId);
+        parseInt(lawyerId, &appointment->lawyerId);
+        parseInt(officeId, &appointment->officeId);
+
+        editAppointments(intId, appointment);
+        free(appointment);
+
+        printf("Agendamento editado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum agendamento\n");
+    }
+
+    free(date);
+    free(startTime);
+    free(endTime);
+
+    printf("\nPressione <Enter> para prosseguir...\n");
     proceed();
 }
 
