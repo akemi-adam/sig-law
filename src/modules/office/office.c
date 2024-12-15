@@ -140,13 +140,28 @@ void updateOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void deleteOffice() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+    
     printf("---- Deletar Escritório ----\n");
     readStrField(id, "Código do Escritório", 6, idRules, 3);
-    printf("Escritório deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    parseInt(id, &intId);
+    Office *office = findOffice(intId);
+
+    if (office != NULL) {
+        office->isDeleted = true;
+        editOffices(intId, office);
+        free(office);
+        printf("Escritório deletado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum escritório\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
@@ -157,6 +172,7 @@ void deleteOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void showOfficeMenu() {
     #ifdef __unix__
