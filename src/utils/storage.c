@@ -41,3 +41,28 @@ bool readFile(void *ptr, const size_t size, int elementsNumber, const char *file
     fclose(fp);
     return true;
 }
+
+/**
+ * Retorna o número de elementos em um arquivo binário.
+ * 
+ * @param const char *filename: Caminho completo do arquivo
+ * @param const size_t structSize: Tamanho da struct armazenada
+ * 
+ * @return int: Número de elementos no arquivo, 0 se o arquivo não existir ou -1 em caso de erro
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+int getNumberOfElements(const char *filename, const size_t structSize) {
+    FILE *fp = fopen(filename, "rb");
+    if (fp == NULL) return 0; // Retorna 0 se o arquivo não existir
+
+    fseek(fp, 0, SEEK_END);
+    long fileSize = ftell(fp);
+    fclose(fp);
+
+    if (fileSize < 0) return -1;
+
+    return fileSize / structSize;
+}
+
