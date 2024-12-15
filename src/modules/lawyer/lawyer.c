@@ -41,9 +41,11 @@ void createLawyer() {
     readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
     readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
-    saveFile(&lawyer, sizeof(Lawyer), "lawyers.dat");
+    lawyer.isDeleted = false;
 
-    printf("\nAdvogado cadastrado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    bool status = addElementToFile(&lawyer, sizeof(Lawyer), "lawyers.dat");
+
+    printf("\n%s\n", status ? "Advogado cadastrado com sucesso!\nPressione <Enter> para prosseguir..." : "Houve um erro ao cadastrar o advogado!");
     proceed();
 }
 
