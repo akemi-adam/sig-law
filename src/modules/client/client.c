@@ -150,11 +150,25 @@ void updateClient() {
  *  - https://github.com/zfelip
  */
 void deleteClient() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+
     printf("---- Deletar Cliente ----\n");
     readStrField(id, "Código do Cliente", 6, idRules, 3);
-    printf("Cliente deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    parseInt(id, &intId);
+    Client *client = findClient(intId);
+
+    if (client != NULL) {
+        client->isDeleted = true;
+        editClients(intId, client);
+        free(client);
+        printf("Cliente deletado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum cliente\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
