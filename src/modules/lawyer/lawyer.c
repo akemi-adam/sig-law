@@ -111,29 +111,42 @@ void readLawyer() {
  * Formulário para atualizar os dados de um advogado específico
  * 
  * @return void
- * 
+ *  
  * Authors:
  *  - https://github.com/akemi-adam
  */
 void updateLawyer() {
-    Lawyer lawyer;
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive},
-        nameRules[2] = {validateRequired, validateString},
-        cpfRules[2] = {validateRequired, validateCpf},
-        cnaRules[2] = {validateRequired, validateCna},
-        emailRules[2] = {validateRequired, validateEmail},
-        telephoneRules[2] = {validateRequired, validateTelephone};
+        nameRules[1] = {validateString},
+        cpfRules[1] = {validateCpf},
+        cnaRules[1] = {validateCna},
+        emailRules[1] = {validateEmail},
+        telephoneRules[1] = {validateTelephone};
     
-    printf("---- Editar Advogado ----\n");
-    readStrField(id, "Código do Advogado", 6, idRules, 3);
-    readStrField(lawyer.person.name, "Nome", 55, nameRules, 2);
-    readStrField(lawyer.person.cpf, "CPF", 12, cpfRules, 2);
-    readStrField(lawyer.cna, "CNA", 13, cnaRules, 2);
-    readStrField(lawyer.person.email, "E-mail", 55, emailRules, 2);
-    readStrField(lawyer.person.telephone, "Telefone", 14, telephoneRules, 2);
 
-    printf("\nAdvogado editado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    readStrField(id, "Código do Advogado", 6, idRules, 3);
+    parseInt(id, &intId);
+    Lawyer *lawyer = findLawyer(intId);
+
+    if (lawyer != NULL) {
+        printf("Advogado encontrado!\n\n---- Editar Advogado ----\n");
+        readStrField(lawyer->person.name, "Nome", 55, nameRules, 1);
+        readStrField(lawyer->person.cpf, "CPF", 12, cpfRules, 1);
+        readStrField(lawyer->cna, "CNA", 13, cnaRules, 1);
+        readStrField(lawyer->person.email, "E-mail", 55, emailRules, 1);
+        readStrField(lawyer->person.telephone, "Telefone", 14, telephoneRules, 1);
+
+        editLawyers(intId, lawyer);
+        free(lawyer);
+
+        printf("\nAdvogado editado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum advogado\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
