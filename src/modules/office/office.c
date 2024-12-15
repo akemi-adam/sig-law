@@ -73,15 +73,27 @@ void listOffices() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void readOffice() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
     printf("---- Buscar Escritório ----\n");
     readStrField(id, "Código do Escritório", 6, idRules, 3);
-    printf("----------------------------------------------------------\n");
-    printf("ID: %s\nEscritório: %s\n", id, "");
-    printf("----------------------------------------------------------\n");
+    parseInt(id, &intId);
+    
+    Office *office = findOffice(intId);
+
+    if (office != NULL) {
+        printf("----------------------------------------------------------\n");
+        printf("ID: %s\nEscritório: %s\n", id, office->address);
+        printf("----------------------------------------------------------\n");
+        free(office);
+    } else {
+        printf("O código informado não corresponde a nenhum escritório\n");
+    }
+
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
