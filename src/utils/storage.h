@@ -2,9 +2,12 @@
 #define STORAGE
 
 #include <stdbool.h>
+#include <stdlib.h>
 
-bool saveFile(const void*, const size_t, const char*);
+bool saveFile(const void*, const size_t, int, const char*);
 
-bool readFile(void*, const size_t, const char*);
+bool readFile(void*, const size_t, int, const char*);
+
+
 
 #endif
