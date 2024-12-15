@@ -200,3 +200,36 @@ Client* getClients(int *officesNumber) {
     return clients;
 }
 
+/**
+ * Retorna um cliente específico a partir de seu ID
+ * 
+ * @param const char *id: ID a ser procurado
+ * 
+ * @return Client*|NULL: Cliente correspondente ao ID | NULL, caso não encontre
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Client* findClient(int id) {
+    int count;
+    id--;
+
+    Client* clients = getClients(&count);
+    if (!clients || id < 0 || id >= count) {
+        free(clients);
+        return NULL;
+    }
+
+    if (clients[id].isDeleted) {
+        free(clients);
+        return NULL;
+    }
+
+    Client* client = (Client*) malloc(sizeof(Client));
+
+    *client = clients[id];
+    free(clients);
+
+    return client;
+}
+
