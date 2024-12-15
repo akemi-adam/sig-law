@@ -266,11 +266,25 @@ void updateAppointment() {
  *  - https://github.com/akemi-adam
  */
 void deleteAppointment() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
+
     printf("---- Deletar Agendamento ----\n");
     readStrField(id, "Código do Agendamento", 6, idRules, 3);
-    printf("Agendamento deletado com sucesso!\nPressione <Enter> para prosseguir...\n");
+    parseInt(id, &intId);
+    Appointment *appointment = findAppointment(intId);
+
+    if (appointment != NULL) {
+        appointment->isDeleted = true;
+        editAppointments(intId, appointment);
+        free(appointment);
+        printf("Agendamento deletado com sucesso!\n");
+    } else {
+        printf("O código informado não corresponde a nenhum agendamento\n");
+    }
+
+    printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
 
