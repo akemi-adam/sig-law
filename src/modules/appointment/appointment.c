@@ -7,7 +7,11 @@
 #include "./../../utils/storage.h"
 #include "./../../utils/date.h"
 #include "./../../utils/str.h"
-#include "appointment.h"
+#include "./appointment.h"
+#include "./../client/client.h"
+#include "./../lawyer/lawyer.h"
+#include "./../office/office.h"
+
 
 #ifdef __unix__
 
