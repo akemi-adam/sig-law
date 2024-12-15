@@ -80,13 +80,23 @@ void listClients() {
  *  - https://github.com/zfelip
  */
 void readClient() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
     printf("---- Buscar Cliente ----\n");
     readStrField(id, "Código do Cliente", 6, idRules, 3);
-    printf("------------------------------------------------------------------\n");
-    printf("ID: %s\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, "", "", "", "");
-    printf("------------------------------------------------------------------\n");
+    parseInt(id, &intId);
+    Client *client = findClient(intId);
+
+    if (client != NULL) {
+        printf("------------------------------------------------------------------\n");
+        printf("ID: %s\nNome: %s\nCPF: %s\nE-mail: %s\nTelefone: %s\n", id, client->person.name, client->person.cpf, client->person.email, client->person.telephone);
+        printf("------------------------------------------------------------------\n");
+        free(client);
+    } else {
+        printf("O código informado não corresponde a nenhum cliente\n");
+    }
+
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
