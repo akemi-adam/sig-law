@@ -167,3 +167,23 @@ void showOfficeMenu() {
         }
     }
 }
+
+/**
+ * Retorna uma lista contendo todos os escritórios
+ * 
+ * @param int *officesNumber: Número de escritórios cadastrados
+ * 
+ * @return Office*: endereço da lista de escritórios
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Office* getOffices(int *officesNumber) {
+    const size_t structSize = sizeof(Office);
+    *officesNumber = getNumberOfElements("offices.dat", structSize);
+    Office *offices = (Office*) malloc(structSize * (*officesNumber));
+    readFile(offices, structSize, *officesNumber, "offices.dat");
+
+    return offices;
+}
+
