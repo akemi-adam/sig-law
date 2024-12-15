@@ -191,3 +191,23 @@ void showAppointmentMenu() {
         }
     }
 }
+
+/**
+ * Retorna uma lista contendo todos os agendamentos
+ * 
+ * @param int *officesNumber: Número de agendamentos cadastrados
+ * 
+ * @return Office*: endereço da lista de agendamentos
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Appointment* getAppointments(int *officesNumber) {
+    const size_t structSize = sizeof(Appointment);
+    *officesNumber = getNumberOfElements("appointments.dat", structSize);
+    Appointment *appointments = (Appointment*) malloc(structSize * (*officesNumber));
+    readFile(appointments, structSize, *officesNumber, "appointments.dat");
+
+    return appointments;
+}
+
