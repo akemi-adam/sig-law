@@ -66,3 +66,49 @@ int getNumberOfElements(const char *filename, const size_t structSize) {
     return fileSize / structSize;
 }
 
+/**
+ * Adiciona uma nova struct a um arquivo binário.
+ * 
+ * @param const void *newElement: Ponteiro para a nova struct a ser adicionada
+ * @param const size_t structSize: Tamanho da struct
+ * @param const char *filename: Caminho completo do arquivo
+ * 
+ * @return bool: Retorna true se a operação for bem-sucedida, false caso contrário
+ * 
+ * Authors:
+ *  - ChatGPT
+ */
+bool addElementToFile(const void *newElement, const size_t structSize, const char *filename) {
+    int elementCount = getNumberOfElements(filename, structSize);
+    if (elementCount < 0) return false;
+
+    // Alocar memória para os elementos existentes e o novo elemento
+    void *buffer = malloc((elementCount + 1) * structSize);
+    if (buffer == NULL) return false;
+
+    // Ler os elementos existentes, se houver
+    if (elementCount > 0) {
+        FILE *fp = fopen(filename, "rb");
+        if (fp == NULL) {
+            free(buffer);
+            return false;
+        }
+        fread(buffer, structSize, elementCount, fp);
+        fclose(fp);
+    }
+
+    // Adicionar o novo elemento ao final
+    memcpy((char *)buffer + (elementCount * structSize), newElement, structSize);
+
+    // Salvar todos os elementos de volta no arquivo
+    FILE *fp = fopen(filename, "wb");
+    if (fp == NULL) {
+        free(buffer);
+        return false;
+    }
+    fwrite(buffer, structSize, elementCount + 1, fp);
+    fclose(fp);
+
+    free(buffer);
+    return true;
+}

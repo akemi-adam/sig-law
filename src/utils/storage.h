@@ -10,5 +10,6 @@ bool readFile(void*, const size_t, int, const char*);
 
 int getNumberOfElements(const char*, const size_t);
 
+bool addElementToFile(const void*, const size_t, const char*);
 
 #endif
