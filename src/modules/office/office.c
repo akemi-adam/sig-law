@@ -46,17 +46,22 @@ void createOffice() {
  * 
  * Authors:
  *  - https://github.com/zfelip
+ *  - https://github.com/akemi-adam
  */
 void listOffices() {
-    Office *office = (Office*) malloc(sizeof(Office));
-    readFile(office, sizeof(Office),  "offices.dat");
+    int count;
+    Office *offices = getOffices(&count);
     
     printf("---- Listar Escritórios ----\n");
     printf("---------------------------------------------------------\n");
-    printf("ID: %d\nEndereço: %s\n", 1, office->address);
-    printf("---------------------------------------------------------\n");
-
-    free(office);
+    for (int i = 0; i < count; i++) {
+        if (!offices[i].isDeleted) {
+            printf("ID: %d\nEndereço: %s\n", i + 1, offices[i].address);
+            printf("---------------------------------------------------------\n");
+        }
+    }
+    
+    free(offices);
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
