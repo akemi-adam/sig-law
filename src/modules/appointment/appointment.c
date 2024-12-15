@@ -124,13 +124,22 @@ void listAppointments() {
  *  - https://github.com/akemi-adam
  */
 void readAppointment() {
+    int intId;
     char id[6];
     Validation idRules[3] = {validateRequired, validateNumber, validatePositive};
     printf("---- Buscar Agendamento ----\n");
     readStrField(id, "Código do Agendamento", 6, idRules, 3);
-    printf("------------------------------------------------------------------\n");
-    printf("ID: %s\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData: %s\nHorário: %s\n", id, 1, 1, 1, "", "");
-    printf("------------------------------------------------------------------\n");
+    parseInt(id, &intId);
+    Appointment *appointment = findAppointment(intId);
+
+    if (appointment != NULL) {
+        printf("------------------------------------------------------------------\n");
+        printf("ID: %s\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData início: %s\nData término: %s\n", id, appointment->clientId, appointment->lawyerId, appointment->officeId, appointment->startDate.date, appointment->endDate.date);
+        printf("------------------------------------------------------------------\n");
+        free(appointment);
+    } else {
+        printf("O código informado não corresponde a nenhum agendamento\n");
+    }
     printf("Pressione <Enter> para prosseguir...\n");
     proceed();
 }
