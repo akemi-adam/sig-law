@@ -233,3 +233,22 @@ Client* findClient(int id) {
     return client;
 }
 
+
+/**
+ * Edita/atualiza a lista de clientes no arquivo
+ * 
+ * @param int id: ID do cliente
+ * @param Client *client: Cliente
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+void editClients(int id, Client *client) {
+    int count;
+    Client *clients = getClients(&count);
+    clients[id - 1] = *client;
+    saveFile(clients, sizeof(Client), count, "clients.dat");
+    free(clients);
+}
