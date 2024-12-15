@@ -187,3 +187,35 @@ Office* getOffices(int *officesNumber) {
     return offices;
 }
 
+/**
+ * Retorna um escritório específico a partir de seu ID
+ * 
+ * @param const char *id: ID a ser procurado
+ * 
+ * @return Office*|NULL: Escritório correspondente ao ID | NULL, caso não encontre
+ * 
+ * Authors:
+ *  - https://github.com/akemi-adam
+ */
+Office* findOffice(int id) {
+    int count;
+    id--;
+
+    Office* offices = getOffices(&count);
+    if (!offices || id < 0 || id >= count) {
+        free(offices);
+        return NULL;
+    }
+
+    if (offices[id].isDeleted) {
+        free(offices);
+        return NULL;
+    }
+
+    Office* office = (Office*) malloc(sizeof(Office));
+
+    *office = offices[id];
+    free(offices);
+
+    return office;
+}
