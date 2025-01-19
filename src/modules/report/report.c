@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "./../../utils/interfaces.h"
 #include "./../../utils/validation.h"
 #include "./../../utils/storage.h"
@@ -192,7 +193,7 @@ void reportOffice() {
     }
 
     printf("---------- Relatório ----------\n");
-    printf("--- Escritórios e Advogados ---\n");
+    printf("--- Escritórios & Advogados ---\n");
 
     if (count_appointments == 0 || count_lawyers == 0 || count_offices == 0) {
         printf("Os dados são insuficientes para gerar um relatório.\n");
@@ -211,4 +212,7 @@ void reportOffice() {
     proceed();
 }
 
+void reportAppointment() {
+    printf("Menu Relatóriso Agendamentos");
+}
 #endif
