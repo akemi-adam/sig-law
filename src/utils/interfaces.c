@@ -7,6 +7,7 @@
 #include "./../modules/lawyer/lawyer.h"
 #include "./../modules/office/office.h"
 #include "./../modules/client/client.h"
+#include "./../modules/report/report.h"
 #include "./str.h"
 #include "./validation.h"
 
@@ -299,15 +300,15 @@ void showMainMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int option = 0, size = 7;
-    char options[7][30] = {
+    int option = 0, size = 8;
+    char options[8][30] = {
         "1. Modulo Clientes", "2. Modulo Advogados", "3. Modulo Escritórios",
-        "4. Modulo Agendamentos", "5. Modulo Sobre", "6. Modulo Equipe", "7. Encerrar Programa"
+        "4. Modulo Agendamentos", "5. Modulo Relatórios", "6. Modulo Sobre", "7. Modulo Equipe", "8. Encerrar Programa"
     };
     char optionsStyles[size][11];
     bool isSelected = false, loop = true;
     void (*actions[])() = {
-        showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu, showAboutMenu, showTeamMenu
+        showClientMenu, showLawyerMenu, showOfficeMenu, showAppointmentMenu, showAboutMenu, showTeamMenu, showReportMenu
     };
     setOptionsStyle(optionsStyles, size);
     while (loop) {

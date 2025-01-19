@@ -29,4 +29,8 @@
  *  - https://github.com/akemi-adam
  */
 
+void showReportMenu() {
+    printf("Menu Relatórios");
+}
+
 #endif
