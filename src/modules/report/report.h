@@ -4,5 +4,8 @@
 #include <stdio.h>
 
 void showReportMenu();
+void reportLawyer();
+void reportClient();
+void reportOffice();
 
 #endif
