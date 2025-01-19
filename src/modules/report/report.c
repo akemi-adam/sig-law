@@ -81,7 +81,6 @@ void reportLawyer() {
     int count_appointments;
     Appointment *appointments = getAppointments(&count_appointments);
 
-
     int *client_counts = (int *)calloc(count_lawyers, sizeof(int));
 
     for (int i = 0; i < count_lawyers; i++) {
@@ -122,7 +121,45 @@ void reportLawyer() {
 }
 
 void reportClient() {
-    printf("Relatório Clientes");
+    int count_clients;
+    Client *clients = getClients(&count_clients);
+
+    int count_appointments;
+    Appointment *appointments = getAppointments(&count_appointments);
+
+    int *appointments_counts = (int *)calloc(count_clients, sizeof(int));
+
+    for (int i = 0; i < count_appointments; i++) {
+        if (!appointments[i].isDeleted) {
+            int clientId = appointments[i].clientId;
+
+            for (int j = 0; j < count_clients; j++) {
+                if ((j+1) == clientId) {
+                    appointments_counts[j]++;
+                    break;
+                }
+            }
+        }
+    }
+
+    printf("---------- Relatório ----------\n");
+    printf("--- Clientes & Agendamentos ---\n");
+
+    if (count_appointments == 0 || count_clients == 0) {
+        printf("Os dados são insuficientes para gerar um relatório.\n");
+    }
+    
+    for(int i = 0; i < count_clients; i++) {
+        printf("Cliente: %s (ID: %d) - Número de Agendamentos: %d\n", clients[i].person.name, (i+1), appointments_counts[i]);
+    }
+
+    free(appointments_counts);
+    free(clients);
+    free(appointments);
+
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
+
 }
 
 void reportOffice() {
