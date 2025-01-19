@@ -35,15 +35,15 @@ void showReportMenu() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int option = 0, size = 4;
+    int option = 0, size = 5;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
-    char options[4][30] = {
-        "1. Relatório Advogados", "2. Relatório Clientes", "3. Relatório Escritórios",
-        "4. Voltar"
+    char options[5][30] = {
+        "1. Relatório Advogados", "2. Relatório Clientes", "3. Relatório Escritórios", "4. Relatório Agendamentos",
+        "5. Voltar"
     };
     void (*actions[])() = {
-        reportLawyer, reportClient, reportOffice
+        reportLawyer, reportClient, reportOffice, reportAppointment
     };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
@@ -213,6 +213,57 @@ void reportOffice() {
 }
 
 void reportAppointment() {
-    printf("Menu Relatóriso Agendamentos");
+    #ifdef __unix__
+        struct termios originalTerminal;
+        tcgetattr(STDIN_FILENO, &originalTerminal);
+    #endif
+    int option = 0, size = 4;
+    bool isSelected = false, loop = true;
+    char optionsStyles[size][11];
+    char options[4][30] = {
+        "1. Agendamentos de Hoje", "2. Agendamentos Finalizados", "3. Agendamentos Próximos",
+        "4. Voltar"
+    };
+    void (*actions[])() = {
+        appointmentToday, appointmentPast, appointmentUpcoming
+    };
+    setOptionsStyle(optionsStyles, size);
+    while (loop) {
+        #ifdef __unix__
+            system("clear");
+            enableRawMode();
+        #else
+            system("cls");
+        #endif
+        if (!isSelected) {
+            showOptions("Menu Cliente", options, optionsStyles, size);
+            strcpy(optionsStyles[option], RESET_STYLE);
+            selectOption(&option, size - 1, &isSelected);
+            strcpy(optionsStyles[option], CYAN_STYLE);
+        } else {
+            #ifdef __unix__
+                disableRawMode(&originalTerminal);
+            #endif
+            isSelected = false;
+            if (option >= 0 && option <= (size - 2)) {
+                actions[option](); 
+            } else {
+                loop = false;
+            }
+        }
+    }
 }
+
+void appointmentToday() {
+    printf("Agendamentos de hoje");
+}
+
+void appointmentPast() {
+    printf("Agendamentos passados");
+}
+
+void appointmentUpcoming() {
+    printf("Agendamentos Próximos");
+}
+
 #endif

@@ -8,5 +8,8 @@ void reportLawyer();
 void reportClient();
 void reportOffice();
 void reportAppointment();
+void appointmentToday();
+void appointmentPast();
+void appointmentUpcoming();
 
 #endif
