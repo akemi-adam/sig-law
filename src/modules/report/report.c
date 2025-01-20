@@ -27,7 +27,7 @@
  * @return void
  * 
  * Authors:
- *  - https://github.com/akemi-adam
+ *  - ChatGPT, Adaptado por https://github.com/veraxqy
  */
 
 void showReportMenu() {
@@ -254,8 +254,44 @@ void reportAppointment() {
     }
 }
 
+/**
+ * Relatórios Agendamentos
+ * 
+ * @return void
+ * 
+ * Authors:
+ *  - ChatGPT, Adaptado por https://github.com/veraxqy
+ */
 void appointmentToday() {
-    printf("Agendamentos de hoje");
+    int count_appointments;
+    Appointment *appointments = getAppointments(&count_appointments);
+
+    time_t now = time(NULL);
+    struct tm tm = *localtime(&now);
+
+    char today[11];
+    snprintf(today, sizeof(today), "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon +1, tm.tm_year + 1900);
+
+    printf("---------- Relatório ----------\n");
+    printf("------ Agendamentos Hoje ------\n");
+    bool found = false;
+
+    for (int i = 0; i < count_appointments; i++) {
+        if (!appointments[i].isDeleted && strcmp(appointments[i].startDate.onlyDate, today) == 0) {
+            found = true;
+            printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData início: %s\nData término: %s\n", i + 1, appointments[i].clientId, appointments[i].lawyerId, appointments[i].officeId, appointments[i].startDate.date, appointments[i].endDate.date);
+            printf("------------------------------------------------------------------\n");
+        }
+    }
+
+    if (!found) {
+        printf("Não há nenhum agendamento marcado para o dia de hoje!\n");
+    }
+
+    free(appointments);
+
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void appointmentPast() {
