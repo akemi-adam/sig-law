@@ -180,6 +180,7 @@ void reportClient() {
     Appointment *appointments = getAppointments(&count_appointments);
 
     int *appointments_counts = (int *)calloc(count_clients, sizeof(int));
+    int total = 0;
 
     for (int i = 0; i < count_appointments; i++) {
         if (!appointments[i].isDeleted) {
@@ -191,6 +192,7 @@ void reportClient() {
                     break;
                 }
             }
+            total++;
         }
     }
 
@@ -203,7 +205,11 @@ void reportClient() {
     
     for(int i = 0; i < count_clients; i++) {
         printf("Cliente: %s (ID: %d) - Número de Agendamentos: %d\n", clients[i].person.name, (i+1), appointments_counts[i]);
+        printf("------------------------------------------------------------------\n");
     }
+
+    printf("Total de Agendamentos: %d\n", total);
+    printf("------------------------------------------------------------------\n");
 
     free(appointments_counts);
     free(clients);
