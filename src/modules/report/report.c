@@ -128,6 +128,7 @@ void lawyerMoreClient() {
     Appointment *appointments = getAppointments(&count_appointments);
 
     int *client_counts = (int *)calloc(count_lawyers, sizeof(int));
+    int total = 0;
 
     for (int i = 0; i < count_lawyers; i++) {
         int *unique_clients = (int *)calloc(count_clients, sizeof(int));
@@ -139,6 +140,7 @@ void lawyerMoreClient() {
                 if (unique_clients[clientId] == 0) {
                     unique_clients[clientId] = 1;
                     client_counts[i]++;
+                    total++;
                 }
             }
         }
@@ -155,7 +157,11 @@ void lawyerMoreClient() {
     
     for(int i = 0; i < count_lawyers; i++) {
         printf("Advogado: %s (ID: %d) - Número de clientes: %d\n", lawyers[i].person.name, (i+1), client_counts[i]);
+        printf("------------------------------------------------------------------\n");
     }
+
+    printf("Total de Clientes: %d\n", total);
+    printf("------------------------------------------------------------------\n");
 
     free(client_counts);
     free(lawyers);
