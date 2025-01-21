@@ -5,6 +5,8 @@
 
 void showReportMenu();
 void reportLawyer();
+void lawyerMoreClient();
+void lawyerAlphabeticalOrder();
 void reportClient();
 void reportOffice();
 void reportAppointment();
