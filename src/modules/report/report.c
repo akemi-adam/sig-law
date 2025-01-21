@@ -295,7 +295,37 @@ void appointmentToday() {
 }
 
 void appointmentPast() {
-    printf("Agendamentos passados");
+    int count_appointments;
+    Appointment *appointments = getAppointments(&count_appointments);
+
+    time_t now = time(NULL);
+
+    printf("---------- Relatório -----------\n");
+    printf("--- Agendamentos Finalizados ---\n");
+    bool found = false;
+
+    for (int i = 0; i < count_appointments; i++) {
+        if (!appointments[i].isDeleted) {
+            struct tm endDateTime = {0};
+            strptime(appointments[i].endDate.date, "%d/%m/%Y %H:%M", &endDateTime);
+            time_t appointmentEndTime = mktime(&endDateTime);
+
+            if (difftime(appointmentEndTime, now) < 0) {
+                found = true;
+                printf("ID: %d\nCódigo Cliente: %d\nCódigo Advogado: %d\nCódigo Escritório: %d\nData início: %s\nData término: %s\n", i + 1, appointments[i].clientId, appointments[i].lawyerId, appointments[i].officeId, appointments[i].startDate.date, appointments[i].endDate.date);
+                printf("------------------------------------------------------------------\n");
+            }
+        }
+    }
+
+    if (!found) {
+        printf("Não há nenhum agendamento finalizado!\n");
+    }
+
+    free(appointments);
+
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void appointmentUpcoming() {
