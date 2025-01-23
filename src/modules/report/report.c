@@ -331,6 +331,7 @@ void reportClient() {
 }
 
 void clientAppointment() {
+    Node *clientList = NULL;
     int count_clients;
     Client *clients = getClients(&count_clients);
 
@@ -351,21 +352,39 @@ void clientAppointment() {
             }
         }
     }
+    for (int i = 0; i < count_clients; i++) {
+        Client *newClient = (Client *)malloc(sizeof(Client));
+        *newClient = clients[i];
+        appendNode(&clientList, newClient);
+    }
+        
 
     printf("---------- Relatório ----------\n");
     printf("--- Clientes & Agendamentos ---\n");
 
     if (count_appointments == 0 || count_clients == 0) {
         printf("Os dados são insuficientes para gerar um relatório.\n");
-    }
-    
-    for(int i = 0; i < count_clients; i++) {
-        printf("Cliente: %s (ID: %d) - Número de Agendamentos: %d\n", clients[i].person.name, (i+1), appointments_counts[i]);
+    } else {
+        Node *current = clientList;
+        int index = 0;
+        while (current != NULL) {
+            Client *client = (Client *)current->data;
+            printf("Cliente: %s (ID: %d) - Número de Agendamentos: %d\n", client->person.name, (index+1), appointments_counts[index]);
+            printf("------------------------------------------------------------------\n");
+            current = current->next;
+            index++;
+        }
+        printf("Total de Agendamentos: %d\n", count_appointments);
         printf("------------------------------------------------------------------\n");
     }
 
-    printf("Total de Agendamentos: %d\n", count_appointments);
-    printf("------------------------------------------------------------------\n");
+    Node *current = clientList;
+    while (current != NULL) {
+        Node *temp = current;
+        free((Client *)current->data);
+        current = current->next;
+        free(temp);
+    }
 
     free(appointments_counts);
     free(clients);
