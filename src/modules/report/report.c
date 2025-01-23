@@ -30,6 +30,69 @@
  *  - ChatGPT, Adaptado por https://github.com/veraxqy
  */
 
+// Estrutura para lista encadeada
+typedef struct Node {
+    void *data;
+    struct Node *next;
+} Node;
+
+// Funções para manipular listas encadeadas
+Node* createNode(void *data) {
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void appendNode(Node **head, void *data) {
+    Node *newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        Node *current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+}
+
+void freeList(Node *head) {
+    Node *current = head;
+    while (current != NULL) {
+        Node *temp = current;
+        current = current->next;
+        free(temp);
+    }
+}
+
+Node* sortLawyersAlphabetically(Node *head) {
+    if (head == NULL || head->next == NULL) return head;
+
+    Node *sorted = NULL;
+
+    while (head != NULL) {
+        Node *current = head;
+        head = head->next;
+
+        if (sorted == NULL || strcmp(((Lawyer *)current->data)->person.name, ((Lawyer *)sorted->data)->person.name) < 0) {
+            // Inserir no início da lista ordenada
+            current->next = sorted;
+            sorted = current;
+        } else {
+            // Encontrar a posição correta para inserir
+            Node *temp = sorted;
+            while (temp->next != NULL && strcmp(((Lawyer *)temp->next->data)->person.name, ((Lawyer *)current->data)->person.name) <= 0) {
+                temp = temp->next;
+            }
+            current->next = temp->next;
+            temp->next = current;
+        }
+    }
+
+    return sorted;
+}
+
 void showReportMenu() {
     #ifdef __unix__
         struct termios originalTerminal;
@@ -114,7 +177,40 @@ void reportLawyer() {
 }
 
 void lawyerAlphabeticalOrder() {
-    printf("Relatório Ordem Alfabética");
+    Node *lawyersList = NULL;
+    int count_lawyers;
+    Lawyer *lawyers = getLawyers(&count_lawyers);
+
+    for (int i = 0; i < count_lawyers; i++) {
+        Lawyer *newLawyer = (Lawyer *)malloc(sizeof(Lawyer));
+        *newLawyer = lawyers[i];
+        appendNode(&lawyersList, newLawyer);
+    }
+
+    lawyersList = sortLawyersAlphabetically(lawyersList);
+
+    printf("--------- Relatório ---------\n");
+    printf("--------- Advogados ---------\n");
+
+    Node *current = lawyersList;
+    while (current != NULL) {
+        Lawyer *lawyer = (Lawyer *)current->data;
+        printf("ID: %d - Nome: %s\n", lawyer->id, lawyer->person.name);
+        current = current->next;
+    }
+
+    current = lawyersList;
+    while (current != NULL) {
+        Node *temp = current;
+        free((Lawyer *)current->data);
+        current = current->next;
+        free(temp);
+    }
+
+    free(lawyers);
+
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void lawyerMoreClient() {
