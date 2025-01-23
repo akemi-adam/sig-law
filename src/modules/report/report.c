@@ -214,6 +214,7 @@ void lawyerAlphabeticalOrder() {
 }
 
 void lawyerMoreClient() {
+    Node *lawyersList = NULL;
     int count_lawyers;
     Lawyer *lawyers = getLawyers(&count_lawyers);
 
@@ -224,7 +225,7 @@ void lawyerMoreClient() {
     Appointment *appointments = getAppointments(&count_appointments);
 
     int *client_counts = (int *)calloc(count_lawyers, sizeof(int));
-    int total = 0;
+    int total_unique_clients = 0;
 
     for (int i = 0; i < count_lawyers; i++) {
         int *unique_clients = (int *)calloc(count_clients, sizeof(int));
@@ -236,12 +237,18 @@ void lawyerMoreClient() {
                 if (unique_clients[clientId] == 0) {
                     unique_clients[clientId] = 1;
                     client_counts[i]++;
-                    total++;
                 }
             }
         }
+        Lawyer *newLawyer = (Lawyer *)malloc(sizeof(Lawyer));
+        *newLawyer = lawyers[i];
+        appendNode(&lawyersList, newLawyer);
 
         free(unique_clients);
+    }
+
+    for (int i = 0; i < count_lawyers; i++) {
+        total_unique_clients += client_counts[i];
     }
 
     printf("---------- Relatório ---------\n");
@@ -249,15 +256,27 @@ void lawyerMoreClient() {
 
     if (count_appointments == 0 || count_lawyers == 0 || count_clients == 0) {
         printf("Os dados são insuficientes para gerar um relatório.\n");
-    }
-    
-    for(int i = 0; i < count_lawyers; i++) {
-        printf("Advogado: %s (ID: %d) - Número de clientes: %d\n", lawyers[i].person.name, (i+1), client_counts[i]);
+    } else {
+        Node *current = lawyersList;
+        int index = 0;
+        while (current != NULL) {
+            Lawyer *lawyer = (Lawyer *)current->data;
+            printf("Advogado: %s (ID: %d) - Número de clientes: %d\n", lawyer->person.name, (index+1), client_counts[index]);
+            printf("------------------------------------------------------------------\n");
+            current = current->next;
+            index++;
+        }
+        printf("Total de Clientes: %d\n", count_clients);
         printf("------------------------------------------------------------------\n");
     }
-
-    printf("Total de Clientes: %d\n", count_clients);
-    printf("------------------------------------------------------------------\n");
+    
+    Node *current = lawyersList;
+    while (current != NULL) {
+        Node *temp = current;
+        free((Lawyer *)current->data);
+        current = current->next;
+        free(temp);
+    }
 
     free(client_counts);
     free(lawyers);
