@@ -9,6 +9,7 @@ void lawyerMoreClient();
 void lawyerAlphabeticalOrder();
 void reportClient();
 void clientAppointment();
+void clientAlphabeticalOrder();
 void reportOffice();
 void reportAppointment();
 void appointmentToday();

@@ -66,7 +66,7 @@ void freeList(Node *head) {
     }
 }
 
-Node* sortLawyersAlphabetically(Node *head) {
+Node* sortAlphabetically(Node *head) {
     if (head == NULL || head->next == NULL) return head;
 
     Node *sorted = NULL;
@@ -187,7 +187,7 @@ void lawyerAlphabeticalOrder() {
         appendNode(&lawyersList, newLawyer);
     }
 
-    lawyersList = sortLawyersAlphabetically(lawyersList);
+    lawyersList = sortAlphabetically(lawyersList);
 
     printf("--------- Relatório ---------\n");
     printf("--------- Advogados ---------\n");
@@ -294,14 +294,14 @@ void reportClient() {
         struct termios originalTerminal;
         tcgetattr(STDIN_FILENO, &originalTerminal);
     #endif
-    int option = 0, size = 2;
+    int option = 0, size = 3;
     bool isSelected = false, loop = true;
     char optionsStyles[size][11];
-    char options[2][30] = {
-        "1. Número de Agendamentos", "2. Voltar"
+    char options[3][30] = {
+        "1. Ordem Alfabética", "2. Número de Agendamentos", "3. Voltar"
     };
     void (*actions[])() = {
-        clientAppointment
+        clientAlphabeticalOrder, clientAppointment
     };
     setOptionsStyle(optionsStyles, size);
     while (loop) {
@@ -328,6 +328,45 @@ void reportClient() {
             }
         }
     }
+}
+
+void clientAlphabeticalOrder() {
+    Node *clientsList = NULL;
+    int count_clients;
+    Client *clients = getClients(&count_clients);
+
+    for (int i = 0; i < count_clients; i++) {
+        Client *newClient = (Client *)malloc(sizeof(Client));
+        *newClient = clients[i];
+        appendNode(&clientsList, newClient);
+    }
+
+    clientsList = sortAlphabetically(clientsList);
+
+    printf("--------- Relatório ---------\n");
+    printf("---------- Clientes ---------\n");
+
+    int index = 0;
+    Node *current = clientsList;
+    while (current != NULL) {
+        Client *client = (Client *)current->data;
+        printf("ID: %d - Nome: %s\n", index + 1, client->person.name);
+        current = current->next;
+        index++;
+    }
+
+    current = clientsList;
+    while (current != NULL) {
+        Node *temp = current;
+        free((Client *)current->data);
+        current = current->next;
+        free(temp);
+    }
+
+    free(clients);
+
+    printf("Pressione <Enter> para prosseguir...\n");
+    proceed();
 }
 
 void clientAppointment() {
