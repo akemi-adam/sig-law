@@ -159,12 +159,15 @@ bool isDDD(const char *tel) {
  *  - https://github.com/akemi-adam
  */
 bool isTelephone(const char *tel) {
-    int telDefaultSize = 13, telSize = (int) strlen(tel);
-    bool isFormated = (tel[2] != ' ' || tel[3] != '9' || tel[8] != '-');
-    if (telSize != telDefaultSize || isFormated || !isDDD(tel)) return false;
-    
-    for (int i = 4; i < telDefaultSize; i++) {
-        if (i == 8) continue;
+    int telDefaultSize = 13, telSize = (int)strlen(tel);
+    if (telSize != telDefaultSize || !isDDD(tel)) return false;
+
+    // Verifica se o formato está correto: "XX 9XXXX-XXXX"
+    if (tel[2] != ' ' || tel[3] != '9' || tel[8] != '-') return false;
+
+    // Verifica se os caracteres restantes são dígitos
+    for (int i = 0; i < telDefaultSize; i++) {
+        if (i == 2 || i == 8) continue; // Ignora espaço e traço
         if (!isdigit(tel[i])) return false;
     }
 
