@@ -192,11 +192,13 @@ void lawyerAlphabeticalOrder() {
     printf("--------- Relatório ---------\n");
     printf("--------- Advogados ---------\n");
 
+    int index = 0;
     Node *current = lawyersList;
     while (current != NULL) {
         Lawyer *lawyer = (Lawyer *)current->data;
-        printf("ID: %d - Nome: %s\n", lawyer->id, lawyer->person.name);
+        printf("ID: %d - Nome: %s\n", index + 1, lawyer->person.name);
         current = current->next;
+        index++;
     }
 
     current = lawyersList;
